@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  image: {
-    type: String,
-    default: process.env.DEFAULT_USER_IMAGE,
+  images: {
+    type: Array,
   },
   name: {
     type: String,
@@ -23,6 +22,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: "Password is required",
   },
+  locations: [
+    {
+      name: String,
+      longitude: Number,
+      latitude: Number,
+    },
+  ],
   created_at: {
     type: Date,
     default: Date.now,
