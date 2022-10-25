@@ -19,6 +19,9 @@ const productSchema = new mongoose.Schema({
   endingSeason: {
     type: Date,
   },
+  imageID: {
+    type: String,
+  },
   created_at: {
     type: Date,
     default: Date.now,
