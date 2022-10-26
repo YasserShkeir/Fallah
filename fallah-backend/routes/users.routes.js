@@ -9,6 +9,7 @@ const {
   registerProduct,
   editProduct,
   deleteProduct,
+  getProducts,
 } = require("../controllers/farmer.controller");
 
 // Create a new router
@@ -18,5 +19,6 @@ const router = Router();
 router.post("/product", auth, farmer, registerProduct);
 router.put("/product", auth, farmer, editProduct);
 router.delete("/product", auth, farmer, deleteProduct);
+router.get("/product", auth, farmer, getProducts);
 
 module.exports = router;
