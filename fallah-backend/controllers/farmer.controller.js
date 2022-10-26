@@ -147,8 +147,22 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const getProducts = async (req, res) => {
+  // Get all products
+  try {
+    const farmer = await User.Farmer.findById(req.user._id);
+    res.status(200).json({
+      products: farmer.products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   registerProduct,
   editProduct,
   deleteProduct,
+  getProducts,
 };
