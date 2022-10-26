@@ -16,6 +16,10 @@ const mainCatSchema = new mongoose.Schema({
         type: String,
         required: "Child Category Name is required",
       },
+      image: {
+        type: String,
+        required: "Child Category Image is required",
+      },
     },
   ],
 });
