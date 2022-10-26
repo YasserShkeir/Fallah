@@ -10,6 +10,14 @@ const mainCatSchema = new mongoose.Schema({
     type: String,
     required: "Category Family is required",
   },
+  childCategories: [
+    {
+      name: {
+        type: String,
+        required: "Child Category Name is required",
+      },
+    },
+  ],
 });
 
 const MainCategory = mongoose.model("MainCategory", mainCatSchema);
