@@ -118,7 +118,37 @@ const editProduct = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  // Delete a product
+  try {
+    const { id } = req.body;
+    const farmer = await User.Farmer.findById(req.user._id);
+    // Delete Product
+    const product = farmer.products.find(
+      (product) => product._id.toString() === id
+    );
+
+    if (product) {
+      farmer.products = farmer.products.filter(
+        (product) => product._id.toString() !== id
+      );
+      await farmer.save();
+      res.status(201).json({
+        message: "Product deleted successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "Product does not exist",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   registerProduct,
   editProduct,
+  deleteProduct,
 };
