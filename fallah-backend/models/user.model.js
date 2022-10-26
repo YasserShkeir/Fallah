@@ -11,8 +11,8 @@ const locationsSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema({
   // Create a schema for the products collection
   childCategoryID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "MainCategory",
+    type: String,
+    required: true,
   },
   productName: {
     type: String,
