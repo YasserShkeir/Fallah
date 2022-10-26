@@ -8,6 +8,7 @@ const farmer = require("../middlewares/farmer.middleware");
 const {
   registerProduct,
   editProduct,
+  deleteProduct,
 } = require("../controllers/farmer.controller");
 
 // Create a new router
@@ -16,5 +17,6 @@ const router = Router();
 // Register a product
 router.post("/product", auth, farmer, registerProduct);
 router.put("/product", auth, farmer, editProduct);
+router.delete("/product", auth, farmer, deleteProduct);
 
 module.exports = router;
