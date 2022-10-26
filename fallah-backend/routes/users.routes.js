@@ -5,12 +5,16 @@ const auth = require("../middlewares/auth.middleware");
 const farmer = require("../middlewares/farmer.middleware");
 
 // Controllers
-const { registerProduct } = require("../controllers/farmer.controller");
+const {
+  registerProduct,
+  editProduct,
+} = require("../controllers/farmer.controller");
 
 // Create a new router
 const router = Router();
 
 // Register a product
-router.post("/register-product", auth, farmer, registerProduct);
+router.post("/product", auth, farmer, registerProduct);
+router.put("/product", auth, farmer, editProduct);
 
 module.exports = router;
