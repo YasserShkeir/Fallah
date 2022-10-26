@@ -18,24 +18,21 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: "Product Name is required",
   },
+  images: [String],
   startingSeason: {
     type: Date,
   },
   endingSeason: {
     type: Date,
   },
-  pickupLocation: {
-    type: String,
-    required: "Pickup Location ID is required",
-  },
-  images: {
-    type: Array,
-  },
   harvestedOn: {
     type: Date,
   },
+  pickupLocation: locationsSchema,
   freshnessStatus: {
-    type: String,
+    type: Number,
+    min: 1,
+    max: 5,
     required: "Freshness Status is required",
   },
   measuringUnit: {
@@ -184,86 +181,7 @@ const farmerSchema = User.discriminator(
   "Farmer",
   new mongoose.Schema(
     {
-      products: [
-        {
-          childCategoryName: {
-            type: String,
-            required: "Child Category Name is required",
-          },
-          productName: {
-            type: String,
-            required: "Product Name is required",
-          },
-          startingSeason: {
-            type: Date,
-          },
-          endingSeason: {
-            type: Date,
-          },
-          imageID: {
-            type: String,
-          },
-          listings: [
-            {
-              pickupLocation: {
-                type: String,
-                required: "Pickup Location ID is required",
-              },
-              images: {
-                type: Array,
-              },
-              title: {
-                type: String,
-                required: "Title is required",
-              },
-              freshStatus: {
-                type: String,
-                required: "Freshness Status is required",
-              },
-              measuringUnit: {
-                type: String,
-                required: "Measuring Unit is required",
-              },
-              pricePerMeasuringUnit: {
-                type: Number,
-                required: "Price Per Measuring Unit is required",
-              },
-              minBulkAmount: {
-                type: Number,
-                required: "Minimum Bulk Amount is required",
-              },
-              bulkPrice: {
-                type: Number,
-                required: "Bulk Price is required",
-              },
-              amountAvailable: {
-                type: Number,
-                required: "Amount Available is required",
-              },
-              dueDate: {
-                type: Date,
-                required: "Due Date is required",
-              },
-              created_at: {
-                type: Date,
-                default: Date.now,
-              },
-              updated_at: {
-                type: Date,
-                default: Date.now,
-              },
-            },
-          ],
-          created_at: {
-            type: Date,
-            default: Date.now,
-          },
-          updated_at: {
-            type: Date,
-            default: Date.now,
-          },
-        },
-      ],
+      products: [productSchema],
     },
     {
       discriminatorKey: "kind",
