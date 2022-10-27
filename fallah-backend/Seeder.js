@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
+const User = require("./models/user.model");
 const mainCategory = require("./models/mainCategory.model");
 
 // Database linked successfully to cloud
@@ -149,11 +151,24 @@ const seedCategories = [
   },
 ];
 
+const seedAdmins = async () => {
+  const admin1 = new User.Admin({
+    name: "John Doe",
+    email: "test",
+    phone: "1234567890",
+    password: await bcrypt.hash("test", 10),
+    userType: "admin",
+  });
+
+  await admin1.save();
+};
+
 const seedDB = async () => {
   await mainCategory.deleteMany({});
   for (const seed of seedCategories) {
-    let category = await mainCategory.create(seed);
+    await mainCategory.create(seed);
   }
+  await seedAdmins();
 };
 
 seedDB().then(() => {
