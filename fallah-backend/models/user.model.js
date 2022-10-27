@@ -135,11 +135,42 @@ const buyerSchema = User.discriminator(
   "Buyer",
   new mongoose.Schema(
     {
-      farmersReviews: [
+      orders: {
+        regularOrders: [regularOrderSchema], // Add the regular orders schema to the buyer schema
+        scheduledOrders: [scheduledOrderSchema], // Add the scheduled orders schema to the buyer schema
+      },
+    },
+    {
+      discriminatorKey: "kind",
+    }
+  )
+);
+
+const farmerSchema = User.discriminator(
+  "Farmer",
+  new mongoose.Schema(
+    {
+      followers: [
         {
-          farmerID: {
-            type: mongoose.Schema.Types.ObjectId, // This is the ID of the farmer
-            ref: "Farmer", // Reference to the Farmer model
+          buyerID: {
+            type: mongoose.Schema.Types.ObjectId, // This is the ID of the buyer
+            ref: "Buyer", // Reference to the Buyer model
+          },
+          created_at: {
+            type: Date,
+            default: Date.now,
+          },
+          updated_at: {
+            type: Date,
+            default: Date.now,
+          },
+        },
+      ],
+      reviews: [
+        {
+          buyerID: {
+            type: mongoose.Schema.Types.ObjectId, // This is the ID of the buyer
+            ref: "Buyer", // Reference to the Buyer model
           },
           reviewScore: {
             type: Number, // This is the score given by the buyer to the farmer
@@ -162,10 +193,6 @@ const buyerSchema = User.discriminator(
           },
         },
       ],
-      orders: {
-        regularOrders: [regularOrderSchema], // Add the regular orders schema to the buyer schema
-        scheduledOrders: [scheduledOrderSchema], // Add the scheduled orders schema to the buyer schema
-      },
     },
     {
       discriminatorKey: "kind",
@@ -173,28 +200,8 @@ const buyerSchema = User.discriminator(
   )
 );
 
-const farmerSchema = User.discriminator(
-  "Farmer",
-  new mongoose.Schema(
-    {
-      products: [
-        {
-          productID: {
-            type: String,
-          },
-          productName: {
-            type: String,
-          },
-        },
-      ],
-    },
-    {
-      discriminatorKey: "kind",
-    }
-  )
-);
-
+const Admin = mongoose.model("Admin", userSchema);
 const Buyer = mongoose.model("Buyer");
 const Farmer = mongoose.model("Farmer");
 
-module.exports = { User, Buyer, Farmer };
+module.exports = { User, Admin, Buyer, Farmer };
