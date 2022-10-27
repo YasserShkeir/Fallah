@@ -13,6 +13,19 @@ const getCatergories = async (req, res) => {
   }
 };
 
+const getChildCategories = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const categories = await Categories.findById(id);
+    res.status(200).json({
+      categories,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getCatergories,
   getChildCategories,
