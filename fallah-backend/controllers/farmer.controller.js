@@ -172,29 +172,52 @@ const editProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   // Delete a product
   try {
-    const { id } = req.body;
-    const farmer = await User.Farmer.findById(req.user._id);
-    // Delete Product
-    const product = farmer.products.find(
-      (product) => product._id.toString() === id
-    );
+    const { categoryID, childCategoryID, productID } = req.body;
 
-    if (product) {
-      farmer.products = farmer.products.filter(
-        (product) => product._id.toString() !== id
+    const category = await MainCategory.findById(categoryID);
+
+    if (category) {
+      const childCategories = category.childCategories;
+
+      const childCategory = childCategories.find(
+        (childCategory) => childCategory._id.toString() === childCategoryID
       );
-      await farmer.save();
-      res.status(201).json({
-        message: "Product deleted successfully",
-      });
+
+      if (childCategory) {
+        const product = childCategory.products.find(
+          (product) => product._id.toString() === productID
+        );
+
+        if (product) {
+          // Delete the product
+          childCategory.products = childCategory.products.filter(
+            (product) => product._id.toString() !== productID
+          );
+
+          await category.save();
+
+          res.status(201).json({
+            message: "Product deleted successfully",
+          });
+        } else {
+          res.status(400).json({
+            message: "Product does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "Child category does not exist",
+        });
+      }
     } else {
       res.status(400).json({
-        message: "Product does not exist",
+        message: "Category does not exist",
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 
