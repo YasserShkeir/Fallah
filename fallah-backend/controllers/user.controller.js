@@ -1,25 +1,30 @@
 const User = require("../models/user.model");
 const Categories = require("../models/mainCategory.model");
 
-const getCatergories = async (req, res) => {
+const getCategories = async (req, res) => {
   try {
-    const categories = await Categories.find();
-    res.status(200).json({
-      categories,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
+    const { id, id2 } = req.params;
 
-const getChildCategories = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const categories = await Categories.findById(id);
-    res.status(200).json({
-      categories,
-    });
+    if (!id) {
+      const categories = await Categories.find();
+      res.status(200).json({
+        categories,
+      });
+    } else {
+      const category = await Categories.findById(id);
+      if (!id2) {
+        res.status(200).json({
+          categories: category.childCategories,
+        });
+      } else {
+        const childCategory = category.childCategories.find(
+          (childCategory) => childCategory._id.toString() === id2
+        );
+        res.status(200).json({
+          categories: childCategory,
+        });
+      }
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -130,8 +135,7 @@ const getLocations = async (req, res) => {
 };
 
 module.exports = {
-  getCatergories,
-  getChildCategories,
+  getCategories,
   addLocation,
   editLocation,
   deleteLocation,
