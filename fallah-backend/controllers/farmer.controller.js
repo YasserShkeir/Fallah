@@ -93,14 +93,15 @@ const editProduct = async (req, res) => {
   try {
     const {
       // Get the data from the request body
-      id,
+      categoryID,
       childCategoryID,
+      productID,
       productName,
       images,
       startingSeason,
       endingSeason,
       harvestedOn,
-      pickupLocation,
+      pickupLocationID,
       freshnessStatus,
       measuringUnit,
       pricePerMeasuringUnit,
@@ -109,41 +110,62 @@ const editProduct = async (req, res) => {
       amountAvailable,
     } = req.body;
 
-    const farmer = await User.Farmer.findById(req.user._id);
-    // Update Product
-    const product = farmer.products.find(
-      (product) => product._id.toString() === id
-    );
+    const category = await MainCategory.findById(categoryID);
 
-    if (product) {
-      if (childCategoryID) product.childCategoryID = childCategoryID;
-      if (productName) product.productName = productName;
-      if (images) product.images = images;
-      if (startingSeason) product.startingSeason = startingSeason;
-      if (endingSeason) product.endingSeason = endingSeason;
-      if (harvestedOn) product.harvestedOn = harvestedOn;
-      if (pickupLocation) product.pickupLocation = pickupLocation;
-      if (freshnessStatus) product.freshnessStatus = freshnessStatus;
-      if (measuringUnit) product.measuringUnit = measuringUnit;
-      if (pricePerMeasuringUnit)
-        product.pricePerMeasuringUnit = pricePerMeasuringUnit;
-      if (minBulkAmount) product.minBulkAmount = minBulkAmount;
-      if (bulkPrice) product.bulkPrice = bulkPrice;
-      if (amountAvailable) product.amountAvailable = amountAvailable;
-      product.updated_at = Date.now();
+    if (category) {
+      const childCategories = category.childCategories;
 
-      await farmer.save();
-      res.status(201).json({
-        message: "Product updated successfully",
-      });
+      const childCategory = childCategories.find(
+        (childCategory) => childCategory._id.toString() === childCategoryID
+      );
+
+      if (childCategory) {
+        const product = childCategory.products.find(
+          (product) => product._id.toString() === productID
+        );
+
+        if (product) {
+          // Edit the product
+
+          if (productName) product.productName = productName;
+          if (images) product.images = images;
+          if (startingSeason) product.startingSeason = startingSeason;
+          if (endingSeason) product.endingSeason = endingSeason;
+          if (harvestedOn) product.harvestedOn = harvestedOn;
+          if (pickupLocationID) product.pickupLocationID = pickupLocationID;
+          if (freshnessStatus) product.freshnessStatus = freshnessStatus;
+          if (measuringUnit) product.measuringUnit = measuringUnit;
+          if (pricePerMeasuringUnit)
+            product.pricePerMeasuringUnit = pricePerMeasuringUnit;
+          if (minBulkAmount) product.minBulkAmount = minBulkAmount;
+          if (bulkPrice) product.bulkPrice = bulkPrice;
+          if (amountAvailable) product.amountAvailable = amountAvailable;
+
+          await category.save();
+
+          res.status(201).json({
+            message: "Product edited successfully",
+            product,
+          });
+        } else {
+          res.status(400).json({
+            message: "Product does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "Child category does not exist",
+        });
+      }
     } else {
       res.status(400).json({
-        message: "Product does not exist",
+        message: "Category does not exist",
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 
