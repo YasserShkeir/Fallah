@@ -9,19 +9,42 @@ const login = async (req, res) => {
     const user = await User.User.findOne({ email });
 
     if (!user) {
-      return res.status(401).send({ message: "Invalid email or password" });
+      const user = await User.Admin.findOne({ email });
+
+      if (!user) {
+        return res.status(400).json({ message: "User does not exist" });
+      } else {
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+          return res.status(401).send({ message: "Invalid email or password" });
+        }
+
+        const token = jwt.sign(
+          { subject: user._id },
+          process.env.JWT_SECRET_KEY,
+          {
+            expiresIn: "1h",
+          }
+        );
+        res.status(200).send({ token });
+      }
+    } else {
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        return res.status(401).send({ message: "Invalid email or password" });
+      }
+
+      const token = jwt.sign(
+        { subject: user._id },
+        process.env.JWT_SECRET_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
+      res.status(200).send({ token });
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return res.status(401).send({ message: "Invalid email or password" });
-    }
-
-    const token = jwt.sign({ subject: user._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
-    });
-    res.status(200).send({ token });
   } catch (error) {
     res.status(500).send({ message: "Server error", error: error.message });
   }
