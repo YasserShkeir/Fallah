@@ -87,6 +87,35 @@ const editLocation = async (req, res) => {
   }
 };
 
+const deleteLocation = async (req, res) => {
+  // Delete a location
+  try {
+    const { id } = req.body;
+    const user = await User.User.findById(req.user._id);
+    // Delete Location
+    const location = user.locations.find(
+      (location) => location._id.toString() === id
+    );
+
+    if (location) {
+      user.locations = user.locations.filter(
+        (location) => location._id.toString() !== id
+      );
+      await user.save();
+      res.status(201).json({
+        message: "Location deleted successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "Location does not exist",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getCatergories,
   getChildCategories,
