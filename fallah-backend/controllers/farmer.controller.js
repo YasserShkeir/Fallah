@@ -1,10 +1,12 @@
 const User = require("../models/user.model");
+const MainCategory = require("../models/mainCategory.model");
 
 const registerProduct = async (req, res) => {
   // Register a product
   try {
     const {
       // Get the data from the request body
+      categoryID,
       childCategoryID,
       productName,
       images,
@@ -19,8 +21,10 @@ const registerProduct = async (req, res) => {
       bulkPrice,
       amountAvailable,
     } = req.body;
+
     let newProduct = {
       // Create a new product
+      categoryID,
       childCategoryID,
       productName,
       images,
@@ -35,27 +39,50 @@ const registerProduct = async (req, res) => {
       bulkPrice,
       amountAvailable,
     };
-    const farmer = await User.Farmer.findById(req.user._id);
-    // Check if product already exists
 
-    const productExists = farmer.products.find(
-      (product) => product.productName === productName
-    );
-    if (productExists) {
-      // Check if the product already exists
-      return res.status(400).json({
-        message: "Product already exists",
-      });
+    const category = await MainCategory.findById(categoryID);
+    if (category) {
+      // Check if the category exists
+      const childCategory = category.childCategories.find(
+        (childCategory) => childCategory._id == childCategoryID
+      );
+      if (childCategory) {
+        // Check if the child category exists
+        const product = childCategory.products.find(
+          (product) => product.productName == productName
+        );
+        if (product) {
+          // Check if the product exists
+          return res.status(400).json({
+            // Return an error
+            message: "Product already exists",
+          });
+        } else {
+          childCategory.products.push(newProduct); // Push the new product to the child category
+          await category.save(); // Save the category
+          return res.status(200).json({
+            // Return a success message
+            message: "Product registered successfully",
+          });
+        }
+      } else {
+        return res.status(400).json({
+          // Return an error
+          message: "Child Category does not exist",
+        });
+      }
     } else {
-      farmer.products.push(newProduct);
-      await farmer.save();
-      res.status(201).json({
-        message: "Product registered successfully",
+      return res.status(400).json({
+        // Return an error
+        message: "Category does not exist",
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({
+      // Return an error
+      message: "Server error",
+      error: error.message,
+    });
   }
 };
 
