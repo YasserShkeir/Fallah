@@ -7,64 +7,6 @@ const locationsSchema = new mongoose.Schema({
   latitude: Number,
 });
 
-// No need for a separate Listing Table, products will be managed based on amount + time
-const productSchema = new mongoose.Schema({
-  // Create a schema for the products collection
-  childCategoryID: {
-    type: String,
-    required: true,
-  },
-  productName: {
-    type: String,
-    required: "Product Name is required",
-  },
-  images: [String],
-  startingSeason: {
-    type: Date,
-  },
-  endingSeason: {
-    type: Date,
-  },
-  harvestedOn: {
-    type: Date,
-  },
-  pickupLocation: locationsSchema,
-  freshnessStatus: {
-    type: Number,
-    min: 1,
-    max: 5,
-    required: "Freshness Status is required",
-  },
-  measuringUnit: {
-    type: String,
-    required: "Measuring Unit is required",
-  },
-  pricePerMeasuringUnit: {
-    type: Number,
-    required: "Price Per Measuring Unit is required",
-  },
-  minBulkAmount: {
-    type: Number,
-    required: "Minimum Bulk Amount is required",
-  },
-  bulkPrice: {
-    type: Number,
-    required: "Bulk Price is required",
-  },
-  amountAvailable: {
-    type: Number,
-    required: "Amount Available is required",
-  },
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
-
 const regularOrderSchema = new mongoose.Schema({
   // Create a schema for the regular orders collection
   deliveryDate: {
@@ -75,7 +17,42 @@ const regularOrderSchema = new mongoose.Schema({
     type: String,
     required: "Delivery Status is required",
   },
-  products: [productSchema], // Add the product schema to the regular order schema
+  products: [
+    {
+      productID: {
+        type: String,
+        required: "Product ID is required",
+      },
+      productName: {
+        type: String,
+        required: "Product Name is required",
+      },
+      amount: {
+        type: Number,
+        required: "Amount is required",
+      },
+      price: {
+        type: Number,
+        required: "Price is required",
+      },
+      created_at: {
+        type: Date,
+        default: Date.now,
+      },
+      updated_at: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const scheduledOrderSchema = new mongoose.Schema({
@@ -88,10 +65,29 @@ const scheduledOrderSchema = new mongoose.Schema({
     type: String,
     required: "Delivery Status is required",
   },
-  requestedCategories: [String],
-  requestedAmount: {
-    type: Number,
-    required: "Requested Amount is required",
+  requestedCategories: [
+    {
+      categoryID: {
+        type: String,
+        required: "Category ID is required",
+      },
+      categoryName: {
+        type: String,
+        required: "Category Name is required",
+      },
+      amount: {
+        type: Number,
+        required: "Amount is required",
+      },
+    },
+  ],
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 
@@ -181,7 +177,16 @@ const farmerSchema = User.discriminator(
   "Farmer",
   new mongoose.Schema(
     {
-      products: [productSchema],
+      products: [
+        {
+          productID: {
+            type: String,
+          },
+          productName: {
+            type: String,
+          },
+        },
+      ],
     },
     {
       discriminatorKey: "kind",
