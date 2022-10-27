@@ -13,14 +13,6 @@ mongoose
     console.log("database error: ", err);
   });
 
-const grannySmithImg = "./assets/images/apples/granny-smith.jpg";
-const goldenDeliciousImg = "./assets/images/apples/golden-delicious.jpg";
-const redDeliciousImg = "./assets/images/apples/red-delicious.jpg";
-const applesImg = "./assets/images/apples/allApples.jpg";
-const navelOrangesImg = "./assets/images/oranges/navelOranges.jpg";
-const bloodOrangesImg = "./assets/images/oranges/bloodOranges.jpg";
-const orangesImg = "./assets/images/oranges/allOranges.jpg";
-
 console.log("seeding database...");
 
 const seedCategories = [
@@ -30,19 +22,19 @@ const seedCategories = [
     childCategories: [
       {
         name: "Granny Smith",
-        image: grannySmithImg,
+        image: "./assets/images/apples/granny-smith.jpg",
       },
       {
         name: "Golden Delicious",
-        image: goldenDeliciousImg,
+        image: "./assets/images/apples/golden-delicious.jpg",
       },
       {
         name: "Red Delicious",
-        image: redDeliciousImg,
+        image: "./assets/images/apples/red-delicious.jpg",
       },
       {
         name: "Other / Local Apples",
-        image: applesImg,
+        image: "./assets/images/apples/allApples.jpg",
       },
     ],
   },
@@ -52,15 +44,87 @@ const seedCategories = [
     childCategories: [
       {
         name: "Navel",
-        image: navelOrangesImg,
+        image: "./assets/images/oranges/navelOranges.jpg",
       },
       {
         name: "Blood Orange",
-        image: bloodOrangesImg,
+        image: "./assets/images/oranges/bloodOranges.jpg",
       },
       {
         name: "Other / Local Oranges",
-        image: orangesImg,
+        image: "./assets/images/oranges/allOranges.jpg",
+      },
+    ],
+  },
+  {
+    name: "Bananas",
+    categoryFamily: "Fruits",
+    childCategories: [
+      {
+        name: "Somali Bananas",
+        image: "./assets/images/bananas/somaliBananas.jpg",
+      },
+      {
+        name: "Other / Local Bananas",
+        image: "./assets/images/bananas/allBananas.jpg",
+      },
+    ],
+  },
+  {
+    name: "Onions",
+    categoryFamily: "Vegetables",
+    childCategories: [
+      {
+        name: "Red Onions",
+        image: "./assets/images/onions/redOnions.jpg",
+      },
+      {
+        name: "Yellow Onions",
+        image: "./assets/images/onions/yellowOnions.jpg",
+      },
+      {
+        name: "White Onions",
+        image: "./assets/images/onions/whiteOnions.jpg",
+      },
+      {
+        name: "Other / Local Onions",
+        image: "./assets/images/onions/allOnions.jpg",
+      },
+    ],
+  },
+  {
+    name: "Potatoes",
+    categoryFamily: "Vegetables",
+    childCategories: [
+      {
+        name: "Agria Potatoes",
+        image: "./assets/images/potatoes/agriaPotatoes.jpg",
+      },
+      {
+        name: "Spunta Potatoes",
+        image: "./assets/images/potatoes/spuntaPotatoes.jpg",
+      },
+      {
+        name: "Other / Local Potatoes",
+        image: "./assets/images/potatoes/allPotatoes.jpg",
+      },
+    ],
+  },
+  {
+    name: "Lettuce",
+    categoryFamily: "Vegetables",
+    childCategories: [
+      {
+        name: "Iceberg Lettuce",
+        image: "./assets/images/lettuce/icebergLettuce.jpg",
+      },
+      {
+        name: "Romaine Lettuce",
+        image: "./assets/images/lettuce/romaineLettuce.jpg",
+      },
+      {
+        name: "Other / Local Lettuce",
+        image: "./assets/images/lettuce/allLettuce.jpg",
       },
     ],
   },
