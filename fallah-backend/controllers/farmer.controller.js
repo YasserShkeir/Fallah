@@ -6,14 +6,14 @@ const registerProduct = async (req, res) => {
   try {
     const {
       // Get the data from the request body
-      categoryID,
+      mainCategoryID,
       childCategoryID,
       productName,
       images,
       startingSeason,
       endingSeason,
       harvestedOn,
-      pickupLocation,
+      pickupLocationID,
       freshnessStatus,
       measuringUnit,
       pricePerMeasuringUnit,
@@ -24,14 +24,13 @@ const registerProduct = async (req, res) => {
 
     let newProduct = {
       // Create a new product
-      categoryID,
-      childCategoryID,
+      farmerID: req.user._id.toString(),
       productName,
       images,
       startingSeason,
       endingSeason,
       harvestedOn,
-      pickupLocation,
+      pickupLocationID,
       freshnessStatus,
       measuringUnit,
       pricePerMeasuringUnit,
@@ -40,49 +39,52 @@ const registerProduct = async (req, res) => {
       amountAvailable,
     };
 
-    const category = await MainCategory.findById(categoryID);
+    const category = await MainCategory.findById(mainCategoryID); // Get the category
+
     if (category) {
-      // Check if the category exists
-      const childCategory = category.childCategories.find(
-        (childCategory) => childCategory._id == childCategoryID
-      );
+      const childCategories = category.childCategories; // Get the child categories
+
+      const childCategory = childCategories.find(
+        (childCategory) => childCategory._id.toString() === childCategoryID
+      ); // Get the child category
+
       if (childCategory) {
-        // Check if the child category exists
-        const product = childCategory.products.find(
-          (product) => product.productName == productName
-        );
-        if (product) {
-          // Check if the product exists
-          return res.status(400).json({
-            // Return an error
-            message: "Product already exists",
+        // Check if product name already exists
+        if (
+          childCategory.products.find(
+            (product) =>
+              product.productName === productName &&
+              product.farmerID === req.user._id.toString()
+          )
+        ) {
+          res.status(400).json({
+            message: "Product name already exists",
           });
         } else {
-          childCategory.products.push(newProduct); // Push the new product to the child category
-          await category.save(); // Save the category
-          return res.status(200).json({
-            // Return a success message
-            message: "Product registered successfully",
+          // Add the product
+          childCategory.products.push(newProduct);
+
+          await category.save();
+
+          res.status(201).json({
+            message: "Product added successfully",
+            product: newProduct,
           });
         }
       } else {
-        return res.status(400).json({
-          // Return an error
-          message: "Child Category does not exist",
+        res.status(400).json({
+          message: "Child category does not exist",
         });
       }
     } else {
-      return res.status(400).json({
-        // Return an error
+      res.status(400).json({
         message: "Category does not exist",
       });
     }
   } catch (error) {
-    return res.status(500).json({
-      // Return an error
-      message: "Server error",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 
