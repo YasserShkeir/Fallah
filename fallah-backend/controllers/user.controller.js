@@ -56,6 +56,37 @@ const addLocation = async (req, res) => {
   }
 };
 
+const editLocation = async (req, res) => {
+  // Edit a location
+  try {
+    const { id, name, longitude, latitude } = req.body;
+    const user = await User.User.findById(req.user._id);
+    // Edit Location
+    let location = user.locations.find(
+      (location) => location._id.toString() === id
+    );
+
+    if (location) {
+      if (name) location.name = name;
+      if (longitude) location.longitude = longitude;
+      if (latitude) location.latitude = latitude;
+      user.updated_at = Date.now();
+
+      await user.save();
+      res.status(201).json({
+        message: "Location updated successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "Location does not exist",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getCatergories,
   getChildCategories,
