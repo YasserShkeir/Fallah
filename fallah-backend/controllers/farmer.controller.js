@@ -222,15 +222,21 @@ const deleteProduct = async (req, res) => {
 };
 
 const getProducts = async (req, res) => {
-  // Get all products
+  // Get all products for current farmer
   try {
-    const farmer = await User.Farmer.findById(req.user._id);
+    const products = await MainCategory.find(
+      { "childCategories.products.farmerID": req.user._id.toString() },
+      { "childCategories.products.$": 1 }
+    );
+
     res.status(200).json({
-      products: farmer.products,
+      message: "Products fetched successfully",
+      products,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 
