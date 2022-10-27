@@ -2,10 +2,12 @@ const { Router } = require("express");
 
 // Middlewares
 const auth = require("../middlewares/auth.middleware");
-const farmer = require("../middlewares/farmer.middleware");
 const user = require("../middlewares/user.middleware");
+const admin = require("../middlewares/admin.middleware");
+const farmer = require("../middlewares/farmer.middleware");
 
 // Controllers
+// -- User Controller
 const {
   getCategories,
   addLocation,
@@ -14,8 +16,10 @@ const {
   getLocations,
 } = require("../controllers/user.controller");
 
+// -- Admin Controller
 const { getUsers } = require("../controllers/admin.controller");
 
+// -- Farmer Controller
 const {
   registerProduct,
   editProduct,
@@ -34,7 +38,7 @@ router.delete("/location", auth, user, deleteLocation); // Delete a location
 router.get("/location", auth, user, getLocations); // Get all locations
 
 // Admin Routes
-router.get("/users", auth, user, getUsers); // Get all users
+router.get("/users", auth, admin, getUsers); // Get all users
 
 // Farmer Routes
 router.post("/product", auth, farmer, registerProduct); // Register a product
