@@ -14,6 +14,8 @@ const {
   getLocations,
 } = require("../controllers/user.controller");
 
+const { getUsers } = require("../controllers/admin.controller");
+
 const {
   registerProduct,
   editProduct,
@@ -30,6 +32,9 @@ router.post("/location", auth, user, addLocation); // Add a location
 router.put("/location", auth, user, editLocation); // Add a location
 router.delete("/location", auth, user, deleteLocation); // Delete a location
 router.get("/location", auth, user, getLocations); // Get all locations
+
+// Admin Routes
+router.get("/users", auth, user, getUsers); // Get all users
 
 // Farmer Routes
 router.post("/product", auth, farmer, registerProduct); // Register a product
