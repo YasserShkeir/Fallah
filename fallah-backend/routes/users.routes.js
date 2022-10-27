@@ -12,13 +12,26 @@ const {
   getProducts,
 } = require("../controllers/farmer.controller");
 
+const {
+  getCategories,
+  getChildCategories,
+  addLocation,
+  editLocation,
+  deleteLocation,
+  getLocations,
+} = require("../controllers/user.controller");
+
 // Create a new router
 const router = Router();
 
-// Register a product
-router.post("/product", auth, farmer, registerProduct);
-router.put("/product", auth, farmer, editProduct);
-router.delete("/product", auth, farmer, deleteProduct);
-router.get("/product", auth, farmer, getProducts);
+router.post("/product", auth, farmer, registerProduct); // Register a product
+router.put("/product", auth, farmer, editProduct); // Edit a product
+router.delete("/product", auth, farmer, deleteProduct); // Delete a product
+router.get("/product", auth, farmer, getProducts); // Get all products
+
+router.post("/location", auth, addLocation); // Add a location
+router.put("/location", auth, editLocation); // Add a location
+router.delete("/location", auth, deleteLocation); // Delete a location
+router.get("/location", auth, getLocations); // Get all locations
 
 module.exports = router;
