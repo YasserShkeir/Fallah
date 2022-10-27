@@ -23,18 +23,22 @@ const seedCategories = [
       {
         name: "Granny Smith",
         image: "./assets/images/apples/granny-smith.jpg",
+        products: [],
       },
       {
         name: "Golden Delicious",
         image: "./assets/images/apples/golden-delicious.jpg",
+        products: [],
       },
       {
         name: "Red Delicious",
         image: "./assets/images/apples/red-delicious.jpg",
+        products: [],
       },
       {
         name: "Other / Local Apples",
         image: "./assets/images/apples/allApples.jpg",
+        products: [],
       },
     ],
   },
@@ -45,14 +49,17 @@ const seedCategories = [
       {
         name: "Navel",
         image: "./assets/images/oranges/navelOranges.jpg",
+        products: [],
       },
       {
         name: "Blood Orange",
         image: "./assets/images/oranges/bloodOranges.jpg",
+        products: [],
       },
       {
         name: "Other / Local Oranges",
         image: "./assets/images/oranges/allOranges.jpg",
+        products: [],
       },
     ],
   },
@@ -63,10 +70,12 @@ const seedCategories = [
       {
         name: "Somali Bananas",
         image: "./assets/images/bananas/somaliBananas.jpg",
+        products: [],
       },
       {
         name: "Other / Local Bananas",
         image: "./assets/images/bananas/allBananas.jpg",
+        products: [],
       },
     ],
   },
@@ -77,18 +86,22 @@ const seedCategories = [
       {
         name: "Red Onions",
         image: "./assets/images/onions/redOnions.jpg",
+        products: [],
       },
       {
         name: "Yellow Onions",
         image: "./assets/images/onions/yellowOnions.jpg",
+        products: [],
       },
       {
         name: "White Onions",
         image: "./assets/images/onions/whiteOnions.jpg",
+        products: [],
       },
       {
         name: "Other / Local Onions",
         image: "./assets/images/onions/allOnions.jpg",
+        products: [],
       },
     ],
   },
@@ -99,14 +112,17 @@ const seedCategories = [
       {
         name: "Agria Potatoes",
         image: "./assets/images/potatoes/agriaPotatoes.jpg",
+        products: [],
       },
       {
         name: "Spunta Potatoes",
         image: "./assets/images/potatoes/spuntaPotatoes.jpg",
+        products: [],
       },
       {
         name: "Other / Local Potatoes",
         image: "./assets/images/potatoes/allPotatoes.jpg",
+        products: [],
       },
     ],
   },
@@ -117,14 +133,17 @@ const seedCategories = [
       {
         name: "Iceberg Lettuce",
         image: "./assets/images/lettuce/icebergLettuce.jpg",
+        products: [],
       },
       {
         name: "Romaine Lettuce",
         image: "./assets/images/lettuce/romaineLettuce.jpg",
+        products: [],
       },
       {
         name: "Other / Local Lettuce",
         image: "./assets/images/lettuce/allLettuce.jpg",
+        products: [],
       },
     ],
   },
