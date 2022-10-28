@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const MainCategory = require("../models/mainCategory.model");
 
 const getUsers = async (req, res) => {
   try {
@@ -60,7 +61,34 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const addCategory = async (req, res) => {
+  try {
+    const { name, categoryFamily } = req.body;
+    const category = await MainCategory.findOne({ name });
+    if (category) {
+      res.status(400).json({
+        message: "Category already exists",
+      });
+    } else {
+      const newCategory = new MainCategory({
+        name,
+        categoryFamily,
+      });
+      await newCategory.save();
+      res.status(201).json({
+        message: "Category added successfully",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getUsers,
   editUser,
+  deleteUser,
+  addCategory,
 };
