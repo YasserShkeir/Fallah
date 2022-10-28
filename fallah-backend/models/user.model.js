@@ -139,6 +139,14 @@ const buyerSchema = User.discriminator(
         regularOrders: [regularOrderSchema], // Add the regular orders schema to the buyer schema
         scheduledOrders: [scheduledOrderSchema], // Add the scheduled orders schema to the buyer schema
       },
+      following: [
+        {
+          farmerSchema: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Farmer",
+          },
+        },
+      ],
     },
     {
       discriminatorKey: "kind",
