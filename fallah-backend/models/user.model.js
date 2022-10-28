@@ -35,6 +35,10 @@ const regularOrderSchema = new mongoose.Schema({
         type: Number,
         required: "Price is required",
       },
+      productTotal: {
+        type: Number,
+        required: "Product Total is required",
+      },
       created_at: {
         type: Date,
         default: Date.now,
@@ -45,6 +49,10 @@ const regularOrderSchema = new mongoose.Schema({
       },
     },
   ],
+  orderSubtotal: {
+    type: Number,
+    required: "Order Sum is required",
+  },
   created_at: {
     type: Date,
     default: Date.now,
