@@ -153,11 +153,48 @@ const addChildCategory = async (req, res) => {
         const newChildCategory = {
           name: childCategoryName,
           image: childCategoryImage,
+          products: [],
         };
         mainCategory.childCategories.push(newChildCategory);
         await mainCategory.save();
         res.status(201).json({
           message: "Child category added successfully",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Main category does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+const editChildCategory = async (req, res) => {
+  // Edit a child category
+  try {
+    const {
+      mainCategoryId,
+      childCategoryId,
+      childCategoryName,
+      childCategoryImage,
+    } = req.body;
+    const mainCategory = await MainCategory.findById(mainCategoryId);
+    if (mainCategory) {
+      const childCategory = mainCategory.childCategories.id(childCategoryId);
+      if (childCategory) {
+        if (childCategoryName) childCategory.name = childCategoryName;
+        if (childCategoryImage) childCategory.image = childCategoryImage;
+        await mainCategory.save();
+        res.status(200).json({
+          message: "Child category updated successfully",
+        });
+      } else {
+        res.status(400).json({
+          message: "Child category does not exist",
         });
       }
     } else {
@@ -180,4 +217,5 @@ module.exports = {
   editCategory,
   deleteCategory,
   addChildCategory,
+  editChildCategory,
 };
