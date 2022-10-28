@@ -289,6 +289,125 @@ const createRegularOrder = async (req, res) => {
   }
 };
 
+const addProductToRegularOrder = async (req, res) => {
+  // Add a product to a regular order
+  try {
+    const {
+      regularOrderID,
+      mainCategoryID,
+      childCategoryID,
+      productID,
+      quantity,
+    } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+
+    const regularOrder = user.orders.regularOrders.find((order) => {
+      return order._id.toString() === regularOrderID.toString();
+    });
+
+    const mainCategory = await MainCategory.findById(mainCategoryID);
+
+    if (mainCategory) {
+      const childCategory = mainCategory.childCategories.find((category) => {
+        return category._id.toString() === childCategoryID.toString();
+      });
+
+      if (childCategory) {
+        const product = childCategory.products.find((product) => {
+          return product._id.toString() === productID.toString();
+        });
+
+        if (product) {
+          const productInOrder = regularOrder.products.find((product) => {
+            return product.productID.toString() === productID.toString();
+          });
+
+          if (productInOrder) {
+            // If product is already in order
+            if (productInOrder.amount + quantity > product.minBulkAmount) {
+              // If quantity is more than min bulk amount
+              productInOrder.amount += quantity;
+              product.quantity -= quantity;
+              productInOrder.price = product.bulkPrice;
+              productInOrder.productTotal =
+                productInOrder.amount * productInOrder.price;
+              productInOrder.updatedAt = new Date();
+            } else {
+              // If quantity is less than min bulk amount
+              productInOrder.amount += quantity;
+              product.quantity -= quantity;
+              productInOrder.price = product.pricePerMeasuringUnit;
+              productInOrder.productTotal =
+                productInOrder.amount * productInOrder.price;
+              productInOrder.updatedAt = new Date();
+              console.log(productInOrder);
+            }
+          } else {
+            // If product is not in order
+            if (quantity > product.minBulkAmount) {
+              // If quantity is more than min bulk amount
+              product.quantity -= quantity;
+              const productToAdd = {
+                productID: productID,
+                productName: product.name,
+                price: product.bulkPrice,
+                amount: quantity,
+                productTotal: quantity * product.bulkPrice,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              };
+              regularOrder.products.push(productToAdd);
+            } else {
+              // If quantity is less than min bulk amount
+              product.quantity -= quantity;
+              const productToAdd = {
+                productID: productID,
+                productName: product.name,
+                price: product.pricePerMeasuringUnit,
+                amount: quantity,
+                productTotal: quantity * product.pricePerMeasuringUnit,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              };
+              regularOrder.products.push(productToAdd);
+            }
+          }
+
+          let total = 0;
+          regularOrder.products.forEach((product) => {
+            total += product.productTotal;
+          });
+          regularOrder.orderSubtotal = total;
+          regularOrder.updatedAt = new Date();
+
+          await user.save();
+          await mainCategory.save();
+          res.status(201).json({
+            message: "Product added to regular order successfully",
+            regularOrder: regularOrder,
+          });
+        } else {
+          res.status(400).json({
+            message: "Product does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "Child category does not exist",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Main category does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -299,4 +418,5 @@ module.exports = {
   editReview,
   deleteReview,
   createRegularOrder,
+  addProductToRegularOrder,
 };
