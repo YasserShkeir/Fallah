@@ -114,10 +114,33 @@ const editCategory = async (req, res) => {
   }
 };
 
+const deleteCategory = async (req, res) => {
+  // Delete a category
+  try {
+    const { id } = req.body;
+    const category = await MainCategory.findById(id);
+    if (category) {
+      await category.remove();
+      res.status(200).json({
+        message: "Category deleted successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "Category does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getUsers,
   editUser,
   deleteUser,
   addCategory,
   editCategory,
+  deleteCategory,
 };
