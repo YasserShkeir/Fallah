@@ -29,6 +29,39 @@ const getSeasonalItems = async (req, res) => {
   }
 };
 
+const followFarmer = async (req, res) => {
+  // Follow a farmer
+  try {
+    const { id } = req.body;
+    const user = await User.User.findById(req.user._id);
+    const farmer = await User.User.findById(id);
+    if (farmer) {
+      if (user.following.includes(id)) {
+        res.status(400).json({
+          message: "You are already following this farmer",
+        });
+      } else {
+        user.following.push(id);
+        farmer.followers.push(req.user._id);
+        await user.save();
+        await farmer.save();
+        res.status(201).json({
+          message: "Farmer followed successfully",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Farmer does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
+  followFarmer,
 };
