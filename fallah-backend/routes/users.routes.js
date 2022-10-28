@@ -31,6 +31,7 @@ const {
   getFollowing,
   unFollowFarmer,
   reviewFarmer,
+  getReviews,
 } = require("../controllers/buyer.controller");
 
 // Create a new router
@@ -56,5 +57,6 @@ router.post("/follow", auth, buyer, followFarmer); // Follow a farmer
 router.get("/follow", auth, buyer, getFollowing); // Get all farmers being followed
 router.delete("/follow", auth, buyer, unFollowFarmer); // Unfollow a farmer
 router.post("/review", auth, buyer, reviewFarmer); // Review a farmer
+router.get("/review", auth, buyer, getReviews); // Get all reviews
 
 module.exports = router;

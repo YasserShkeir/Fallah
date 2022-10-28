@@ -153,10 +153,25 @@ const reviewFarmer = async (req, res) => {
   }
 };
 
+const getReviews = async (req, res) => {
+  // Get all buyer reviews
+  try {
+    const user = await User.Buyer.findById(req.user._id);
+    res.status(200).json({
+      reviews: user.reviews,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
   getFollowing,
   unFollowFarmer,
   reviewFarmer,
+  getReviews,
 };
