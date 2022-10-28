@@ -136,6 +136,42 @@ const deleteCategory = async (req, res) => {
   }
 };
 
+const addChildCategory = async (req, res) => {
+  // Add a child category
+  try {
+    const { mainCategoryId, childCategoryName, childCategoryImage } = req.body;
+    const mainCategory = await MainCategory.findById(mainCategoryId);
+    if (mainCategory) {
+      const childCategory = mainCategory.childCategories.find(
+        (childCategory) => childCategory.name === childCategoryName
+      );
+      if (childCategory) {
+        res.status(400).json({
+          message: "Child category already exists",
+        });
+      } else {
+        const newChildCategory = {
+          name: childCategoryName,
+          image: childCategoryImage,
+        };
+        mainCategory.childCategories.push(newChildCategory);
+        await mainCategory.save();
+        res.status(201).json({
+          message: "Child category added successfully",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Main category does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getUsers,
   editUser,
@@ -143,4 +179,5 @@ module.exports = {
   addCategory,
   editCategory,
   deleteCategory,
+  addChildCategory,
 };
