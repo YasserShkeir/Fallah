@@ -10,6 +10,7 @@ const mainCatSchema = new mongoose.Schema({
     // Fruits, Vegetables, Dairy
     type: String,
     required: "Category Family is required",
+    enum: ["Fruits", "Vegetables", "Dairy"],
   },
   childCategories: [
     {
