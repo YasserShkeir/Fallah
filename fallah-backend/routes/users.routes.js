@@ -23,6 +23,9 @@ const {
   getProducts,
 } = require("../controllers/farmer.controller");
 
+// -- Buyer Controller
+const {} = require("../controllers/buyer.controller");
+
 // Create a new router
 const router = Router();
 
@@ -38,5 +41,7 @@ router.post("/product", auth, farmer, registerProduct); // Register a product
 router.put("/product", auth, farmer, editProduct); // Edit a product
 router.delete("/product", auth, farmer, deleteProduct); // Delete a product
 router.get("/product", auth, farmer, getProducts); // Get all products
+
+// Buyer Routes
 
 module.exports = router;
