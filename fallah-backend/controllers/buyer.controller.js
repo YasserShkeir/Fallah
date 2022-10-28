@@ -252,6 +252,43 @@ const deleteReview = async (req, res) => {
   }
 };
 
+const createRegularOrder = async (req, res) => {
+  // Create a regular order
+  try {
+    const { deliveryLocationID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+
+    // check if location is valid
+    const location = user.locations.find((location) => {
+      return location._id.toString() === deliveryLocationID.toString();
+    });
+
+    if (location) {
+      const regularOrder = {
+        deliveryStatus: "Pending",
+        deliveryLocation: location,
+        products: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      user.orders.regularOrders.push(regularOrder);
+      await user.save();
+      res.status(201).json({
+        message: "Regular order created successfully",
+        regularOrder: regularOrder,
+      });
+    } else {
+      res.status(400).json({
+        message: "Invalid delivery location",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -261,4 +298,5 @@ module.exports = {
   getReviews,
   editReview,
   deleteReview,
+  createRegularOrder,
 };
