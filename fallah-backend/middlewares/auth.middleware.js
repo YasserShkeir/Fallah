@@ -16,7 +16,13 @@ const authMiddleware = async (req, res, next) => {
         return res.status(401).send({ message: "Unauthorized request" });
       }
       req.userId = payload.subject;
-      const user = await User.User.findById(req.userId).select("-password");
+      let user = await User.User.findById(req.userId).select("-password");
+      if (!user) {
+        user = await User.Admin.findById(req.userId).select("-password");
+        if (!user) {
+          return res.status(401).send({ message: "Unauthorized request" });
+        }
+      }
       req.user = user;
       next();
     } catch (error) {
