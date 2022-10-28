@@ -147,6 +147,25 @@ const buyerSchema = User.discriminator(
           },
         },
       ],
+      reviews: [
+        {
+          farmerID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Farmer",
+          },
+          review: {
+            type: String,
+            required: "Review is required",
+          },
+          rating: {
+            type: Number,
+            required: "Rating is required",
+          },
+          images: {
+            type: Array,
+          },
+        },
+      ],
     },
     {
       discriminatorKey: "kind",
