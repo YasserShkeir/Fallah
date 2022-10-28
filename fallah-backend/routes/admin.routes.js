@@ -14,6 +14,7 @@ const {
   deleteCategory,
   addChildCategory,
   editChildCategory,
+  deleteChildCategory,
 } = require("../controllers/admin.controller");
 
 // Create a new router
@@ -30,5 +31,6 @@ router.delete("/category", auth, admin, deleteCategory); // Delete a category
 
 router.post("/category/child", auth, admin, addChildCategory); // Add a child category
 router.put("/category/child", auth, admin, editChildCategory); // Edit a child category
+router.delete("/category/child", auth, admin, deleteChildCategory); // Delete a child category
 
 module.exports = router;

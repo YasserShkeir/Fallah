@@ -209,6 +209,36 @@ const editChildCategory = async (req, res) => {
   }
 };
 
+const deleteChildCategory = async (req, res) => {
+  // Delete a child category
+  try {
+    const { mainCategoryId, childCategoryId } = req.body;
+    const mainCategory = await MainCategory.findById(mainCategoryId);
+    if (mainCategory) {
+      const childCategory = mainCategory.childCategories.id(childCategoryId);
+      if (childCategory) {
+        await childCategory.remove();
+        await mainCategory.save();
+        res.status(200).json({
+          message: "Child category deleted successfully",
+        });
+      } else {
+        res.status(400).json({
+          message: "Child category does not exist",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Main category does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getUsers,
   editUser,
@@ -218,4 +248,5 @@ module.exports = {
   deleteCategory,
   addChildCategory,
   editChildCategory,
+  deleteChildCategory,
 };
