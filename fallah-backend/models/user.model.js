@@ -11,12 +11,12 @@ const regularOrderSchema = new mongoose.Schema({
   // Create a schema for the regular orders collection
   deliveryDate: {
     type: Date,
-    required: "Delivery Date is required",
   },
   deliveryStatus: {
     type: String,
     required: "Delivery Status is required",
   },
+  deliveryLocation: locationsSchema,
   products: [
     {
       productID: {
@@ -65,6 +65,7 @@ const scheduledOrderSchema = new mongoose.Schema({
     type: String,
     required: "Delivery Status is required",
   },
+  deliveryLocation: locationsSchema,
   requestedCategories: [
     {
       categoryID: {
