@@ -37,6 +37,29 @@ const editUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.User.findById(id);
+    if (user) {
+      await user.remove();
+      res.status(200).json({
+        message: "User deleted successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "User does not exist",
+      });
+    }
+  } catch (error) {
+    res
+
+      .status(500)
+
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getUsers,
   editUser,
