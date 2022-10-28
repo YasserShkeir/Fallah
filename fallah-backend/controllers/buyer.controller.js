@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const User = require("../models/user.model");
 const MainCategory = require("../models/mainCategory.model");
 
@@ -33,8 +35,8 @@ const followFarmer = async (req, res) => {
   // Follow a farmer
   try {
     const { id } = req.body;
-    const user = await User.User.findById(req.user._id);
-    const farmer = await User.User.findById(id);
+    const user = await User.Buyer.findById(req.user._id);
+    const farmer = await User.Farmer.findById(id);
     if (farmer) {
       if (user.following.includes(id)) {
         res.status(400).json({
@@ -64,8 +66,8 @@ const followFarmer = async (req, res) => {
 const getFollowing = async (req, res) => {
   // Get following
   try {
-    const user = await User.User.findById(req.user._id);
-    const following = await User.User.find({
+    const user = await User.Buyer.findById(req.user._id);
+    const following = await User.Farmer.find({
       _id: { $in: user.following },
     }).select("_id name email phone");
     res.status(200).json({
@@ -78,8 +80,40 @@ const getFollowing = async (req, res) => {
   }
 };
 
+const unFollowFarmer = async (req, res) => {
+  // Unfollow a farmer
+  try {
+    const { id } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const farmer = await User.Farmer.findById(id);
+    if (farmer && user.following.includes(id)) {
+      // Loop through the following array and filter out the id
+      user.following = user.following.filter((following) => {
+        following.toString() !== id;
+      });
+      farmer.followers = farmer.followers.filter((follower) => {
+        follower.toString() !== req.user._id.toString();
+      });
+      await user.save();
+      await farmer.save();
+      res.status(201).json({
+        message: "Farmer unfollowed successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "Farmer does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
   getFollowing,
+  unFollowFarmer,
 };
