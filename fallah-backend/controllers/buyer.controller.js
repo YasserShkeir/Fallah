@@ -130,7 +130,7 @@ const reviewFarmer = async (req, res) => {
           images: images,
         });
         farmer.reviews.push({
-          buyer: req.user._id,
+          buyerID: req.user._id,
           reviewScore,
           reviewText,
           images,
@@ -144,6 +144,50 @@ const reviewFarmer = async (req, res) => {
     } else {
       res.status(400).json({
         message: "Farmer does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+const editReview = async (req, res) => {
+  // Edit a review
+  try {
+    const { id, reviewScore, reviewText, images } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const farmer = await User.Farmer.findById(id);
+
+    // Check if user has reviewed the farmer
+    const review = user.reviews.find((review) => {
+      return review.farmerID.toString() === id.toString();
+    });
+
+    if (review) {
+      // Update the review
+      review.review = reviewText;
+      review.rating = reviewScore;
+      review.images = images;
+      await user.save();
+
+      // Update the farmer's review
+      const farmerReview = farmer.reviews.find((review) => {
+        return review.buyerID.toString() === req.user._id.toString();
+      });
+      console.log("farmerReview", farmerReview);
+      farmerReview.reviewScore = reviewScore;
+      farmerReview.reviewText = reviewText;
+      farmerReview.images = images;
+      farmerReview.updatedAt = new Date();
+      await farmer.save();
+      res.status(201).json({
+        message: "Review updated successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "You have not reviewed this farmer",
       });
     }
   } catch (error) {
@@ -174,4 +218,5 @@ module.exports = {
   unFollowFarmer,
   reviewFarmer,
   getReviews,
+  editReview,
 };
