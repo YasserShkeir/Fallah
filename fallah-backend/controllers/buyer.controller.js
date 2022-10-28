@@ -111,9 +111,52 @@ const unFollowFarmer = async (req, res) => {
   }
 };
 
+const reviewFarmer = async (req, res) => {
+  // Review a farmer
+  try {
+    const { id, reviewScore, reviewText, images } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const farmer = await User.Farmer.findById(id);
+    if (farmer) {
+      if (user.reviews.includes(id)) {
+        res.status(400).json({
+          message: "You have already reviewed this farmer",
+        });
+      } else {
+        user.reviews.push({
+          farmerID: id,
+          review: reviewText,
+          rating: reviewScore,
+          images: images,
+        });
+        farmer.reviews.push({
+          buyer: req.user._id,
+          reviewScore,
+          reviewText,
+          images,
+        });
+        await user.save();
+        await farmer.save();
+        res.status(201).json({
+          message: "Farmer reviewed successfully",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Farmer does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
   getFollowing,
   unFollowFarmer,
+  reviewFarmer,
 };
