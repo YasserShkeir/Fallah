@@ -33,6 +33,7 @@ const {
   reviewFarmer,
   getReviews,
   editReview,
+  deleteReview,
 } = require("../controllers/buyer.controller");
 
 // Create a new router
@@ -60,5 +61,6 @@ router.delete("/follow", auth, buyer, unFollowFarmer); // Unfollow a farmer
 router.post("/review", auth, buyer, reviewFarmer); // Review a farmer
 router.get("/review", auth, buyer, getReviews); // Get all reviews
 router.put("/review", auth, buyer, editReview); // Edit a review
+router.delete("/review", auth, buyer, deleteReview); // Delete a review
 
 module.exports = router;

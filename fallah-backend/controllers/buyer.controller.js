@@ -176,7 +176,6 @@ const editReview = async (req, res) => {
       const farmerReview = farmer.reviews.find((review) => {
         return review.buyerID.toString() === req.user._id.toString();
       });
-      console.log("farmerReview", farmerReview);
       farmerReview.reviewScore = reviewScore;
       farmerReview.reviewText = reviewText;
       farmerReview.images = images;
@@ -211,6 +210,48 @@ const getReviews = async (req, res) => {
   }
 };
 
+const deleteReview = async (req, res) => {
+  // Delete a review
+  try {
+    const { id } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const farmer = await User.Farmer.findById(id);
+    if (farmer) {
+      // Check if user has reviewed the farmer
+      const review = user.reviews.find((review) => {
+        return review.farmerID.toString() === id.toString();
+      });
+      if (review) {
+        // Delete the review
+        user.reviews = user.reviews.filter((review) => {
+          return review.farmerID.toString() !== id.toString();
+        });
+        await user.save();
+        // Delete the farmer's review
+        farmer.reviews = farmer.reviews.filter((review) => {
+          return review.buyerID.toString() !== req.user._id.toString();
+        });
+        await farmer.save();
+        res.status(201).json({
+          message: "Review deleted successfully",
+        });
+      } else {
+        res.status(400).json({
+          message: "You have not reviewed this farmer",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Farmer does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -219,4 +260,5 @@ module.exports = {
   reviewFarmer,
   getReviews,
   editReview,
+  deleteReview,
 };
