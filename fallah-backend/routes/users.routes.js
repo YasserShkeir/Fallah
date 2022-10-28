@@ -28,6 +28,7 @@ const {
 const {
   getSeasonalItems,
   followFarmer,
+  getFollowing,
 } = require("../controllers/buyer.controller");
 
 // Create a new router
@@ -50,5 +51,6 @@ router.get("/product", auth, farmer, getProducts); // Get all products
 // -- Buyer Routes
 router.get("/seasonal", auth, buyer, getSeasonalItems); // Get seasonal items
 router.post("/follow", auth, buyer, followFarmer); // Follow a farmer
+router.get("/follow", auth, buyer, getFollowing); // Get all farmers being followed
 
 module.exports = router;

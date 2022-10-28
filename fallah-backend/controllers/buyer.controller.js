@@ -61,7 +61,25 @@ const followFarmer = async (req, res) => {
   }
 };
 
+const getFollowing = async (req, res) => {
+  // Get following
+  try {
+    const user = await User.User.findById(req.user._id);
+    const following = await User.User.find({
+      _id: { $in: user.following },
+    }).select("_id name email phone");
+    res.status(200).json({
+      following,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
+  getFollowing,
 };
