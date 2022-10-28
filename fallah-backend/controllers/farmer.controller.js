@@ -61,15 +61,26 @@ const registerProduct = async (req, res) => {
             message: "Product name already exists",
           });
         } else {
-          // Add the product
-          childCategory.products.push(newProduct);
+          // Check if the location is found, if not throw an error
+          if (
+            !req.user.locations.find(
+              (location) => location._id.toString() === pickupLocationID
+            )
+          ) {
+            res.status(400).json({
+              message: "Location does not exist",
+            });
+          } else {
+            // Add the product to the child category
+            childCategory.products.push(newProduct);
 
-          await category.save();
+            await category.save();
 
-          res.status(201).json({
-            message: "Product added successfully",
-            product: newProduct,
-          });
+            res.status(201).json({
+              message: "Product added successfully",
+              product: newProduct,
+            });
+          }
         }
       } else {
         res.status(400).json({
