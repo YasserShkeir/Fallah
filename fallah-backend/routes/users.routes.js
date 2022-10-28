@@ -4,6 +4,7 @@ const { Router } = require("express");
 const auth = require("../middlewares/auth.middleware");
 const user = require("../middlewares/user.middleware");
 const farmer = require("../middlewares/farmer.middleware");
+const buyer = require("../middlewares/buyer.middleware");
 
 // Controllers
 // -- User Controller
@@ -24,7 +25,7 @@ const {
 } = require("../controllers/farmer.controller");
 
 // -- Buyer Controller
-const {} = require("../controllers/buyer.controller");
+const { getSeasonalItems } = require("../controllers/buyer.controller");
 
 // Create a new router
 const router = Router();
@@ -43,5 +44,6 @@ router.delete("/product", auth, farmer, deleteProduct); // Delete a product
 router.get("/product", auth, farmer, getProducts); // Get all products
 
 // Buyer Routes
+router.get("/seasonal", auth, buyer, getSeasonalItems); // Get seasonal items
 
 module.exports = router;
