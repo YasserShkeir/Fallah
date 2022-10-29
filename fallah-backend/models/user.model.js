@@ -19,6 +19,19 @@ const regularOrderSchema = new mongoose.Schema({
   deliveryLocation: locationsSchema,
   products: [
     {
+      // Create a schema for the products collection
+      farmerID: {
+        type: String,
+        required: true,
+      },
+      mainCategoryID: {
+        type: String,
+        required: true,
+      },
+      childCategoryID: {
+        type: String,
+        required: true,
+      },
       productID: {
         type: String,
         required: "Product ID is required",
