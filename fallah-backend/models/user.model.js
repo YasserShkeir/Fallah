@@ -82,6 +82,7 @@ const scheduledOrderSchema = new mongoose.Schema({
     // Daily, Weekly, Monthly
     type: String,
     required: "Schedule Frequency is required",
+    enum: ["Daily", "Weekly", "Monthly"],
   },
   scheduleStartDate: {
     type: Date,
