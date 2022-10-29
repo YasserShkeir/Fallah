@@ -771,6 +771,50 @@ const deleteScheduledOrder = async (req, res) => {
   }
 };
 
+const updateScheduledOrderLocation = async (req, res) => {
+  // Update a scheduled order's delivery location
+  try {
+    const { scheduledOrderID, deliveryLocationID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+      return order._id.toString() === scheduledOrderID.toString();
+    });
+    if (scheduledOrder) {
+      if (scheduledOrder.deliveryStatus === "Pending") {
+        const deliveryLocation = user.locations.find((location) => {
+          return location._id.toString() === deliveryLocationID.toString();
+        });
+        if (deliveryLocation) {
+          scheduledOrder.deliveryLocation = deliveryLocation;
+          scheduledOrder.updatedAt = new Date();
+          await user.save();
+          res.status(201).json({
+            message: "Scheduled order's delivery location updated successfully",
+            scheduledOrder: scheduledOrder,
+          });
+        } else {
+          res.status(400).json({
+            message: "Delivery location does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message:
+            "Cannot update a scheduled order's delivery location that is not pending",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Scheduled order does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -789,4 +833,5 @@ module.exports = {
   removeProductFromRegularOrder,
   createScheduledOrder,
   deleteScheduledOrder,
+  updateScheduledOrderLocation,
 };
