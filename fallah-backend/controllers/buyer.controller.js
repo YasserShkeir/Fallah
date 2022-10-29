@@ -252,6 +252,8 @@ const deleteReview = async (req, res) => {
   }
 };
 
+// Orders APIs
+// -- Orders - Regular Orders APIs
 const createRegularOrder = async (req, res) => {
   // Create a regular order
   try {
@@ -582,6 +584,97 @@ const addProductToRegularOrder = async (req, res) => {
   }
 };
 
+const removeProductFromRegularOrder = async (req, res) => {
+  // Remove a product from a regular order
+  try {
+    const { regularOrderID, productID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+
+    const regularOrder = user.orders.regularOrders.find((order) => {
+      return order._id.toString() === regularOrderID.toString();
+    });
+
+    if (regularOrder.deliveryStatus === "Pending") {
+      const productInOrder = regularOrder.products.find((product) => {
+        return product.productID.toString() === productID.toString();
+      });
+
+      if (productInOrder) {
+        const mainCategory = await MainCategory.findById(
+          productInOrder.mainCategoryID
+        );
+
+        if (mainCategory) {
+          const childCategory = mainCategory.childCategories.find(
+            (category) => {
+              return (
+                category._id.toString() ===
+                productInOrder.childCategoryID.toString()
+              );
+            }
+          );
+
+          if (childCategory) {
+            const product = childCategory.products.find((product) => {
+              return (
+                product._id.toString() === productInOrder.productID.toString()
+              );
+            });
+
+            if (product) {
+              product.amountAvailable += productInOrder.amount;
+              regularOrder.products = regularOrder.products.filter(
+                (product) => {
+                  return product.productID.toString() !== productID.toString();
+                }
+              );
+
+              let total = 0;
+              regularOrder.products.forEach((product) => {
+                total += product.productTotal;
+              });
+              regularOrder.orderSubtotal = total;
+              regularOrder.updatedAt = new Date();
+
+              await user.save();
+              await mainCategory.save();
+              res.status(201).json({
+                message: "Product removed from regular order successfully",
+                regularOrder: regularOrder,
+              });
+            } else {
+              res.status(400).json({
+                message: "Product does not exist",
+              });
+            }
+          } else {
+            res.status(400).json({
+              message: "Child category does not exist",
+            });
+          }
+        } else {
+          res.status(400).json({
+            message: "Main category does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "Product is not in regular order",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message:
+          "Cannot remove product from a regular order that is not pending",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -596,4 +689,5 @@ module.exports = {
   deleteRegularOrder,
   updateRegularOrderLocation,
   addProductToRegularOrder,
+  removeProductFromRegularOrder,
 };

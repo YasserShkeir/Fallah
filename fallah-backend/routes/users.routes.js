@@ -39,6 +39,7 @@ const {
   deleteRegularOrder,
   updateRegularOrderLocation,
   addProductToRegularOrder,
+  removeProductFromRegularOrder,
 } = require("../controllers/buyer.controller");
 
 // Create a new router
@@ -73,8 +74,8 @@ router.delete("/review", auth, buyer, deleteReview); // Delete a review
 // -- -- Buyer - Regular Orders Routes
 router.get("/regular-order/:id?", auth, buyer, getRegularOrders); // Get all regular orders or a specific regular order
 router.post("/regular-order", auth, buyer, createRegularOrder); // Create a regular order
-router.put("/regular-order", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
 router.patch("/regular-order", auth, buyer, updateRegularOrderLocation); // Update the location of a regular order
-router.delete("/regular-order", auth, buyer, deleteRegularOrder); // Delete a regular order
+router.put("/regular-order/product", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
+router.delete("/regular-order/product", auth, buyer, deleteRegularOrder); // Delete a regular order
 
 module.exports = router;
