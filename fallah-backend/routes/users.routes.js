@@ -36,6 +36,7 @@ const {
   deleteReview,
   createRegularOrder,
   deleteRegularOrder,
+  updateRegularOrderLocation,
   addProductToRegularOrder,
 } = require("../controllers/buyer.controller");
 
@@ -68,5 +69,6 @@ router.delete("/review", auth, buyer, deleteReview); // Delete a review
 router.post("/regular-order", auth, buyer, createRegularOrder); // Create a regular order
 router.delete("/regular-order", auth, buyer, deleteRegularOrder); // Delete a regular order
 router.put("/regular-order", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
+router.patch("/regular-order", auth, buyer, updateRegularOrderLocation); // Update the location of a regular order
 
 module.exports = router;

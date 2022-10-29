@@ -347,6 +347,44 @@ const deleteRegularOrder = async (req, res) => {
   }
 };
 
+const updateRegularOrderLocation = async (req, res) => {
+  // Update a regular order location
+  try {
+    const { regularOrderID, deliveryLocationID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const order = user.orders.regularOrders.find((order) => {
+      return order._id.toString() === regularOrderID.toString();
+    });
+    if (order) {
+      // Check if location is valid
+      const location = user.locations.find((location) => {
+        return location._id.toString() === deliveryLocationID.toString();
+      });
+      if (location) {
+        order.deliveryLocation = location;
+        order.updatedAt = new Date();
+        await user.save();
+        res.status(201).json({
+          message: "Regular order location updated successfully",
+          regularOrder: order,
+        });
+      } else {
+        res.status(400).json({
+          message: "Invalid delivery location",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Regular order does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const addProductToRegularOrder = async (req, res) => {
   // Add a product to a regular order
   try {
@@ -511,5 +549,6 @@ module.exports = {
   deleteReview,
   createRegularOrder,
   deleteRegularOrder,
+  updateRegularOrderLocation,
   addProductToRegularOrder,
 };
