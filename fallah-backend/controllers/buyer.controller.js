@@ -179,7 +179,7 @@ const editReview = async (req, res) => {
       farmerReview.reviewScore = reviewScore;
       farmerReview.reviewText = reviewText;
       farmerReview.images = images;
-      farmerReview.updatedAt = new Date();
+      farmerReview.updated_at = new Date();
       await farmer.save();
       res.status(201).json({
         message: "Review updated successfully",
@@ -271,7 +271,7 @@ const createRegularOrder = async (req, res) => {
         deliveryLocation: location,
         products: [],
         createdAt: new Date(),
-        updatedAt: new Date(),
+        updated_at: new Date(),
       };
       user.orders.regularOrders.push(regularOrder);
       await user.save();
@@ -364,7 +364,7 @@ const updateRegularOrderLocation = async (req, res) => {
       });
       if (location) {
         order.deliveryLocation = location;
-        order.updatedAt = new Date();
+        order.updated_at = new Date();
         await user.save();
         res.status(201).json({
           message: "Regular order location updated successfully",
@@ -415,7 +415,7 @@ const getRegularOrders = async (req, res) => {
           deliveryStatus: order.deliveryStatus,
           deliveryLocation: order.deliveryLocation,
           createdAt: order.createdAt,
-          updatedAt: order.updatedAt,
+          updated_at: order.updated_at,
         };
       });
       res.status(200).json({
@@ -479,7 +479,7 @@ const addProductToRegularOrder = async (req, res) => {
                   productInOrder.productTotal = (
                     productInOrder.amount * productInOrder.price
                   ).toFixed(2);
-                  productInOrder.updatedAt = new Date();
+                  productInOrder.updated_at = new Date();
                 } else {
                   // If quantity is less than min bulk amount
                   productInOrder.amount += quantity;
@@ -488,7 +488,7 @@ const addProductToRegularOrder = async (req, res) => {
                   productInOrder.productTotal = (
                     productInOrder.amount * productInOrder.price
                   ).toFixed(2);
-                  productInOrder.updatedAt = new Date();
+                  productInOrder.updated_at = new Date();
                 }
               } else {
                 res.status(400).json({
@@ -512,7 +512,7 @@ const addProductToRegularOrder = async (req, res) => {
                     amount: quantity,
                     productTotal: (quantity * product.bulkPrice).toFixed(2),
                     createdAt: new Date(),
-                    updatedAt: new Date(),
+                    updated_at: new Date(),
                   };
                   regularOrder.products.push(productToAdd);
                 } else {
@@ -530,7 +530,7 @@ const addProductToRegularOrder = async (req, res) => {
                       quantity * product.pricePerMeasuringUnit
                     ).toFixed(2),
                     createdAt: new Date(),
-                    updatedAt: new Date(),
+                    updated_at: new Date(),
                   };
                   regularOrder.products.push(productToAdd);
                 }
@@ -547,7 +547,7 @@ const addProductToRegularOrder = async (req, res) => {
                 total += product.productTotal;
               });
               regularOrder.orderSubtotal = total;
-              regularOrder.updatedAt = new Date();
+              regularOrder.updated_at = new Date();
 
               await user.save();
               await mainCategory.save();
@@ -633,7 +633,7 @@ const removeProductFromRegularOrder = async (req, res) => {
                 total += product.productTotal;
               });
               regularOrder.orderSubtotal = total;
-              regularOrder.updatedAt = new Date();
+              regularOrder.updated_at = new Date();
 
               await user.save();
               await mainCategory.save();
@@ -686,7 +686,7 @@ const approveRegularOrder = async (req, res) => {
 
     if (regularOrder.deliveryStatus === "Pending") {
       regularOrder.deliveryStatus = "Approved";
-      regularOrder.updatedAt = new Date();
+      regularOrder.updated_at = new Date();
 
       await user.save();
       res.status(201).json({
@@ -719,7 +719,7 @@ const createScheduledOrder = async (req, res) => {
       deliveryLocation: null,
       requestedCategories: [],
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updated_at: new Date(),
     };
     user.orders.scheduledOrders.push(newScheduledOrder);
     await user.save();
@@ -786,7 +786,7 @@ const updateScheduledOrderLocation = async (req, res) => {
         });
         if (deliveryLocation) {
           scheduledOrder.deliveryLocation = deliveryLocation;
-          scheduledOrder.updatedAt = new Date();
+          scheduledOrder.updated_at = new Date();
           await user.save();
           res.status(201).json({
             message: "Scheduled order's delivery location updated successfully",
@@ -883,7 +883,7 @@ const addScheduledOrderCategory = async (req, res) => {
             if (category) {
               // If it exists, update the amount
               category.amount = amount;
-              category.updatedAt = new Date();
+              category.updated_at = new Date();
             } else {
               // If it doesn't exist, add it
               scheduledOrder.requestedCategories.push({
@@ -892,7 +892,7 @@ const addScheduledOrderCategory = async (req, res) => {
                 amount: amount,
               });
             }
-            scheduledOrder.updatedAt = new Date();
+            scheduledOrder.updated_at = new Date();
             await user.save();
             res.status(201).json({
               message: "Scheduled order's category updated successfully",
