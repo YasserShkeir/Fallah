@@ -734,6 +734,43 @@ const createScheduledOrder = async (req, res) => {
   }
 };
 
+const editScheduledOrder = async (req, res) => {
+  // Edit a scheduled order
+  try {
+    const {
+      scheduledOrderID,
+      scheduleFrequency,
+      scheduleStartDate,
+      scheduleEndDate,
+    } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+      return order._id.toString() === scheduledOrderID.toString();
+    });
+    if (scheduledOrder.deliveryStatus === "Pending") {
+      if (scheduleFrequency)
+        scheduledOrder.scheduleFrequency = scheduleFrequency;
+      if (scheduleStartDate)
+        scheduledOrder.scheduleStartDate = scheduleStartDate;
+      if (scheduleEndDate) scheduledOrder.scheduleEndDate = scheduleEndDate;
+      scheduledOrder.updated_at = new Date();
+      await user.save();
+      res.status(201).json({
+        message: "Scheduled order edited successfully",
+        scheduledOrder: scheduledOrder,
+      });
+    } else {
+      res.status(400).json({
+        message: "Cannot edit a scheduled order that is not pending",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const deleteScheduledOrder = async (req, res) => {
   // Delete a scheduled order
   try {
@@ -942,6 +979,7 @@ module.exports = {
   addProductToRegularOrder,
   removeProductFromRegularOrder,
   createScheduledOrder,
+  editScheduledOrder,
   deleteScheduledOrder,
   updateScheduledOrderLocation,
   getScheduledOrders,

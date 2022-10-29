@@ -42,6 +42,7 @@ const {
   addProductToRegularOrder,
   removeProductFromRegularOrder,
   createScheduledOrder,
+  editScheduledOrder,
   deleteScheduledOrder,
   updateScheduledOrderLocation,
   getScheduledOrders,
@@ -93,6 +94,7 @@ router.delete(
 // -- -- Buyer - Scheduled Orders Routes
 router.get("/scheduled-order/:id?", auth, buyer, getScheduledOrders); // Get all scheduled orders or a specific scheduled order
 router.post("/scheduled-order", auth, buyer, createScheduledOrder); // Create a scheduled order
+router.put("/scheduled-order", auth, buyer, editScheduledOrder); // Edit a scheduled order
 router.delete("/scheduled-order", auth, buyer, deleteScheduledOrder); // Delete a scheduled order
 router.put(
   "/scheduled-order/location",
