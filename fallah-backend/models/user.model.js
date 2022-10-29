@@ -79,8 +79,17 @@ const regularOrderSchema = new mongoose.Schema({
 const scheduledOrderSchema = new mongoose.Schema({
   // Create a schema for the scheduled orders collection
   scheduleFrequency: {
-    type: Number,
+    // Daily, Weekly, Monthly
+    type: String,
     required: "Schedule Frequency is required",
+  },
+  scheduleStartDate: {
+    type: Date,
+    required: "Schedule Start Date is required",
+  },
+  scheduleEndDate: {
+    type: Date,
+    required: "Schedule End Date is required",
   },
   deliveryStatus: {
     type: String,
