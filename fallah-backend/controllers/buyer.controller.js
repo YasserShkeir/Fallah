@@ -253,7 +253,7 @@ const deleteReview = async (req, res) => {
 };
 
 // Orders APIs
-// -- Orders - Regular Orders APIs
+// -- Orders - Regular Orders APIs --
 const createRegularOrder = async (req, res) => {
   // Create a regular order
   try {
@@ -705,6 +705,35 @@ const approveRegularOrder = async (req, res) => {
   }
 };
 
+// -- Orders - Scheduled Orders APIs --
+const createScheduledOrder = async (req, res) => {
+  // Create a scheduled order
+  try {
+    const { scheduleFrequency, scheduleStartDate, scheduleEndDate } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const newScheduledOrder = {
+      scheduleFrequency: scheduleFrequency,
+      scheduleStartDate: scheduleStartDate,
+      scheduleEndDate: scheduleEndDate,
+      deliveryStatus: "Pending",
+      deliveryLocation: null,
+      requestedCategories: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    user.orders.scheduledOrders.push(newScheduledOrder);
+    await user.save();
+    res.status(201).json({
+      message: "Scheduled order created successfully",
+      scheduledOrder: newScheduledOrder,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -721,4 +750,5 @@ module.exports = {
   updateRegularOrderLocation,
   addProductToRegularOrder,
   removeProductFromRegularOrder,
+  createScheduledOrder,
 };
