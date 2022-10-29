@@ -305,100 +305,128 @@ const addProductToRegularOrder = async (req, res) => {
       return order._id.toString() === regularOrderID.toString();
     });
 
-    const mainCategory = await MainCategory.findById(mainCategoryID);
+    if (regularOrder.deliveryStatus === "Pending") {
+      const mainCategory = await MainCategory.findById(mainCategoryID);
 
-    if (mainCategory) {
-      const childCategory = mainCategory.childCategories.find((category) => {
-        return category._id.toString() === childCategoryID.toString();
-      });
-
-      if (childCategory) {
-        const product = childCategory.products.find((product) => {
-          return product._id.toString() === productID.toString();
+      if (mainCategory) {
+        const childCategory = mainCategory.childCategories.find((category) => {
+          return category._id.toString() === childCategoryID.toString();
         });
 
-        if (product) {
-          const productInOrder = regularOrder.products.find((product) => {
-            return product.productID.toString() === productID.toString();
+        if (childCategory) {
+          const product = childCategory.products.find((product) => {
+            return product._id.toString() === productID.toString();
           });
 
-          if (productInOrder) {
-            // If product is already in order
-            if (productInOrder.amount + quantity > product.minBulkAmount) {
-              // If quantity is more than min bulk amount
-              productInOrder.amount += quantity;
-              product.quantity -= quantity;
-              productInOrder.price = product.bulkPrice;
-              productInOrder.productTotal =
-                productInOrder.amount * productInOrder.price;
-              productInOrder.updatedAt = new Date();
+          if (product) {
+            const productInOrder = regularOrder.products.find((product) => {
+              return product.productID.toString() === productID.toString();
+            });
+
+            if (productInOrder) {
+              // If product is already in order
+              if (
+                productInOrder.amount + quantity <= product.amountAvailable &&
+                productInOrder.amount + quantity >= 0
+              ) {
+                // Check if there's enough amount or if the amount is above 0
+                if (productInOrder.amount + quantity > product.minBulkAmount) {
+                  // If quantity is more than min bulk amount
+                  productInOrder.amount += quantity;
+                  product.amountAvailable -= quantity;
+                  productInOrder.price = product.bulkPrice;
+                  productInOrder.productTotal = (
+                    productInOrder.amount * productInOrder.price
+                  ).toFixed(2);
+                  productInOrder.updatedAt = new Date();
+                } else {
+                  // If quantity is less than min bulk amount
+                  productInOrder.amount += quantity;
+                  product.amountAvailable -= quantity;
+                  productInOrder.price = product.pricePerMeasuringUnit;
+                  productInOrder.productTotal = (
+                    productInOrder.amount * productInOrder.price
+                  ).toFixed(2);
+                  productInOrder.updatedAt = new Date();
+                }
+              } else {
+                res.status(400).json({
+                  message: "Invalid quantity",
+                });
+              }
             } else {
-              // If quantity is less than min bulk amount
-              productInOrder.amount += quantity;
-              product.quantity -= quantity;
-              productInOrder.price = product.pricePerMeasuringUnit;
-              productInOrder.productTotal =
-                productInOrder.amount * productInOrder.price;
-              productInOrder.updatedAt = new Date();
-              console.log(productInOrder);
+              // If product is not in order
+              if (quantity <= product.amountAvailable) {
+                // If quantity is less than or equal to amount available
+                if (quantity > product.minBulkAmount) {
+                  // If quantity is more than min bulk amount
+                  product.amountAvailable -= quantity;
+                  const productToAdd = {
+                    productID: productID,
+                    productName: product.name,
+                    price: product.bulkPrice,
+                    amount: quantity,
+                    productTotal: (quantity * product.bulkPrice).toFixed(2),
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                  };
+                  regularOrder.products.push(productToAdd);
+                } else {
+                  // If quantity is less than min bulk amount
+                  product.amountAvailable -= quantity;
+                  const productToAdd = {
+                    productID: productID,
+                    productName: product.name,
+                    price: product.pricePerMeasuringUnit,
+                    amount: quantity,
+                    productTotal: (
+                      quantity * product.pricePerMeasuringUnit
+                    ).toFixed(2),
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                  };
+                  regularOrder.products.push(productToAdd);
+                }
+              } else {
+                res.status(400).json({
+                  message: "Not enough product available",
+                });
+              }
+            }
+
+            if (res.statusCode !== 400) {
+              let total = 0;
+              regularOrder.products.forEach((product) => {
+                total += product.productTotal;
+              });
+              regularOrder.orderSubtotal = total;
+              regularOrder.updatedAt = new Date();
+
+              await user.save();
+              await mainCategory.save();
+              res.status(201).json({
+                message: "Product added to regular order successfully",
+                regularOrder: regularOrder,
+              });
             }
           } else {
-            // If product is not in order
-            if (quantity > product.minBulkAmount) {
-              // If quantity is more than min bulk amount
-              product.quantity -= quantity;
-              const productToAdd = {
-                productID: productID,
-                productName: product.name,
-                price: product.bulkPrice,
-                amount: quantity,
-                productTotal: quantity * product.bulkPrice,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              };
-              regularOrder.products.push(productToAdd);
-            } else {
-              // If quantity is less than min bulk amount
-              product.quantity -= quantity;
-              const productToAdd = {
-                productID: productID,
-                productName: product.name,
-                price: product.pricePerMeasuringUnit,
-                amount: quantity,
-                productTotal: quantity * product.pricePerMeasuringUnit,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              };
-              regularOrder.products.push(productToAdd);
-            }
+            res.status(400).json({
+              message: "Product does not exist",
+            });
           }
-
-          let total = 0;
-          regularOrder.products.forEach((product) => {
-            total += product.productTotal;
-          });
-          regularOrder.orderSubtotal = total;
-          regularOrder.updatedAt = new Date();
-
-          await user.save();
-          await mainCategory.save();
-          res.status(201).json({
-            message: "Product added to regular order successfully",
-            regularOrder: regularOrder,
-          });
         } else {
           res.status(400).json({
-            message: "Product does not exist",
+            message: "Child category does not exist",
           });
         }
       } else {
         res.status(400).json({
-          message: "Child category does not exist",
+          message: "Main category does not exist",
         });
       }
     } else {
       res.status(400).json({
-        message: "Main category does not exist",
+        message: "Cannot add product to a regular order that is not pending",
       });
     }
   } catch (error) {
