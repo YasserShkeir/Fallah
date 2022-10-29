@@ -45,6 +45,7 @@ const {
   deleteScheduledOrder,
   updateScheduledOrderLocation,
   getScheduledOrders,
+  addScheduledOrderCategory,
 } = require("../controllers/buyer.controller");
 
 // Create a new router
@@ -99,5 +100,11 @@ router.put(
   buyer,
   updateScheduledOrderLocation
 ); // Update a scheduled order's location
+router.post(
+  "/scheduled-order/category",
+  auth,
+  buyer,
+  addScheduledOrderCategory
+); // Add a category to a scheduled order
 
 module.exports = router;

@@ -847,6 +847,84 @@ const getScheduledOrders = async (req, res) => {
   }
 };
 
+const addScheduledOrderCategory = async (req, res) => {
+  // Add a child category to a scheduled order
+  try {
+    const { scheduledOrderID, mainCategoryID, childCategoryID, amount } =
+      req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+      return order._id.toString() === scheduledOrderID.toString();
+    });
+
+    if (scheduledOrder) {
+      if (scheduledOrder.deliveryStatus === "Pending") {
+        // Loop through main categories and find the category
+        const mainCategory = await MainCategory.findById(mainCategoryID);
+        if (mainCategory) {
+          const childCategory = mainCategory.childCategories.find(
+            (category) => {
+              return category._id.toString() === childCategoryID.toString();
+            }
+          );
+
+          if (childCategory) {
+            // Check if the category already exists in the scheduled order
+
+            const category = scheduledOrder.requestedCategories.find(
+              (category) => {
+                console.log(category);
+                return (
+                  category.categoryID.toString() === childCategoryID.toString()
+                );
+              }
+            );
+
+            if (category) {
+              // If it exists, update the amount
+              category.amount = amount;
+              category.updatedAt = new Date();
+            } else {
+              // If it doesn't exist, add it
+              scheduledOrder.requestedCategories.push({
+                categoryID: childCategoryID,
+                categoryName: childCategory.name,
+                amount: amount,
+              });
+            }
+            scheduledOrder.updatedAt = new Date();
+            await user.save();
+            res.status(201).json({
+              message: "Scheduled order's category updated successfully",
+              scheduledOrder: scheduledOrder,
+            });
+          } else {
+            res.status(400).json({
+              message: "Child category does not exist",
+            });
+          }
+        } else {
+          res.status(400).json({
+            message: "Main category does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "Cannot update a scheduled order that is not pending",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Scheduled order does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -867,4 +945,5 @@ module.exports = {
   deleteScheduledOrder,
   updateScheduledOrderLocation,
   getScheduledOrders,
+  addScheduledOrderCategory,
 };
