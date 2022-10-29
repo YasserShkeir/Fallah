@@ -734,6 +734,43 @@ const createScheduledOrder = async (req, res) => {
   }
 };
 
+const deleteScheduledOrder = async (req, res) => {
+  // Delete a scheduled order
+  try {
+    const { scheduledOrderID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+      return order._id.toString() === scheduledOrderID.toString();
+    });
+    if (scheduledOrder) {
+      if (scheduledOrder.deliveryStatus === "Pending") {
+        user.orders.scheduledOrders = user.orders.scheduledOrders.filter(
+          (order) => {
+            return order._id.toString() !== scheduledOrderID.toString();
+          }
+        );
+        await user.save();
+        res.status(201).json({
+          message: "Scheduled order deleted successfully",
+          scheduledOrder: scheduledOrder,
+        });
+      } else {
+        res.status(400).json({
+          message: "Cannot delete a scheduled order that is not pending",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Scheduled order does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -751,4 +788,5 @@ module.exports = {
   addProductToRegularOrder,
   removeProductFromRegularOrder,
   createScheduledOrder,
+  deleteScheduledOrder,
 };

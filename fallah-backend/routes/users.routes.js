@@ -42,6 +42,7 @@ const {
   addProductToRegularOrder,
   removeProductFromRegularOrder,
   createScheduledOrder,
+  deleteScheduledOrder,
 } = require("../controllers/buyer.controller");
 
 // Create a new router
@@ -88,5 +89,6 @@ router.delete(
 ); // Remove a product from a regular order
 // -- -- Buyer - Scheduled Orders Routes
 router.post("/scheduled-order", auth, buyer, createScheduledOrder); // Create a scheduled order
+router.delete("/scheduled-order", auth, buyer, deleteScheduledOrder); // Delete a scheduled order
 
 module.exports = router;
