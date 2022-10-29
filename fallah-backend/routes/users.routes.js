@@ -34,6 +34,7 @@ const {
   getReviews,
   editReview,
   deleteReview,
+  getRegularOrders,
   createRegularOrder,
   deleteRegularOrder,
   updateRegularOrderLocation,
@@ -58,17 +59,22 @@ router.delete("/product", auth, farmer, deleteProduct); // Delete a product
 router.get("/product", auth, farmer, getProducts); // Get all products
 
 // -- Buyer Routes
+// -- -- Buyer - Seasonal Items
 router.get("/seasonal", auth, buyer, getSeasonalItems); // Get seasonal items
+// -- -- Buyer - Following Routes
 router.post("/follow", auth, buyer, followFarmer); // Follow a farmer
 router.get("/follow", auth, buyer, getFollowing); // Get all farmers being followed
 router.delete("/follow", auth, buyer, unFollowFarmer); // Unfollow a farmer
+// -- -- Buyer - Reviews Routes
 router.post("/review", auth, buyer, reviewFarmer); // Review a farmer
 router.get("/review", auth, buyer, getReviews); // Get all reviews
 router.put("/review", auth, buyer, editReview); // Edit a review
 router.delete("/review", auth, buyer, deleteReview); // Delete a review
+// -- -- Buyer - Regular Orders Routes
+router.get("/regular-order/:id?", auth, buyer, getRegularOrders); // Get all regular orders or a specific regular order
 router.post("/regular-order", auth, buyer, createRegularOrder); // Create a regular order
-router.delete("/regular-order", auth, buyer, deleteRegularOrder); // Delete a regular order
 router.put("/regular-order", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
 router.patch("/regular-order", auth, buyer, updateRegularOrderLocation); // Update the location of a regular order
+router.delete("/regular-order", auth, buyer, deleteRegularOrder); // Delete a regular order
 
 module.exports = router;

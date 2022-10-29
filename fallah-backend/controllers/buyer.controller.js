@@ -385,6 +385,50 @@ const updateRegularOrderLocation = async (req, res) => {
   }
 };
 
+const getRegularOrders = async (req, res) => {
+  // Get all regular orders
+  try {
+    const { id } = req.params;
+    console.log(req.params);
+    const user = await User.Buyer.findById(req.user._id);
+    if (id) {
+      // Get a specific regular order
+      const order = user.orders.regularOrders.find((order) => {
+        return order._id.toString() === id.toString();
+      });
+      if (order) {
+        res.status(200).json({
+          message: "Regular order found",
+          regularOrder: order,
+        });
+      } else {
+        res.status(400).json({
+          message: "Regular order does not exist",
+        });
+      }
+    } else {
+      // Get all regular orders without products inside
+      const regularOrders = user.orders.regularOrders.map((order) => {
+        return {
+          _id: order._id,
+          deliveryStatus: order.deliveryStatus,
+          deliveryLocation: order.deliveryLocation,
+          createdAt: order.createdAt,
+          updatedAt: order.updatedAt,
+        };
+      });
+      res.status(200).json({
+        message: "Regular orders found",
+        regularOrders: regularOrders,
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const addProductToRegularOrder = async (req, res) => {
   // Add a product to a regular order
   try {
@@ -547,6 +591,7 @@ module.exports = {
   getReviews,
   editReview,
   deleteReview,
+  getRegularOrders,
   createRegularOrder,
   deleteRegularOrder,
   updateRegularOrderLocation,
