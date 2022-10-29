@@ -64,7 +64,7 @@ const regularOrderSchema = new mongoose.Schema({
   ],
   orderSubtotal: {
     type: Number,
-    required: "Order Sum is required",
+    default: 0,
   },
   created_at: {
     type: Date,

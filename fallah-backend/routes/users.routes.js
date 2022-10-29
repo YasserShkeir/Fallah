@@ -35,6 +35,7 @@ const {
   editReview,
   deleteReview,
   createRegularOrder,
+  deleteRegularOrder,
   addProductToRegularOrder,
 } = require("../controllers/buyer.controller");
 
@@ -65,6 +66,7 @@ router.get("/review", auth, buyer, getReviews); // Get all reviews
 router.put("/review", auth, buyer, editReview); // Edit a review
 router.delete("/review", auth, buyer, deleteReview); // Delete a review
 router.post("/regular-order", auth, buyer, createRegularOrder); // Create a regular order
+router.delete("/regular-order", auth, buyer, deleteRegularOrder); // Delete a regular order
 router.put("/regular-order", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
 
 module.exports = router;

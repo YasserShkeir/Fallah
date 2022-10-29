@@ -292,14 +292,44 @@ const createRegularOrder = async (req, res) => {
 const deleteRegularOrder = async (req, res) => {
   // Delete a regular order
   try {
-    const { id } = req.body;
+    const { regularOrderID } = req.body;
     const user = await User.Buyer.findById(req.user._id);
     const order = user.orders.regularOrders.find((order) => {
-      return order._id.toString() === id.toString();
+      return order._id.toString() === regularOrderID.toString();
     });
+
     if (order) {
+      // Loop through order products and add the quantity back to the farmer's available amount
+      for (let i = 0; i < order.products.length; i++) {
+        let productInOrder = order.products[i];
+        let mainCategoryIDOrder = productInOrder.mainCategoryID;
+        let childCategoryIDOrder = productInOrder.childCategoryID;
+        let productIDOrder = productInOrder.productID;
+        let quantityOrder = productInOrder.amount;
+
+        // Find the main category
+        let mainCategory = await MainCategory.findById(mainCategoryIDOrder);
+        // Find the child category
+
+        let childCategory = mainCategory.childCategories.find(
+          (childCategory) => {
+            return (
+              childCategory._id.toString() === childCategoryIDOrder.toString()
+            );
+          }
+        );
+        // Find the product
+        let product = childCategory.products.find((product) => {
+          return product._id.toString() === productIDOrder.toString();
+        });
+
+        // Save the quantity back to the product available amount
+        product.amountAvailable += quantityOrder;
+        await mainCategory.save();
+      }
+      // Find the buyer and delete the order
       user.orders.regularOrders = user.orders.regularOrders.filter((order) => {
-        return order._id.toString() !== id.toString();
+        return order._id.toString() !== regularOrderID.toString();
       });
       await user.save();
       res.status(201).json({
@@ -394,7 +424,7 @@ const addProductToRegularOrder = async (req, res) => {
                     mainCategoryID: mainCategoryID,
                     childCategoryID: childCategoryID,
                     productID: productID,
-                    productName: product.name,
+                    productName: product.productName,
                     price: product.bulkPrice,
                     amount: quantity,
                     productTotal: (quantity * product.bulkPrice).toFixed(2),
@@ -406,8 +436,11 @@ const addProductToRegularOrder = async (req, res) => {
                   // If quantity is less than min bulk amount
                   product.amountAvailable -= quantity;
                   const productToAdd = {
+                    farmerID: product.farmerID,
+                    mainCategoryID: mainCategoryID,
+                    childCategoryID: childCategoryID,
                     productID: productID,
-                    productName: product.name,
+                    productName: product.productName,
                     price: product.pricePerMeasuringUnit,
                     amount: quantity,
                     productTotal: (
