@@ -391,7 +391,6 @@ const getRegularOrders = async (req, res) => {
   // Get all regular orders
   try {
     const { id } = req.params;
-    console.log(req.params);
     const user = await User.Buyer.findById(req.user._id);
     if (id) {
       // Get a specific regular order
