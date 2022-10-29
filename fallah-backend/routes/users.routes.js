@@ -37,6 +37,7 @@ const {
   getRegularOrders,
   createRegularOrder,
   deleteRegularOrder,
+  approveRegularOrder,
   updateRegularOrderLocation,
   addProductToRegularOrder,
   removeProductFromRegularOrder,
@@ -74,8 +75,15 @@ router.delete("/review", auth, buyer, deleteReview); // Delete a review
 // -- -- Buyer - Regular Orders Routes
 router.get("/regular-order/:id?", auth, buyer, getRegularOrders); // Get all regular orders or a specific regular order
 router.post("/regular-order", auth, buyer, createRegularOrder); // Create a regular order
-router.patch("/regular-order", auth, buyer, updateRegularOrderLocation); // Update the location of a regular order
-router.put("/regular-order/product", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
-router.delete("/regular-order/product", auth, buyer, deleteRegularOrder); // Delete a regular order
+router.delete("/regular-order", auth, buyer, deleteRegularOrder); // Delete a regular order
+router.put("/regular-order", auth, buyer, approveRegularOrder); // Approve a regular order
+router.put("/regular-order/location", auth, buyer, updateRegularOrderLocation); // Update a regular order's location
+router.post("/regular-order/product", auth, buyer, addProductToRegularOrder); // Add a product to a regular order
+router.delete(
+  "/regular-order/product",
+  auth,
+  buyer,
+  removeProductFromRegularOrder
+); // Remove a product from a regular order
 
 module.exports = router;

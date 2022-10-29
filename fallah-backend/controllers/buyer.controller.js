@@ -674,6 +674,37 @@ const removeProductFromRegularOrder = async (req, res) => {
   }
 };
 
+const approveRegularOrder = async (req, res) => {
+  // Approve a regular order
+  try {
+    const { regularOrderID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+
+    const regularOrder = user.orders.regularOrders.find((order) => {
+      return order._id.toString() === regularOrderID.toString();
+    });
+
+    if (regularOrder.deliveryStatus === "Pending") {
+      regularOrder.deliveryStatus = "Approved";
+      regularOrder.updatedAt = new Date();
+
+      await user.save();
+      res.status(201).json({
+        message: "Regular order approved successfully",
+        regularOrder: regularOrder,
+      });
+    } else {
+      res.status(400).json({
+        message: "Cannot approve a regular order that is not pending",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -686,6 +717,7 @@ module.exports = {
   getRegularOrders,
   createRegularOrder,
   deleteRegularOrder,
+  approveRegularOrder,
   updateRegularOrderLocation,
   addProductToRegularOrder,
   removeProductFromRegularOrder,
