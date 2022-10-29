@@ -815,6 +815,38 @@ const updateScheduledOrderLocation = async (req, res) => {
   }
 };
 
+const getScheduledOrders = async (req, res) => {
+  // If user sends ID, return that specific scheduled order
+  try {
+    const { id } = req.params;
+    const user = await User.Buyer.findById(req.user._id);
+    if (id) {
+      const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+        return order._id.toString() === id.toString();
+      });
+      if (scheduledOrder) {
+        res.status(200).json({
+          message: "Scheduled order retrieved successfully",
+          scheduledOrder: scheduledOrder,
+        });
+      } else {
+        res.status(400).json({
+          message: "Scheduled order does not exist",
+        });
+      }
+    } else {
+      res.status(200).json({
+        message: "Scheduled orders retrieved successfully",
+        scheduledOrders: user.orders.scheduledOrders,
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -834,4 +866,5 @@ module.exports = {
   createScheduledOrder,
   deleteScheduledOrder,
   updateScheduledOrderLocation,
+  getScheduledOrders,
 };
