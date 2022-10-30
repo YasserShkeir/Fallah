@@ -962,6 +962,55 @@ const addScheduledOrderCategory = async (req, res) => {
   }
 };
 
+const deleteScheduledOrderCategory = async (req, res) => {
+  // Delete a child category from a scheduled order
+  try {
+    const { scheduledOrderID, childCategoryID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+      return order._id.toString() === scheduledOrderID.toString();
+    });
+    if (scheduledOrder) {
+      if (scheduledOrder.deliveryStatus === "Pending") {
+        // Loop through main categories and find the category
+        const category = scheduledOrder.requestedCategories.find((category) => {
+          return category.categoryID.toString() === childCategoryID.toString();
+        });
+        if (category) {
+          scheduledOrder.requestedCategories =
+            scheduledOrder.requestedCategories.filter((category) => {
+              return (
+                category.categoryID.toString() !== childCategoryID.toString()
+              );
+            });
+          scheduledOrder.updated_at = new Date();
+          await user.save();
+          res.status(201).json({
+            message: "Scheduled order's category deleted successfully",
+            scheduledOrder: scheduledOrder,
+          });
+        } else {
+          res.status(400).json({
+            message: "Category does not exist",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "Cannot update a scheduled order that is not pending",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Scheduled order does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getSeasonalItems,
   followFarmer,
@@ -984,4 +1033,5 @@ module.exports = {
   updateScheduledOrderLocation,
   getScheduledOrders,
   addScheduledOrderCategory,
+  deleteScheduledOrderCategory,
 };
