@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "fallah-frontend-reactnative",
+    "slug": "fallah-frontend-reactnative",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "fallah-frontend-reactnative"
+}
