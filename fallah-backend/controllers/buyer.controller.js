@@ -884,6 +884,40 @@ const getScheduledOrders = async (req, res) => {
   }
 };
 
+const approveScheduledOrder = async (req, res) => {
+  // Approve a scheduled order
+  try {
+    const { scheduledOrderID } = req.body;
+    const user = await User.Buyer.findById(req.user._id);
+    const scheduledOrder = user.orders.scheduledOrders.find((order) => {
+      return order._id.toString() === scheduledOrderID.toString();
+    });
+    if (scheduledOrder) {
+      if (scheduledOrder.deliveryStatus === "Pending") {
+        scheduledOrder.deliveryStatus = "Approved";
+        scheduledOrder.updated_at = new Date();
+        await user.save();
+        res.status(201).json({
+          message: "Scheduled order approved successfully",
+          scheduledOrder: scheduledOrder,
+        });
+      } else {
+        res.status(400).json({
+          message: "Cannot approve a scheduled order that is not pending",
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: "Scheduled order does not exist",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const addScheduledOrderCategory = async (req, res) => {
   // Add a child category to a scheduled order
   try {
@@ -1020,6 +1054,7 @@ module.exports = {
   getReviews,
   editReview,
   deleteReview,
+  // Regular Orders
   getRegularOrders,
   createRegularOrder,
   deleteRegularOrder,
@@ -1027,9 +1062,11 @@ module.exports = {
   updateRegularOrderLocation,
   addProductToRegularOrder,
   removeProductFromRegularOrder,
+  // Scheduled Orders
   createScheduledOrder,
   editScheduledOrder,
   deleteScheduledOrder,
+  approveScheduledOrder,
   updateScheduledOrderLocation,
   getScheduledOrders,
   addScheduledOrderCategory,

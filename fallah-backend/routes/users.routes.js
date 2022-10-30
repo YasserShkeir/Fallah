@@ -34,6 +34,7 @@ const {
   getReviews,
   editReview,
   deleteReview,
+  // -- Regular Orders
   getRegularOrders,
   createRegularOrder,
   deleteRegularOrder,
@@ -41,9 +42,11 @@ const {
   updateRegularOrderLocation,
   addProductToRegularOrder,
   removeProductFromRegularOrder,
+  // -- Scheduled Orders
   createScheduledOrder,
   editScheduledOrder,
   deleteScheduledOrder,
+  approveScheduledOrder,
   updateScheduledOrderLocation,
   getScheduledOrders,
   addScheduledOrderCategory,
@@ -97,6 +100,7 @@ router.get("/scheduled-order/:id?", auth, buyer, getScheduledOrders); // Get all
 router.post("/scheduled-order", auth, buyer, createScheduledOrder); // Create a scheduled order
 router.put("/scheduled-order", auth, buyer, editScheduledOrder); // Edit a scheduled order
 router.delete("/scheduled-order", auth, buyer, deleteScheduledOrder); // Delete a scheduled order
+router.patch("/scheduled-order", auth, buyer, approveScheduledOrder); // Approve a scheduled order
 router.put(
   "/scheduled-order/location",
   auth,
