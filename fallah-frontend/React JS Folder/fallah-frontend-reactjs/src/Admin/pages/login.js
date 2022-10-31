@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import adminLoginBG from "../assets/images/adminLoginBG.jpg";
+
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +13,12 @@ const AdminLogin = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${adminLoginBG})`,
+      }}
+      className="h-screen bg-cover bg-center bg-no-repeat"
+    >
       <div>
         <h1>Admin Portal Sign In</h1>
         <form onSubmit={handleSubmit}>
