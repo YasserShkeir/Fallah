@@ -26,13 +26,13 @@ const ErrorPage = () => {
       >
         <p style={{ fontSize: "30px" }}>Page Not Found:</p>
         <p>
-          Click
+          Click{" "}
           <Link
             to="/"
             style={{ fontWeight: "600", color: "var(--cream-white)" }}
           >
             here
-          </Link>
+          </Link>{" "}
           to return to the home page.
         </p>
       </div>
