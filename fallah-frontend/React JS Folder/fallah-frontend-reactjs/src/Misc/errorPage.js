@@ -1,5 +1,3 @@
-// Create an error page component to display when a page is not found or when a user is unauthorized to access a page
-
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -7,30 +5,17 @@ import farmer from "./errorPageFarmer.png";
 
 const ErrorPage = () => {
   return (
-    // display flex
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        backgroundColor: "#23CE6B",
-      }}
-    >
-      <img src={farmer} alt="Farmer" style={{ height: "250px" }} />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          height: "200px",
-        }}
-      >
-        <p style={{ fontSize: "30px" }}>Page Not Found:</p>
+    <div className="flex items-center bg-light-green">
+      <img
+        src={farmer}
+        alt="Farmer"
+        className="border-4 border-cream-white rounded-full shadow-lg m-5 w-1/3 max-w-xs"
+      />
+      <div className="flex flex-col justify-evenly h-60">
+        <p className="text-3xl">Page Not Found:</p>
         <p>
           Click{" "}
-          <Link
-            to="/"
-            style={{ fontWeight: "600", color: "var(--cream-white)" }}
-          >
+          <Link to="/" className="font-semibold hover:text-cream-white">
             here
           </Link>{" "}
           to return to the home page.
