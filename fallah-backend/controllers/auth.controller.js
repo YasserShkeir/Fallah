@@ -81,8 +81,18 @@ const register = async (req, res) => {
       });
       await newUser.save();
       res.status(201).send({ message: "User created successfully" });
+    } else if (req.user === "admin") {
+      const newUser = new User.User({
+        name,
+        email,
+        phone,
+        userType,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      res.status(201).send({ message: "User created successfully" });
     } else {
-      return res.status(400).send({ message: "Invalid user type" });
+      res.status(400).send({ message: "Invalid user type" });
     }
   } catch (error) {
     res.status(500).send({ message: "Server error", error: error.message });
