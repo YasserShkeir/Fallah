@@ -7,9 +7,7 @@ import { Box, CircularProgress, Grid } from "@mui/material";
 import AdminNavigationBar from "../components/navigationBar";
 
 const AdminLandingPage = () => {
-  const [authenticated, setAuthenticated] = useState(
-    localStorage.getItem("jwt")
-  );
+  const [authenticated] = useState(localStorage.getItem("jwt"));
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [orderCount, setOrderCount] = useState(0);

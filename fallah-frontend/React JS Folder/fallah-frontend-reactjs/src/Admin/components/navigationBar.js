@@ -87,6 +87,10 @@ const AdminNavigationBar = () => {
         color="creamWhite"
         className="w-full rounded-3xl hover:bg-dark-green hover:text-cream-white"
         style={{ marginTop: "40px" }}
+        onClick={() => {
+          localStorage.removeItem("jwt");
+          window.location.href = "/admin";
+        }}
       >
         Logout
       </Button>
