@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -9,6 +10,7 @@ import adminLoginBG from "../assets/images/adminLoginBG.jpg";
 import loginFormLogo from "../../Assets/images/Transparent Logos/2-Crop.png";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,11 +25,14 @@ const AdminLogin = () => {
       })
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err.message);
       });
+
+    if (localStorage.getItem("jwt")) {
+      navigate("/admin/home");
+    }
 
     setLoading(false);
   };

@@ -36,7 +36,7 @@ const AdminNavigationBar = () => {
   };
 
   return (
-    <div className="bg-light-green flex flex-col w-56 items-center px-5 min-h-fit justify-between pb-5">
+    <div className="bg-light-green flex flex-col w-56 items-center px-5 min-h-fit h-screen justify-between pb-5">
       <div className="w-full flex flex-col gap-4">
         <img src={logo} alt="logo" />
         <NavBarLink
