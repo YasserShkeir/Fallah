@@ -5,6 +5,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ErrorPage from "./Misc/errorPage";
 import AdminLogin from "./Admin/pages/login";
 import AdminLandingPage from "./Admin/pages/landingPage";
+import AdminOrdersPage from "./Admin/pages/ordersList";
+import AdminUsersPage from "./Admin/pages/usersList";
 
 const theme = createTheme({
   palette: {
@@ -34,6 +36,8 @@ function App() {
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/home" element={<AdminLandingPage />} />
+          <Route path="/admin/orders" element={<AdminOrdersPage />} />
+          <Route path="/admin/users" element={<AdminUsersPage />} />
         </Routes>
       </ThemeProvider>
     </div>
