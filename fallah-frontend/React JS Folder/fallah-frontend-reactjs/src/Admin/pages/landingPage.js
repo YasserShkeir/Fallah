@@ -1,57 +1,102 @@
 import { React, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-import { Box } from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 
 import AdminNavigationBar from "../components/navigationBar";
 
 const AdminLandingPage = () => {
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem("jwt")
+  );
   const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [orderCount, setOrderCount] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    const config = {
+
+    const tokenConfig = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-
-      // get all users
-      url: "http://localhost:3000/admin/users",
-      method: "get",
     };
-    const response = axios(config).then((res) => {
+
+    axios.get("http://localhost:3000/admin/users", tokenConfig).then((res) => {
       setUsers(res.data);
-      console.log(res.data);
+    });
+
+    axios.get("http://localhost:3000/admin/orders", tokenConfig).then((res) => {
+      setOrders(res.data);
+      // Get the count of all types of orders in orders array
+      let orderCount = 0;
+      res.data.orders.forEach((order) => {
+        orderCount += order.orders.regularOrders.length;
+        orderCount += order.orders.scheduledOrders.length;
+      });
+      setOrderCount(orderCount);
     });
   }, []);
 
-  return (
-    <div className="flex">
-      <AdminNavigationBar />
-      <Box className="flex flex-col w-full h-screen bg-cream-white px-10 py-14">
-        <p className="text-3xl">Welcome User</p>
-        <Box className="flex flex-col gap-4 mt-10 bg-light-green border-4 border-dark-green p-4">
-          <p className="text-2xl text-cream-white font-semibold">
-            Quick Statistics:
-          </p>
-          <Box className="flex flex-col gap-4">
-            <p className="text-cream-white font-semibold">
-              Total Users:{" "}
-              <span className="font-normal">
-                {users.users ? users.users.length : "Fetching..."}
-              </span>
-            </p>
-            <p className="text-cream-white font-semibold">
-              Total Orders: <span className="font-normal">100</span>
-            </p>
-            <p className="text-cream-white font-semibold">
-              Total Products: <span className="font-normal">100</span>
-            </p>
-          </Box>
+  const StatCard = ({ title, value }) => {
+    return (
+      <Grid
+        item
+        className="bg-light-green border-4 border-dark-green p-5"
+        md={3.5}
+      >
+        <p className="text-xl font-bold text-cream-white">{title}</p>
+        <p className="text-6xl font-bold text-cream-white">{value}</p>
+      </Grid>
+    );
+  };
+
+  if (authenticated === null) {
+    return <Navigate replace to="/admin" />;
+  } else {
+    return (
+      <div className="flex">
+        <AdminNavigationBar />
+        <Box className="flex flex-col w-full h-screen bg-cream-white px-10 py-14 ">
+          <p className="text-4xl font-bold text-dark-green">Welcome User</p>
+          <Grid
+            container
+            rowGap={2}
+            columnGap={5}
+            className="mt-12 flex justify-between"
+          >
+            <StatCard
+              title="Total Users"
+              value={
+                users.users ? (
+                  users.users.length
+                ) : (
+                  <CircularProgress color="creamWhite" />
+                )
+              }
+            />
+            <StatCard
+              title="Total Orders"
+              value={
+                orders.orders ? (
+                  orderCount
+                ) : (
+                  <CircularProgress color="creamWhite" />
+                )
+              }
+            />
+            <StatCard
+              title="Total Products"
+              value={
+                users.users ? 100 : <CircularProgress color="creamWhite" />
+              }
+            />
+          </Grid>
         </Box>
-      </Box>
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
 export default AdminLandingPage;
