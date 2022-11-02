@@ -14,6 +14,7 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -25,14 +26,12 @@ const AdminLogin = () => {
       })
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
+        navigate("/admin/home");
       })
       .catch((err) => {
         console.log(err.message);
+        setError(true);
       });
-
-    if (localStorage.getItem("jwt")) {
-      navigate("/admin/home");
-    }
 
     setLoading(false);
   };
@@ -56,8 +55,10 @@ const AdminLogin = () => {
           <p className="text-2xl font-bold text-cream-white ">
             Admin Portal Sign In
           </p>
-          <form onSubmit={handleSubmit} className="flex flex-col w-72 gap-8">
+          <form onSubmit={handleSubmit} className="flex flex-col w-72 gap-3">
             <Textfield
+              error={error}
+              helperText={error ? "Incorrect entry." : " "}
               inputProps={{ style: { color: "var(--cream-white)" } }}
               color="creamWhite"
               required
@@ -69,6 +70,8 @@ const AdminLogin = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <Textfield
+              error={error}
+              helperText={error ? "Incorrect entry." : " "}
               inputProps={{ style: { color: "var(--cream-white)" } }}
               color="creamWhite"
               required
