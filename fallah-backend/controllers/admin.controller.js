@@ -5,9 +5,12 @@ const getOrders = async (req, res) => {
   // Get all orders for all users
   try {
     const orders = await User.Buyer.find({}).select("orders");
-    res.status(200).send(orders);
+    res.status(200).json({
+      message: "Orders fetched successfully",
+      orders,
+    });
   } catch (error) {
-    res.status(500).send({ message: "Server error", error: error.message });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
