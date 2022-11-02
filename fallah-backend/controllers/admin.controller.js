@@ -1,12 +1,28 @@
 const User = require("../models/user.model");
 const MainCategory = require("../models/mainCategory.model");
 
+const getOrders = async (req, res) => {
+  // Get all orders for all users
+  try {
+    const orders = await User.Buyer.find({}).select("orders");
+    res.status(200).send(orders);
+  } catch (error) {
+    res.status(500).send({ message: "Server error", error: error.message });
+  }
+};
+
 const getUsers = async (req, res) => {
   // Get all users
   try {
-    const users = await User.User.find().select("-password");
+    const users = await User.User.find().select(
+      "-password -__v -followers -reviews -following -locations -orders "
+    );
+    const admins = await User.Admin.find().select("-password -__v");
+    const allUsers = [...users, ...admins];
+
     res.status(200).json({
-      users,
+      message: "Users fetched successfully",
+      users: allUsers,
     });
   } catch (error) {
     res
@@ -240,6 +256,7 @@ const deleteChildCategory = async (req, res) => {
 };
 
 module.exports = {
+  getOrders,
   getUsers,
   editUser,
   deleteUser,
