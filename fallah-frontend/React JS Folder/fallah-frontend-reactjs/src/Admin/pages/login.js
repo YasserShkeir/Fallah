@@ -22,11 +22,13 @@ const AdminLogin = () => {
         password: password,
       })
       .then((res) => {
+        localStorage.setItem("jwt", res.data.token);
         console.log(res);
       })
       .catch((err) => {
         console.log(err.message);
       });
+
     setLoading(false);
   };
 
