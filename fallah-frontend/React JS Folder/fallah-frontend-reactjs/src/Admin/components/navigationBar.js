@@ -36,8 +36,8 @@ const AdminNavigationBar = () => {
   };
 
   return (
-    <div className="bg-light-green flex flex-col w-56 items-center px-5 h-screen justify-between pb-5">
-      <div className="w-full flex flex-col gap-5">
+    <div className="bg-light-green flex flex-col w-56 items-center px-5 min-h-fit justify-between pb-5">
+      <div className="w-full flex flex-col gap-4">
         <img src={logo} alt="logo" />
         <NavBarLink
           to={"/admin/home"}
@@ -85,7 +85,8 @@ const AdminNavigationBar = () => {
       <Button
         variant="contained"
         color="creamWhite"
-        className="w-full rounded-3xl hover:bg-dark-green hover:text-cream-white my-8"
+        className="w-full rounded-3xl hover:bg-dark-green hover:text-cream-white"
+        style={{ marginTop: "40px" }}
       >
         Logout
       </Button>

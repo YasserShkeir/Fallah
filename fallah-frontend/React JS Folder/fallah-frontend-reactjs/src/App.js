@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/error" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/home" element={<AdminLandingPage />} />
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
