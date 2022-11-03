@@ -27,7 +27,7 @@ const login = async (req, res) => {
             expiresIn: "1h",
           }
         );
-        res.status(200).send({ token });
+        res.status(200).send({ token: token, username: user.name });
       }
     } else {
       const isMatch = await bcrypt.compare(password, user.password);
@@ -43,7 +43,7 @@ const login = async (req, res) => {
           expiresIn: "1h",
         }
       );
-      res.status(200).send({ token });
+      res.status(200).json({ token: token, username: user.name });
     }
   } catch (error) {
     res.status(500).send({ message: "Server error", error: error.message });
