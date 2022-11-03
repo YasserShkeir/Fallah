@@ -1,16 +1,25 @@
 import { React, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import CanvasJSReact from "../../lib/canvasjs.react";
+
 import axios from "axios";
 
 import { Box, CircularProgress, Grid } from "@mui/material";
 
 import AdminNavigationBar from "../components/navigationBar";
 
+//var CanvasJSReact = require('./canvasjs.react');
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 const AdminLandingPage = () => {
   const [authenticated] = useState(localStorage.getItem("jwt"));
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [orderCount, setOrderCount] = useState(0);
+  const [products, setProducts] = useState([]);
+
+  const [chartData, setChartData] = useState([{ label: "Data", y: 0 }]);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -21,9 +30,42 @@ const AdminLandingPage = () => {
       },
     };
 
-    axios.get("http://localhost:3000/admin/users", tokenConfig).then((res) => {
-      setUsers(res.data);
-    });
+    axios
+      .get("http://localhost:3000/admin/users", tokenConfig)
+      .then((res) => {
+        setUsers(res.data);
+
+        // Prepare chart data
+        let data = [];
+        res.data.users.forEach((user) => {
+          data.push(user.created_at.substring(0, 10));
+        });
+
+        data.sort();
+
+        const count = {};
+        for (const element of data) {
+          if (count[element]) {
+            count[element] += 1;
+          } else {
+            count[element] = 1;
+          }
+        }
+
+        let usersData = [];
+        for (const key in count) {
+          usersData.push({ label: key, y: count[key] });
+        }
+
+        setChartData(usersData);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          localStorage.removeItem("jwt");
+          localStorage.removeItem("username");
+          window.location.reload();
+        }
+      });
 
     axios.get("http://localhost:3000/admin/orders", tokenConfig).then((res) => {
       setOrders(res.data);
@@ -35,6 +77,12 @@ const AdminLandingPage = () => {
       });
       setOrderCount(orderCount);
     });
+
+    axios
+      .get("http://localhost:3000/admin/products", tokenConfig)
+      .then((res) => {
+        setProducts(res.data);
+      });
   }, []);
 
   const StatCard = ({ title, value }) => {
@@ -53,11 +101,14 @@ const AdminLandingPage = () => {
   if (authenticated === null) {
     return <Navigate replace to="/admin" />;
   } else {
+    const username = localStorage.getItem("username");
     return (
       <div className="flex">
         <AdminNavigationBar />
         <Box className="flex flex-col w-full h-screen bg-cream-white px-10 py-14 ">
-          <p className="text-4xl font-bold text-dark-green">Welcome User</p>
+          <p className="text-4xl font-bold text-dark-green">
+            Welcome {username}
+          </p>
           <Grid
             container
             rowGap={2}
@@ -87,10 +138,44 @@ const AdminLandingPage = () => {
             <StatCard
               title="Total Products"
               value={
-                users.users ? 100 : <CircularProgress color="creamWhite" />
+                products.products ? (
+                  products.products.length
+                ) : (
+                  <CircularProgress color="creamWhite" />
+                )
               }
             />
           </Grid>
+          <Box className="h-20 w-full my-8">
+            <CanvasJSChart
+              options={{
+                animationEnabled: true,
+                AnimationEffect: "ease",
+                title: {
+                  text: "Number of Users Registered per Day",
+                  fontFamily: "inter",
+                },
+                axisX: {
+                  title: "Date",
+                  valueFormatString: "DD MMM",
+                  labelFontFamily: "inter",
+                },
+                axisY: {
+                  title: "Number of Users",
+                  interval: 1,
+                  labelFontFamily: "inter",
+                },
+                backgroundColor: "transparent",
+                data: [
+                  {
+                    type: "line",
+                    dataPoints: chartData,
+                  },
+                ],
+              }}
+              /* onRef = {ref => this.chart = ref} */
+            />
+          </Box>
         </Box>
       </div>
     );
