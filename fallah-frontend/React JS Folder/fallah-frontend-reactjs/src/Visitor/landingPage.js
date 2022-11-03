@@ -3,12 +3,13 @@ import { Box, Button } from "@mui/material";
 import VisitorNavigationBar from "./components/navigationBar";
 
 import AllProductsImg from "./assets/images/landingBG.jpg";
+import AllProductsBottom from "./assets/images/AllProductsBottom2.png";
 
 const AllProducts = () => {
   // Text on left and image on right
   return (
     <Box className="flex items-center py-4 box-border bg-peachy-yellow">
-      <Box className="px-6 sm:px-20 md:px-32 box-border ">
+      <Box className="pl-6 sm:px-20 md:px-32 box-border ">
         <p className="font-bold text-4xl md:text-6xl">
           Fresher, Cheaper Produce{" "}
         </p>
@@ -29,7 +30,7 @@ const AllProducts = () => {
         </Button>
       </Box>
       <Box className=" sm:min-w-fit bg-peachy-yellow right-0 ">
-        <img src={AllProductsImg} className="w-full sm:w-52 md:w-80" />
+        <img src={AllProductsImg} className="w-30 sm:w-52 md:w-80" />
       </Box>
     </Box>
   );
@@ -39,8 +40,10 @@ const VisitorLandingPage = () => {
   return (
     <div>
       <VisitorNavigationBar />
-      <Box className="mt-32 w-screen">
+      <Box className="mt-32 w-full">
+        <img src={AllProductsBottom} className="w-full rotate-180 -mb-3 " />
         <AllProducts />
+        <img src={AllProductsBottom} className="w-full" />
       </Box>
     </div>
   );
