@@ -34,6 +34,32 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getProducts = async (req, res) => {
+  // Get all products
+  try {
+    const mainCategories = await MainCategory.find();
+
+    const products = [];
+
+    mainCategories.forEach((mainCategory) => {
+      mainCategory.childCategories.forEach((childCategory) => {
+        childCategory.products.forEach((product) => {
+          products.push(product);
+        });
+      });
+    });
+
+    res.status(200).json({
+      message: "Products fetched successfully",
+      products: products,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const editUser = async (req, res) => {
   // Edit a user
   try {
@@ -260,6 +286,7 @@ const deleteChildCategory = async (req, res) => {
 
 module.exports = {
   getOrders,
+  getProducts,
   getUsers,
   editUser,
   deleteUser,
