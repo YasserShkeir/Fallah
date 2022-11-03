@@ -1,13 +1,12 @@
 import { React } from "react";
 
-import AdminNavigationBar from "../components/navigationBar";
+import AdminLayout from "../components/bodyLayout";
 
 const AdminUsersPage = () => {
   return (
-    <div className="flex">
-      <AdminNavigationBar />
-      <h1>AdminUsersPage</h1>
-    </div>
+    <AdminLayout>
+      <h1>Hello</h1>
+    </AdminLayout>
   );
 };
 
