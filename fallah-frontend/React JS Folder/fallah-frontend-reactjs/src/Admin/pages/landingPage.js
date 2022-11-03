@@ -6,10 +6,8 @@ import axios from "axios";
 
 import { Box, CircularProgress, Grid } from "@mui/material";
 
-import AdminNavigationBar from "../components/navigationBar";
+import AdminLayout from "../components/bodyLayout";
 
-//var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const AdminLandingPage = () => {
@@ -89,11 +87,13 @@ const AdminLandingPage = () => {
     return (
       <Grid
         item
-        className="bg-light-green border-4 border-dark-green p-5"
+        className="bg-light-green border-4 border-dark-green p-3 sm:p-5"
         md={3.5}
       >
-        <p className="text-xl font-bold text-cream-white">{title}</p>
-        <p className="text-6xl font-bold text-cream-white">{value}</p>
+        <p className="text-l sm:text-xl font-bold text-cream-white">{title}</p>
+        <p className="text-4xl sm:text-6xl font-bold text-cream-white">
+          {value}
+        </p>
       </Grid>
     );
   };
@@ -103,81 +103,76 @@ const AdminLandingPage = () => {
   } else {
     const username = localStorage.getItem("username");
     return (
-      <div className="flex">
-        <AdminNavigationBar />
-        <Box className="flex flex-col w-full h-screen bg-cream-white px-10 py-14 ">
-          <p className="text-4xl font-bold text-dark-green">
-            Welcome {username}
-          </p>
-          <Grid
-            container
-            rowGap={2}
-            columnGap={5}
-            className="mt-12 flex justify-between"
-          >
-            <StatCard
-              title="Total Users"
-              value={
-                users.users ? (
-                  users.users.length
-                ) : (
-                  <CircularProgress color="creamWhite" />
-                )
-              }
-            />
-            <StatCard
-              title="Total Orders"
-              value={
-                orders.orders ? (
-                  orderCount
-                ) : (
-                  <CircularProgress color="creamWhite" />
-                )
-              }
-            />
-            <StatCard
-              title="Total Products"
-              value={
-                products.products ? (
-                  products.products.length
-                ) : (
-                  <CircularProgress color="creamWhite" />
-                )
-              }
-            />
-          </Grid>
-          <Box className="h-20 w-full my-8">
-            <CanvasJSChart
-              options={{
-                animationEnabled: true,
-                AnimationEffect: "ease",
-                title: {
-                  text: "Number of Users Registered per Day",
-                  fontFamily: "inter",
+      <AdminLayout>
+        <p className="text-4xl font-bold text-dark-green">Welcome {username}</p>
+        <Grid
+          container
+          rowGap={2}
+          columnGap={5}
+          className="mt-12 flex justify-between w-full"
+        >
+          <StatCard
+            title="Total Users"
+            value={
+              users.users ? (
+                users.users.length
+              ) : (
+                <CircularProgress color="creamWhite" />
+              )
+            }
+          />
+          <StatCard
+            title="Total Orders"
+            value={
+              orders.orders ? (
+                orderCount
+              ) : (
+                <CircularProgress color="creamWhite" />
+              )
+            }
+          />
+          <StatCard
+            title="Total Products"
+            value={
+              products.products ? (
+                products.products.length
+              ) : (
+                <CircularProgress color="creamWhite" />
+              )
+            }
+          />
+        </Grid>
+        <Box className="h-20 w-full my-8">
+          <CanvasJSChart
+            options={{
+              animationEnabled: true,
+              AnimationEffect: "ease",
+              title: {
+                text: "Number of Users Registered per Day",
+                fontFamily: "inter",
+              },
+              axisX: {
+                title: "Date",
+                valueFormatString: "DD MMM",
+                labelFontFamily: "inter",
+              },
+              axisY: {
+                title: "Number of Users",
+                interval: 1,
+                labelFontFamily: "inter",
+              },
+              backgroundColor: "transparent",
+              data: [
+                {
+                  type: "line",
+                  dataPoints: chartData,
                 },
-                axisX: {
-                  title: "Date",
-                  valueFormatString: "DD MMM",
-                  labelFontFamily: "inter",
-                },
-                axisY: {
-                  title: "Number of Users",
-                  interval: 1,
-                  labelFontFamily: "inter",
-                },
-                backgroundColor: "transparent",
-                data: [
-                  {
-                    type: "line",
-                    dataPoints: chartData,
-                  },
-                ],
-              }}
-              /* onRef = {ref => this.chart = ref} */
-            />
-          </Box>
+              ],
+            }}
+            /* onRef = {ref => this.chart = ref} */
+          />
         </Box>
-      </div>
+      </AdminLayout>
     );
   }
 };
