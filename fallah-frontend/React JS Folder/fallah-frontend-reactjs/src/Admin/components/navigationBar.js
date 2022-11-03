@@ -23,7 +23,7 @@ const AdminNavigationBar = () => {
       <Link
         to={to}
         className={
-          "flex items-center text-cream-white text-lg font-bold px-4 gap-6 bg-dark-green rounded-md w-full " +
+          "flex items-center text-cream-white text-sm md:text-base font-bold px-4 gap-4 sm:gap-6 bg-dark-green rounded-md w-full " +
           (curr === to ? " border-4 py-1 border-cream-white" : " py-2")
         }
         hover={{ className: "bg-light-green" }}
@@ -36,9 +36,9 @@ const AdminNavigationBar = () => {
   };
 
   return (
-    <div className="bg-light-green flex flex-col w-56 items-center px-5 min-h-fit h-screen justify-between pb-5">
-      <div className="w-full flex flex-col gap-4">
-        <img src={logo} alt="logo" />
+    <div className="bg-light-green flex flex-col sm:w-48 md:w-56 items-center px-5 h-screen justify-between pb-5 fixed overflow-y-auto">
+      <div className="w-full flex flex-col gap-2 sm:gap-3 items-center">
+        <img src={logo} alt="logo" className="w-20 sm:w-32 md:w-42" />
         <NavBarLink
           to={"/admin/home"}
           children={"Home"}
@@ -88,7 +88,7 @@ const AdminNavigationBar = () => {
         className="w-full rounded-3xl hover:bg-dark-green hover:text-cream-white"
         style={{ marginTop: "40px" }}
         onClick={() => {
-          localStorage.removeItem("jwt");
+          localStorage.clear();
           window.location.href = "/admin";
         }}
       >
