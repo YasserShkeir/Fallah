@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import ErrorPage from "./Misc/errorPage";
+import Visitor from "./Visitor/landingPage";
 import AdminLogin from "./Admin/pages/login";
 import AdminLandingPage from "./Admin/pages/landingPage";
 import AdminOrdersPage from "./Admin/pages/ordersList";
@@ -13,12 +14,19 @@ const theme = createTheme({
     lightGreen: {
       main: "#23ce6b",
     },
+    darkGreen: {
+      main: "#1e6048",
+    },
     creamWhite: {
       main: "#f6f8ff",
     },
   },
   typography: {
     fontFamily: "Inter, sans-serif",
+    button: {
+      textTransform: "none",
+      fontWeight: "bold",
+    },
   },
   screens: {
     sm: "640px",
@@ -34,6 +42,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/" element={<Visitor />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/home" element={<AdminLandingPage />} />
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
