@@ -27,7 +27,7 @@ const VisitorNavigationBar = (props) => {
             <Button
               variant="contained"
               color="creamWhite"
-              size="small"
+              size="medium"
               style={{
                 color: "var(--dark-green)",
                 padding: "0.4rem 1rem",
@@ -38,7 +38,7 @@ const VisitorNavigationBar = (props) => {
             <Button
               variant="contained"
               color="darkGreen"
-              size="small"
+              size="medium"
               style={{
                 color: "var(--cream-white)",
                 padding: "0.4rem 1rem",
