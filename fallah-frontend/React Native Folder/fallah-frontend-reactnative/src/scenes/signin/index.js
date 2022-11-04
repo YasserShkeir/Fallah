@@ -1,14 +1,17 @@
 import { React, useState } from "react";
 
-import { View, Button, TextInput } from "react-native";
+import { Text, View, Button, TextInput, Pressable } from "react-native";
 
 // Components
 import SigninLogo from "../../components/atoms/SigninLogo";
 import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
+import ButtonText from "../../components/atoms/ButtonText";
+import { LIGHTGREENBUTTON } from "../../styles/components";
 
 // Styles
-import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
+import { LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
+import GreenButton from "../../components/molecules/GreenButton";
 
 const loginAPI = async (email, password) => {
   const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/login`;
@@ -24,7 +27,6 @@ const loginAPI = async (email, password) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(123);
       if (data.token) {
         alert("Login Successful");
         // navigation.navigate("Home");
@@ -62,29 +64,17 @@ const SignIn = ({ navigation }) => {
         secureTextEntry={true}
       />
 
-      <Button
-        title="Sign In"
-        color={LIGHTGREEN}
+      <GreenButton
+        title={"Sign In"}
         onPress={() => loginAPI(email, password)}
-        style={{ width: "100%" }}
       />
 
-      <View
-        style={{
-          width: "80%",
-          height: 50,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      <Pressable
+        style={LIGHTGREENBUTTON}
+        onPress={() => navigation.navigate("SignUp")}
       >
-        <Button
-          title="Sign Up"
-          color={LIGHTGREEN}
-          onPress={() => navigation.navigate("SignUp")}
-        />
-      </View>
+        <ButtonText text={"Sign Up"} />
+      </Pressable>
     </UnAuthBackground>
   );
 };
