@@ -1,22 +1,18 @@
 import { React, useState } from "react";
 
-import {
-  View,
-  Button,
-  Image,
-  ImageBackground,
-  Text,
-  TextInput,
-} from "react-native";
+import { View, Button, TextInput } from "react-native";
 
-import loginBG from "../../assets/images/loginBG.jpg";
-import lightLogo from "../../assets/images/LightLoginLogo.png";
+// Components
+import SigninLogo from "../../components/atoms/SigninLogo";
+import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
 
+// Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 
 const loginAPI = async (email, password) => {
-  return await fetch(process.env.LOCALIP + "/auth/login", {
+  const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/login`;
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,6 +24,7 @@ const loginAPI = async (email, password) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(123);
       if (data.token) {
         alert("Login Successful");
         // navigation.navigate("Home");
@@ -45,78 +42,50 @@ const SignIn = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   return (
-    <View style={{ backgroundColor: "black" }}>
-      <ImageBackground
-        source={loginBG}
+    <UnAuthBackground>
+      <SigninLogo />
+
+      <TextInput
+        style={CREAMWHITETEXTFIELD}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        autoCompleteType="email"
+        keyboardType="email-address"
+      />
+
+      <TextInput
+        style={CREAMWHITETEXTFIELD}
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        secureTextEntry={true}
+      />
+
+      <Button
+        title="Sign In"
+        color={LIGHTGREEN}
+        onPress={() => loginAPI(email, password)}
+        style={{ width: "100%" }}
+      />
+
+      <View
         style={{
-          width: "100%",
-          height: "100%",
+          width: "80%",
+          height: 50,
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <Image
-          source={lightLogo}
-          style={{
-            width: 300,
-            height: 150,
-          }}
+        <Button
+          title="Sign Up"
+          color={LIGHTGREEN}
+          onPress={() => navigation.navigate("SignUp")}
         />
-
-        <TextInput
-          style={CREAMWHITETEXTFIELD}
-          placeholder="Email"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          autoCompleteType="email"
-          keyboardType="email-address"
-        />
-
-        <TextInput
-          style={CREAMWHITETEXTFIELD}
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry={true}
-        />
-
-        <View
-          style={{
-            width: "80%",
-            height: 50,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            title="Sign In"
-            color={LIGHTGREEN}
-            onPress={() => loginAPI(email, password)}
-          />
-        </View>
-
-        <View
-          style={{
-            width: "80%",
-            height: 50,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            title="Sign Up"
-            color={LIGHTGREEN}
-            onPress={() => navigation.navigate("SignUp")}
-          />
-        </View>
-      </ImageBackground>
-    </View>
+      </View>
+    </UnAuthBackground>
   );
 };
 
