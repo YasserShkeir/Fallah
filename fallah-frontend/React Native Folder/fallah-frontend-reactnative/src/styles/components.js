@@ -15,8 +15,8 @@ export const CREAMWHITETEXTFIELD = {
 
 export const CREAMWHITEBUTTONTEXT = {
   color: CREAMWHITE,
-  fontSize: 20,
-  fontWeight: "bold",
+  fontSize: 22,
+  fontWeight: "800",
 };
 
 export const LIGHTGREENBUTTON = {
@@ -27,7 +27,7 @@ export const LIGHTGREENBUTTON = {
   alignItems: "center",
   justifyContent: "center",
   marginBottom: 30,
-  marginTop: 30,
+  marginTop: 5,
 };
 
 export const UNAUTHBG = {
