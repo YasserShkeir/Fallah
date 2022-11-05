@@ -1,5 +1,7 @@
 import { CREAMWHITE, LIGHTGREEN, DARKGREEN, PEACHYYELLOW } from "./colors";
 
+import { StyleSheet } from "react-native";
+
 export const CREAMWHITETEXTFIELD = {
   width: "80%",
   height: 40,
@@ -11,13 +13,14 @@ export const CREAMWHITETEXTFIELD = {
   marginBottom: 15,
   marginTop: 10,
   fontSize: 18,
+  fontFamily: "Inter-Regular",
 };
 
-export const CREAMWHITEBUTTONTEXT = {
+export const CREAMWHITEBUTTONTEXT = StyleSheet.create({
   color: CREAMWHITE,
   fontSize: 22,
   fontWeight: "800",
-};
+});
 
 export const LIGHTGREENBUTTON = {
   width: "80%",

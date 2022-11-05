@@ -31,8 +31,7 @@ const BuyerLanding = ({ navigation }) => {
     <View>
       <View
         style={{
-          marginTop: statusBarHeight,
-          height: 70,
+          height: statusBarHeight + 70,
           width: windowWidth,
           backgroundColor: LIGHTGREEN,
         }}
