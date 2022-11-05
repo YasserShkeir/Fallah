@@ -1,9 +1,7 @@
 import { Text } from "react-native";
 
-import { CREAMWHITEBUTTONTEXT } from "../../styles/components";
-
-const ButtonText = ({ text }) => {
-  return <Text style={CREAMWHITEBUTTONTEXT}>{text}</Text>;
+const ButtonText = ({ text, style }) => {
+  return <Text style={style}>{text}</Text>;
 };
 
 export default ButtonText;
