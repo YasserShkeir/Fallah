@@ -1,15 +1,13 @@
 import { React, useState } from "react";
 
-import { Text, View, Button, TextInput, Pressable } from "react-native";
+import { Text, View, TextInput } from "react-native";
 
 // Components
 import SigninLogo from "../../components/atoms/SigninLogo";
 import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
-import ButtonText from "../../components/atoms/ButtonText";
-import { LIGHTGREENBUTTON } from "../../styles/components";
 
 // Styles
-import { LIGHTGREEN } from "../../styles/colors";
+import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 import GreenButton from "../../components/molecules/GreenButton";
 
@@ -64,17 +62,38 @@ const SignIn = ({ navigation }) => {
         secureTextEntry={true}
       />
 
-      <GreenButton
-        title={"Sign In"}
-        onPress={() => loginAPI(email, password)}
-      />
+      <View style={{ width: "100%", alignItems: "center", marginTop: 20 }}>
+        <Text
+          style={{
+            alignSelf: "flex-start",
+            marginLeft: "10%",
+            color: LIGHTGREEN,
+            fontWeight: "500",
+            textDecorationLine: "underline",
+            fontSize: 16,
+          }}
+        >
+          Forgot Password?
+        </Text>
+        <GreenButton
+          title={"Sign In"}
+          onPress={() => loginAPI(email, password)}
+        />
+      </View>
 
-      <Pressable
-        style={LIGHTGREENBUTTON}
-        onPress={() => navigation.navigate("SignUp")}
-      >
-        <ButtonText text={"Sign Up"} />
-      </Pressable>
+      <Text style={{ color: CREAMWHITE, fontSize: 16 }}>
+        Don't have an account?{" "}
+        <Text
+          style={{
+            color: LIGHTGREEN,
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+          }}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          Sign Up
+        </Text>
+      </Text>
     </UnAuthBackground>
   );
 };
