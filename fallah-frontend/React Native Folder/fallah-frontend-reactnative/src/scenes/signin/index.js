@@ -13,7 +13,7 @@ import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 import GreenButton from "../../components/molecules/GreenButton";
 
-const loginAPI = async (email, password) => {
+const loginAPI = async (email, password, navigation) => {
   const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/login`;
 
   try {
@@ -27,7 +27,7 @@ const loginAPI = async (email, password) => {
       console.log(await AsyncStorage.getItem("token"));
 
       alert("Login Successful");
-      // navigation.navigate("Home");
+      navigation.navigate("BuyerLanding");
     } else {
       alert("Login Failed");
     }
@@ -76,7 +76,7 @@ const SignIn = ({ navigation }) => {
         </Text>
         <GreenButton
           title={"Sign In"}
-          onPress={() => loginAPI(email, password)}
+          onPress={() => loginAPI(email, password, navigation)}
         />
       </View>
 
