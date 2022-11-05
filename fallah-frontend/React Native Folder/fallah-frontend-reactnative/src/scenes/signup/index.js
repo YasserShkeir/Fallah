@@ -9,6 +9,9 @@ import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 
+// Hooks
+import { signup } from "../../hooks/signUp";
+
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -17,29 +20,8 @@ const SignUp = () => {
   const [selected, setSelected] = useState(false);
   const [password, setPassword] = useState("");
 
-  const signup = async (username, email, phone, userType, password) => {
-    const data = {
-      name: username,
-      email: email,
-      phone: phone,
-      userType: userType,
-      password: password,
-    };
-
-    // Check credentials
-    if (username === "" || email === "" || phone === "" || password === "") {
-      alert("Please fill in all the fields");
-    } else {
-      const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/register`;
-
-      try {
-        const response = await axios.post(url, data);
-        console.log(response.data.message);
-        alert("Sign Up Successful");
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  const handleSignUp = async () => {
+    const response = await signup(username, email, phone, userType, password);
   };
 
   return (
@@ -126,7 +108,7 @@ const SignUp = () => {
 
       <GreenButton
         title={"Sign Up"}
-        onPress={() => signup(username, email, phone, userType, password)}
+        onPress={() => handleSignUp(username, email, phone, userType, password)}
       ></GreenButton>
     </UnAuthBackground>
   );
