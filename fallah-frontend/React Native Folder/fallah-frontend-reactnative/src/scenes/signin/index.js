@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 
 import { Text, View, TextInput } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
 import SigninLogo from "../../components/atoms/SigninLogo";
@@ -13,6 +14,7 @@ import GreenButton from "../../components/molecules/GreenButton";
 
 const loginAPI = async (email, password) => {
   const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/login`;
+
   return await fetch(url, {
     method: "POST",
     headers: {
@@ -24,8 +26,11 @@ const loginAPI = async (email, password) => {
     }),
   })
     .then((response) => response.json())
-    .then((data) => {
+    .then(async (data) => {
       if (data.token) {
+        await AsyncStorage.setItem("token", data.token);
+        console.log(await AsyncStorage.getItem("token"));
+
         alert("Login Successful");
         // navigation.navigate("Home");
       } else {
