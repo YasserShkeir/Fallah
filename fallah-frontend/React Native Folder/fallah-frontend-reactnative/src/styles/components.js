@@ -2,6 +2,18 @@ import { CREAMWHITE, LIGHTGREEN, DARKGREEN, PEACHYYELLOW } from "./colors";
 
 import { StyleSheet } from "react-native";
 
+export const AtomButtonText1 = StyleSheet.create({
+  color: CREAMWHITE,
+  fontSize: 22,
+  fontFamily: "Inter-ExtraBold",
+});
+
+export const AtomButtonText2 = StyleSheet.create({
+  color: DARKGREEN,
+  fontSize: 22,
+  fontFamily: "Inter-ExtraBold",
+});
+
 export const CREAMWHITETEXTFIELD = {
   width: "80%",
   height: 40,
@@ -16,12 +28,6 @@ export const CREAMWHITETEXTFIELD = {
   fontFamily: "Inter-Regular",
 };
 
-export const CREAMWHITEBUTTONTEXT = StyleSheet.create({
-  color: CREAMWHITE,
-  fontSize: 22,
-  fontWeight: "800",
-});
-
 export const LIGHTGREENBUTTON = {
   width: "80%",
   height: 40,
@@ -31,12 +37,6 @@ export const LIGHTGREENBUTTON = {
   justifyContent: "center",
   marginBottom: 30,
   marginTop: 5,
-};
-
-export const USERBUTTONTEXT = {
-  color: DARKGREEN,
-  fontSize: 22,
-  fontWeight: "800",
 };
 
 export const CREAMWHITEBUTTON = {

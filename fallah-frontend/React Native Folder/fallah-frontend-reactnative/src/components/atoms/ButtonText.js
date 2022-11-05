@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text } from "react-native-paper";
 
 const ButtonText = ({ text, style }) => {
   return <Text style={style}>{text}</Text>;

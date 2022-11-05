@@ -1,7 +1,9 @@
 import { React, useState } from "react";
 import axios from "axios";
 
-import { Text, View, TextInput } from "react-native";
+import { Text } from "react-native-paper";
+
+import { View, TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components

@@ -11,6 +11,7 @@ import SignUp from "./src/scenes/signup/index";
 import BuyerLanding from "./src/scenes/buyer/landing";
 import { CREAMWHITE, LIGHTGREEN } from "./src/styles/colors";
 import { theme } from "./src/styles/theme";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
