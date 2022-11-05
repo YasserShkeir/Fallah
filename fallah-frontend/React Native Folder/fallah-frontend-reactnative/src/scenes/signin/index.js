@@ -1,10 +1,8 @@
 import { React, useState } from "react";
-import axios from "axios";
 
 import { Text } from "react-native-paper";
 
 import { View, TextInput } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
 import SigninLogo from "../../components/atoms/SigninLogo";
@@ -15,26 +13,13 @@ import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 import GreenButton from "../../components/molecules/GreenButton";
 
-const loginAPI = async (email, password, navigation) => {
-  const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/login`;
+// Hooks
+import { signin } from "../../hooks/auth";
 
-  try {
-    const response = await axios.post(url, {
-      email: email,
-      password: password,
-    });
-
-    if (response.data.token) {
-      await AsyncStorage.setItem("token", response.data.token);
-      console.log(await AsyncStorage.getItem("token"));
-
-      alert("Login Successful");
-      navigation.navigate("BuyerLanding");
-    } else {
-      alert("Login Failed");
-    }
-  } catch (error) {
-    console.error(error);
+const handleSignIn = async (email, password, navigation) => {
+  const response = await signin(email, password, navigation);
+  if (response) {
+    navigation.navigate("BuyerLanding");
   }
 };
 
@@ -78,7 +63,7 @@ const SignIn = ({ navigation }) => {
         </Text>
         <GreenButton
           title={"Sign In"}
-          onPress={() => loginAPI(email, password, navigation)}
+          onPress={() => handleSignIn(email, password, navigation)}
         />
       </View>
 
