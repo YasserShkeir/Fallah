@@ -10,7 +10,7 @@ import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 
 // Hooks
-import { signup } from "../../hooks/signUp";
+import { signup } from "../../hooks/auth";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");

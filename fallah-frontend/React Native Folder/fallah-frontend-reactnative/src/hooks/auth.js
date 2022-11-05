@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const signup = async (username, email, phone, userType, password) => {
   const data = {
     name: username,
@@ -14,8 +16,7 @@ export const signup = async (username, email, phone, userType, password) => {
     const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/register`;
 
     try {
-      const response = await axios.post(url, data);
-      console.log(response.data.message);
+      await axios.post(url, data);
       alert("Sign Up Successful");
     } catch (error) {
       console.error(error);
