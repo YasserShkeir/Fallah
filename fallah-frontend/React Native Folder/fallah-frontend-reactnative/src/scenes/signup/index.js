@@ -1,17 +1,46 @@
 import { react, useState } from "react";
+import axios from "axios";
 
-import { Text, TextInput } from "react-native";
+import { View, Text, TextInput } from "react-native";
+import GreenButton from "../../components/molecules/GreenButton";
+import UserTypeButton from "../../components/molecules/UserTypeButton";
 
 import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
-import { LIGHTGREEN } from "../../styles/colors";
+import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { CREAMWHITETEXTFIELD } from "../../styles/components";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("buyer");
+  const [selected, setSelected] = useState(false);
   const [password, setPassword] = useState("");
+
+  const signup = async (username, email, phone, userType, password) => {
+    const data = {
+      name: username,
+      email: email,
+      phone: phone,
+      userType: userType,
+      password: password,
+    };
+
+    // Check credentials
+    if (username === "" || email === "" || phone === "" || password === "") {
+      alert("Please fill in all the fields");
+    } else {
+      const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/register`;
+
+      try {
+        const response = await axios.post(url, data);
+        console.log(response.data.message);
+        alert("Sign Up Successful");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <UnAuthBackground>
@@ -42,6 +71,7 @@ const SignUp = () => {
         value={phone}
         textContentType="telephoneNumber"
         keyboardType="phone-pad"
+        req
       />
 
       <TextInput
@@ -51,6 +81,53 @@ const SignUp = () => {
         value={password}
         secureTextEntry={true}
       />
+
+      <View
+        style={{
+          height: 60,
+          borderColor: CREAMWHITE,
+          borderStyle: "solid",
+          borderWidth: 1,
+          borderRadius: 10,
+          width: "80%",
+          marginBottom: 15,
+          marginTop: 5,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
+        <UserTypeButton
+          title={"Buyer"}
+          isSelected={!selected}
+          onPress={async () => {
+            setUserType("buyer");
+            if (userType === "farmer") {
+              setSelected(false);
+              console.log("Inside: ", userType);
+            }
+            console.log(userType);
+          }}
+        ></UserTypeButton>
+        <UserTypeButton
+          title={"Farmer"}
+          isSelected={selected}
+          onPress={() => {
+            setUserType("farmer");
+            if (userType === "buyer") {
+              setSelected(true);
+              console.log("Inside: ", userType);
+            }
+            console.log(userType);
+          }}
+        ></UserTypeButton>
+      </View>
+
+      <GreenButton
+        title={"Sign Up"}
+        onPress={() => signup(username, email, phone, userType, password)}
+      ></GreenButton>
     </UnAuthBackground>
   );
 };
