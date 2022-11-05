@@ -30,6 +30,31 @@ export const LIGHTGREENBUTTON = {
   marginTop: 5,
 };
 
+export const USERBUTTONTEXT = {
+  color: DARKGREEN,
+  fontSize: 22,
+  fontWeight: "800",
+};
+
+export const CREAMWHITEBUTTON = {
+  width: "45%",
+  height: 40,
+  backgroundColor: CREAMWHITE,
+  borderRadius: 10,
+  alignItems: "center",
+  justifyContent: "center",
+  color: "gray",
+};
+
+export const CREAMWHITEBUTTONSELECTED = {
+  width: "45%",
+  height: 40,
+  backgroundColor: LIGHTGREEN,
+  borderRadius: 10,
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 export const UNAUTHBG = {
   width: "100%",
   height: "100%",
