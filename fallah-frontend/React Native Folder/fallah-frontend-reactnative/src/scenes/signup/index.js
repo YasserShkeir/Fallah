@@ -1,21 +1,57 @@
-import { View, ImageBackground, Button } from "react-native";
+import { react, useState } from "react";
 
-import loginBG from "../../assets/images/loginBG.jpg";
+import { Text, TextInput } from "react-native";
 
-const SignUp = ({ navigation }) => {
+import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
+import { LIGHTGREEN } from "../../styles/colors";
+import { CREAMWHITETEXTFIELD } from "../../styles/components";
+
+const SignUp = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [userType, setUserType] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <View style={{ backgroundColor: "black" }}>
-      <ImageBackground
-        source={loginBG}
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      ></ImageBackground>
-    </View>
+    <UnAuthBackground>
+      <Text style={{ color: LIGHTGREEN, fontWeight: "bold", fontSize: 32 }}>
+        Create an Account
+      </Text>
+
+      <TextInput
+        style={CREAMWHITETEXTFIELD}
+        placeholder="Username"
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+      />
+
+      <TextInput
+        style={CREAMWHITETEXTFIELD}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        textContentType="emailAddress"
+        keyboardType="email-address"
+      />
+
+      <TextInput
+        style={CREAMWHITETEXTFIELD}
+        placeholder="Phone Number"
+        onChangeText={(text) => setPhone(text)}
+        value={phone}
+        textContentType="telephoneNumber"
+        keyboardType="phone-pad"
+      />
+
+      <TextInput
+        style={CREAMWHITETEXTFIELD}
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        secureTextEntry={true}
+      />
+    </UnAuthBackground>
   );
 };
 
