@@ -12,7 +12,7 @@ import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
-import { CREAMWHITETEXTFIELD } from "../../styles/components";
+import { TextFieldWhite } from "../../styles/components";
 import GreenButton from "../../components/molecules/GreenButton";
 
 // Hooks
@@ -49,7 +49,7 @@ const SignIn = ({ navigation }) => {
       <SigninLogo />
 
       <TextInput
-        style={CREAMWHITETEXTFIELD}
+        style={TextFieldWhite}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
         value={email}
@@ -58,7 +58,7 @@ const SignIn = ({ navigation }) => {
       />
 
       <TextInput
-        style={CREAMWHITETEXTFIELD}
+        style={TextFieldWhite}
         placeholder="Password"
         onChangeText={(text) => setPassword(text)}
         value={password}

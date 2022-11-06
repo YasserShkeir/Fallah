@@ -7,7 +7,7 @@ import UserTypeButton from "../../components/molecules/UserTypeButton";
 
 import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
-import { CREAMWHITETEXTFIELD } from "../../styles/components";
+import { TextFieldWhite } from "../../styles/components";
 
 // Hooks
 import { signup } from "../../hooks/auth";
@@ -26,19 +26,26 @@ const SignUp = () => {
 
   return (
     <UnAuthBackground>
-      <Text style={{ color: LIGHTGREEN, fontWeight: "bold", fontSize: 32 }}>
+      <Text
+        style={{
+          color: LIGHTGREEN,
+          fontWeight: "bold",
+          fontSize: 32,
+          marginBottom: 20,
+        }}
+      >
         Create an Account
       </Text>
 
       <TextInput
-        style={CREAMWHITETEXTFIELD}
+        style={TextFieldWhite}
         placeholder="Username"
         onChangeText={(text) => setUsername(text)}
         value={username}
       />
 
       <TextInput
-        style={CREAMWHITETEXTFIELD}
+        style={TextFieldWhite}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
         value={email}
@@ -47,7 +54,7 @@ const SignUp = () => {
       />
 
       <TextInput
-        style={CREAMWHITETEXTFIELD}
+        style={TextFieldWhite}
         placeholder="Phone Number"
         onChangeText={(text) => setPhone(text)}
         value={phone}
@@ -57,7 +64,7 @@ const SignUp = () => {
       />
 
       <TextInput
-        style={CREAMWHITETEXTFIELD}
+        style={TextFieldWhite}
         placeholder="Password"
         onChangeText={(text) => setPassword(text)}
         value={password}

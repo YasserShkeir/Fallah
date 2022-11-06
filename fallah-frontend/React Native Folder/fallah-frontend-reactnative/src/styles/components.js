@@ -14,7 +14,7 @@ export const AtomButtonText2 = StyleSheet.create({
   fontFamily: "Inter-ExtraBold",
 });
 
-export const CREAMWHITETEXTFIELD = {
+export const TextFieldWhite = StyleSheet.create({
   width: "80%",
   height: 40,
   backgroundColor: CREAMWHITE,
@@ -26,9 +26,9 @@ export const CREAMWHITETEXTFIELD = {
   marginTop: 10,
   fontSize: 18,
   fontFamily: "Inter-Regular",
-};
+});
 
-export const LIGHTGREENBUTTON = {
+export const MoleculeButton1 = StyleSheet.create({
   width: "80%",
   height: 40,
   backgroundColor: LIGHTGREEN,
@@ -37,9 +37,9 @@ export const LIGHTGREENBUTTON = {
   justifyContent: "center",
   marginBottom: 30,
   marginTop: 5,
-};
+});
 
-export const CREAMWHITEBUTTON = {
+export const SignUpButton1 = StyleSheet.create({
   width: "45%",
   height: 40,
   backgroundColor: CREAMWHITE,
@@ -47,16 +47,16 @@ export const CREAMWHITEBUTTON = {
   alignItems: "center",
   justifyContent: "center",
   color: "gray",
-};
+});
 
-export const CREAMWHITEBUTTONSELECTED = {
+export const SignUpButton2 = StyleSheet.create({
   width: "45%",
   height: 40,
   backgroundColor: LIGHTGREEN,
   borderRadius: 10,
   alignItems: "center",
   justifyContent: "center",
-};
+});
 
 export const UNAUTHBG = {
   width: "100%",

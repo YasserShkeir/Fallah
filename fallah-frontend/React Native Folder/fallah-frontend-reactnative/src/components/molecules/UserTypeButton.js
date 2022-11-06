@@ -1,7 +1,7 @@
 import { Pressable } from "react-native";
 import {
-  CREAMWHITEBUTTON,
-  CREAMWHITEBUTTONSELECTED,
+  SignUpButton1,
+  SignUpButton2,
   AtomButtonText1,
   AtomButtonText2,
 } from "../../styles/components";
@@ -10,7 +10,7 @@ import ButtonText from "../atoms/ButtonText";
 const UserTypeButton = ({ title, isSelected, onPress }) => {
   return (
     <Pressable
-      style={isSelected ? CREAMWHITEBUTTONSELECTED : CREAMWHITEBUTTON}
+      style={isSelected ? SignUpButton2 : SignUpButton1}
       onPress={onPress}
     >
       <ButtonText
