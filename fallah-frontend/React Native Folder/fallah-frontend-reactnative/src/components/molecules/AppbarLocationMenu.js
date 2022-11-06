@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { Menu } from "react-native-paper";
 
+// Components
 import AppBarMenuAnchor from "../atoms/AppBarMenuAnchor";
+
+// Hooks
 import { getUserLocations } from "../../hooks/locations";
 
 const AppbarLocationMenu = ({ navigation }) => {

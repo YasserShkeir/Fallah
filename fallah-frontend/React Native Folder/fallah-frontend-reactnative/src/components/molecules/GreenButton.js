@@ -1,6 +1,10 @@
 import { Pressable } from "react-native";
-import { AtomButtonText1, MoleculeButton1 } from "../../styles/components";
+
+// Components
 import ButtonText from "../atoms/ButtonText";
+
+// Styles
+import { AtomButtonText1, MoleculeButton1 } from "../../styles/components";
 
 const GreenButton = ({ title, onPress }) => {
   return (

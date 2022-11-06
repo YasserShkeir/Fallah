@@ -1,11 +1,13 @@
-import { useState } from "react";
 import { View } from "react-native";
-import { Text, Appbar, Button, Menu } from "react-native-paper";
-import { CREAMWHITE } from "../../styles/colors";
+import { Text, Appbar } from "react-native-paper";
 
+// Components
 import BuyerAppBar from "../molecules/BuyerAppbar";
 import AppbarLocationMenu from "../molecules/AppbarLocationMenu";
 import AppbarLocationModal from "../molecules/AppbarLocationModal";
+
+// Styles
+import { CREAMWHITE } from "../../styles/colors";
 
 const BuyerLandingAppBar = () => {
   return (

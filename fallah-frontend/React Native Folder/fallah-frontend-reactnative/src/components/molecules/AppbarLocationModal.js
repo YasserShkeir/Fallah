@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Portal, Text, Button, Provider } from "react-native-paper";
+import { Modal, Portal, Text } from "react-native-paper";
 
 const AppbarLocationModal = () => {
   const [visible, setVisible] = useState(false);

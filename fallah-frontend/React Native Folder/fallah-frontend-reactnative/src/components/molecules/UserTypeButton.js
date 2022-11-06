@@ -1,11 +1,15 @@
 import { Pressable } from "react-native";
+
+// Components
+import ButtonText from "../atoms/ButtonText";
+
+// Styles
 import {
   SignUpButton1,
   SignUpButton2,
   AtomButtonText1,
   AtomButtonText2,
 } from "../../styles/components";
-import ButtonText from "../atoms/ButtonText";
 
 const UserTypeButton = ({ title, isSelected, onPress }) => {
   return (

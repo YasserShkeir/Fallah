@@ -1,10 +1,7 @@
 import { React, useState, useEffect } from "react";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { Text } from "react-native-paper";
-
 import { View, TextInput } from "react-native";
+import { Text } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
 import SigninLogo from "../../components/atoms/SigninLogo";
@@ -71,9 +68,9 @@ const SignIn = ({ navigation }) => {
             alignSelf: "flex-start",
             marginLeft: "10%",
             color: LIGHTGREEN,
-            fontWeight: "500",
             textDecorationLine: "underline",
             fontSize: 16,
+            fontFamily: "Inter-Regular",
           }}
         >
           Forgot Password?
@@ -84,12 +81,14 @@ const SignIn = ({ navigation }) => {
         />
       </View>
 
-      <Text style={{ color: CREAMWHITE, fontSize: 16 }}>
+      <Text
+        style={{ color: CREAMWHITE, fontSize: 16, fontFamily: "Inter-Regular" }}
+      >
         Don't have an account?{" "}
         <Text
           style={{
             color: LIGHTGREEN,
-            fontWeight: "bold",
+            fontFamily: "Inter-Bold",
             textDecorationLine: "underline",
           }}
           onPress={() => navigation.navigate("SignUp")}

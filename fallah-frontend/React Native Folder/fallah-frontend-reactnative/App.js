@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider as PaperProvider } from "react-native-paper";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 
+// Components
 import SignIn from "./src/scenes/signin/index";
 import SignUp from "./src/scenes/signup/index";
 import BuyerLanding from "./src/scenes/buyer/landing";
+
+// Styles
 import { CREAMWHITE, LIGHTGREEN } from "./src/styles/colors";
 
 const Stack = createNativeStackNavigator();

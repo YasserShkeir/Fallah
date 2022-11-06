@@ -1,4 +1,6 @@
 import { Appbar } from "react-native-paper";
+
+// Styles
 import { LIGHTGREEN } from "../../styles/colors";
 
 const BuyerAppBar = ({ children }) => {
