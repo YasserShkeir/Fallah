@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Text, View, Dimensions } from "react-native";
-import { BottomNavigation } from "react-native-paper";
+import { Text, View, Dimensions, ScrollView } from "react-native";
+import { BottomNavigation, Button } from "react-native-paper";
 
 // Components
-import BuyerLandingAppBar from "../../components/organisms/BuyerLandingAppBar";
+import BuyerAppBar from "./BuyerAppBar";
+import BuyerMainLayout from "../../components/molecules/BuyerMainLayout";
 import { NavBarRoute } from "../../components/atoms/NavBarRoute";
 
 // Styles
@@ -24,14 +25,14 @@ const BuyerBottomNavigation = () => {
 
   const HomeRoute = () => {
     return (
-      <View
-        style={{
-          height: "100%",
-        }}
-      >
-        <BuyerLandingAppBar />
-        <Text>Home</Text>
-      </View>
+      <BuyerMainLayout>
+        <BuyerAppBar page="home" />
+        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+          <Button style={{ width: "100%", backgroundColor: "black" }}>
+            <Text>Test</Text>
+          </Button>
+        </ScrollView>
+      </BuyerMainLayout>
     );
   };
 
