@@ -3,7 +3,7 @@ import { Appbar } from "react-native-paper";
 // Styles
 import { LIGHTGREEN } from "../../styles/colors";
 
-const BuyerAppBar = ({ children }) => {
+const BuyerAppBarLayout = ({ children }) => {
   return (
     <Appbar.Header
       style={{
@@ -11,10 +11,11 @@ const BuyerAppBar = ({ children }) => {
         display: "flex",
         justifyContent: "space-between",
       }}
+      elevated={true}
     >
       {children}
     </Appbar.Header>
   );
 };
 
-export default BuyerAppBar;
+export default BuyerAppBarLayout;
