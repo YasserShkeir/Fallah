@@ -58,6 +58,21 @@ export const SignUpButton2 = StyleSheet.create({
   justifyContent: "center",
 });
 
+export const SignUpButtonContainer = StyleSheet.create({
+  height: 60,
+  borderColor: CREAMWHITE,
+  borderStyle: "solid",
+  borderWidth: 1,
+  borderRadius: 10,
+  width: "80%",
+  marginBottom: 15,
+  marginTop: 5,
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+  alignItems: "center",
+});
+
 export const UNAUTHBG = {
   width: "100%",
   height: "100%",
