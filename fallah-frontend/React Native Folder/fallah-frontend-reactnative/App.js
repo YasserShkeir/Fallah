@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Provider as PaperProvider } from "react-native-paper";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
@@ -10,18 +9,11 @@ import SignIn from "./src/scenes/signin/index";
 import SignUp from "./src/scenes/signup/index";
 import BuyerLanding from "./src/scenes/buyer/landing";
 import { CREAMWHITE, LIGHTGREEN } from "./src/styles/colors";
-import { theme } from "./src/styles/theme";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [token, setToken] = useState(null);
   const [appIsReady, setAppIsReady] = useState(false);
-
-  const checkToken = async () => {
-    const token = await AsyncStorage.getItem("token");
-    setToken(token);
-  };
 
   useEffect(() => {
     async function prepare() {
@@ -53,11 +45,10 @@ export default function App() {
     return null;
   }
 
-  checkToken();
   onLayoutRootView();
 
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
