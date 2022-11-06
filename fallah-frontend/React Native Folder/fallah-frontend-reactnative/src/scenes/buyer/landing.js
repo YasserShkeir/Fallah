@@ -2,19 +2,18 @@ import { useState, useEffect } from "react";
 import { Text, View, Dimensions, StatusBar } from "react-native";
 import { BottomNavigation } from "react-native-paper";
 
-import Ionicons from "react-native-vector-icons/Ionicons";
-import CommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
 import BuyerLandingAppBar from "../../components/organisms/BuyerLandingAppBar";
+import { NavBarRoute } from "../../components/atoms/NavBarRoute";
 
 // Styles
+import CommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
-import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -27,57 +26,24 @@ const handleSeasonalItems = async (navigation) => {
 const BuyerLanding = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {
-      key: "home",
-      focusedIcon: (props) => (
-        <Ionicons {...props} name="home" adjustsFontSizeToFit={true} />
-      ),
-      unfocusedIcon: (props) => (
-        <Ionicons {...props} name="home-outline" adjustsFontSizeToFit={true} />
-      ),
-    },
-    {
-      key: "search",
-      focusedIcon: (props) => (
-        <Ionicons {...props} name="search" adjustsFontSizeToFit={true} />
-      ),
-      unfocusedIcon: (props) => (
-        <Ionicons
-          {...props}
-          name="search-outline"
-          adjustsFontSizeToFit={true}
-        />
-      ),
-    },
-    {
-      key: "recents",
-      focusedIcon: (props) => (
-        <CommunityIcon {...props} name="history" adjustsFontSizeToFit={true} />
-      ),
-      unfocusedIcon: (props) => (
-        <CommunityIcon {...props} name="history" adjustsFontSizeToFit={true} />
-      ),
-    },
-    {
-      key: "profile",
-      focusedIcon: (props) => (
-        <CommunityIcon
-          {...props}
-          name="account-circle"
-          adjustsFontSizeToFit={true}
-        />
-      ),
-      unfocusedIcon: (props) => (
-        <CommunityIcon
-          {...props}
-          name="account-circle-outline"
-          adjustsFontSizeToFit={true}
-        />
-      ),
-    },
+    NavBarRoute({ key: "home" }),
+    NavBarRoute({ key: "magnify" }),
+    NavBarRoute({ key: "history" }),
+    NavBarRoute({ key: "account" }),
   ]);
 
-  const HomeRoute = () => <Text>Home</Text>;
+  const HomeRoute = () => {
+    return (
+      <View
+        style={{
+          height: "100%",
+        }}
+      >
+        <BuyerLandingAppBar />
+        <Text>Home</Text>
+      </View>
+    );
+  };
 
   const SearchRoute = () => <Text>Search</Text>;
 
@@ -87,9 +53,9 @@ const BuyerLanding = ({ navigation }) => {
 
   const renderScene = BottomNavigation.SceneMap({
     home: HomeRoute,
-    search: SearchRoute,
-    recents: RecentsRoute,
-    profile: ProfileRoute,
+    magnify: SearchRoute,
+    history: RecentsRoute,
+    account: ProfileRoute,
   });
 
   useEffect(() => {
@@ -110,7 +76,6 @@ const BuyerLanding = ({ navigation }) => {
   handleSeasonalItems(navigation);
   return (
     <View style={{ height: "100%" }}>
-      <BuyerLandingAppBar />
       <BottomNavigation
         navigationState={{ index, routes }}
         onIndexChange={setIndex}
