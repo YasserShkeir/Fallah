@@ -1,12 +1,16 @@
-import { react, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { View, TextInput } from "react-native";
 
-import { View, Text, TextInput } from "react-native";
+import { Text } from "react-native-paper";
+
+// Components
 import GreenButton from "../../components/molecules/GreenButton";
 import UserTypeButton from "../../components/molecules/UserTypeButton";
-
 import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
-import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
+
+// Styles
+import { SignUpButtonContainer } from "../../styles/components";
+import { LIGHTGREEN } from "../../styles/colors";
 import { TextFieldWhite } from "../../styles/components";
 
 // Hooks
@@ -21,7 +25,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
 
   const handleSignUp = async () => {
-    const response = await signup(username, email, phone, userType, password);
+    await signup(username, email, phone, userType, password);
   };
 
   return (
@@ -29,7 +33,7 @@ const SignUp = () => {
       <Text
         style={{
           color: LIGHTGREEN,
-          fontWeight: "bold",
+          fontFamily: "Inter-Bold",
           fontSize: 32,
           marginBottom: 20,
         }}
@@ -71,22 +75,7 @@ const SignUp = () => {
         secureTextEntry={true}
       />
 
-      <View
-        style={{
-          height: 60,
-          borderColor: CREAMWHITE,
-          borderStyle: "solid",
-          borderWidth: 1,
-          borderRadius: 10,
-          width: "80%",
-          marginBottom: 15,
-          marginTop: 5,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
+      <View style={SignUpButtonContainer}>
         <UserTypeButton
           title={"Buyer"}
           isSelected={!selected}
@@ -94,9 +83,7 @@ const SignUp = () => {
             setUserType("buyer");
             if (userType === "farmer") {
               setSelected(false);
-              console.log("Inside: ", userType);
             }
-            console.log(userType);
           }}
         ></UserTypeButton>
         <UserTypeButton
@@ -106,9 +93,7 @@ const SignUp = () => {
             setUserType("farmer");
             if (userType === "buyer") {
               setSelected(true);
-              console.log("Inside: ", userType);
             }
-            console.log(userType);
           }}
         ></UserTypeButton>
       </View>
