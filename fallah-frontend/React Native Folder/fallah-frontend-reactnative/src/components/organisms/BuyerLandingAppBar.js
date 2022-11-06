@@ -3,8 +3,8 @@ import { Text, Appbar } from "react-native-paper";
 
 // Components
 import BuyerAppBar from "../molecules/BuyerAppbar";
-import AppbarLocationMenu from "../molecules/AppbarLocationMenu";
-import AppbarLocationModal from "../molecules/AppbarLocationModal";
+import AppbarLocationMenu from "../molecules/BuyerAppbarLocationMenu";
+import AppbarLocationModal from "../molecules/BuyerAppbarLocationModal";
 
 // Styles
 import { CREAMWHITE } from "../../styles/colors";
