@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { Text, View, TextInput, Dimensions, StatusBar } from "react-native";
+import { Text, View, Dimensions, StatusBar } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LIGHTGREEN } from "../../styles/colors";
 
 // Components
+import BuyerLandingAppBar from "../../components/organisms/BuyerLandingAppBar";
 
 // Styles
 
@@ -38,13 +38,7 @@ const BuyerLanding = ({ navigation }) => {
   handleSeasonalItems(navigation);
   return (
     <View>
-      <View
-        style={{
-          height: statusBarHeight + 70,
-          width: windowWidth,
-          backgroundColor: LIGHTGREEN,
-        }}
-      ></View>
+      <BuyerLandingAppBar />
       <Text onPress={() => AsyncStorage.clear()}>Buyer Landing</Text>
     </View>
   );
