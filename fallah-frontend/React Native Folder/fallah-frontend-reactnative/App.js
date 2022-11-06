@@ -62,7 +62,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="SignIn"
-            component={token ? BuyerLanding : SignIn}
+            component={SignIn}
             options={{ headerShown: false }}
           />
           <Stack.Screen

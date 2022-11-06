@@ -1,4 +1,6 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Text } from "react-native-paper";
 
@@ -24,6 +26,21 @@ const handleSignIn = async (email, password, navigation) => {
 };
 
 const SignIn = ({ navigation }) => {
+  useEffect(() => {
+    async function prepare() {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (token) {
+          return navigation.navigate("BuyerLanding");
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    prepare();
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

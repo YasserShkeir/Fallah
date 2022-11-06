@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Text, View, TextInput, Dimensions, StatusBar } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,13 +20,21 @@ const handleSeasonalItems = async (navigation) => {
 };
 
 const BuyerLanding = ({ navigation }) => {
-  const checkToken = async (navigation) => {
-    const token = await AsyncStorage.getItem("token");
-    if (!token) {
-      return navigation.navigate("SignIn");
+  useEffect(() => {
+    async function prepare() {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (!token) {
+          return navigation.navigate("SignIn");
+        }
+      } catch (e) {
+        console.warn(e);
+      }
     }
-  };
-  checkToken(navigation);
+
+    prepare();
+  }, []);
+
   handleSeasonalItems(navigation);
   return (
     <View>
