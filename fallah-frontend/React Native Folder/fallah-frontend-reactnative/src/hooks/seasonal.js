@@ -14,12 +14,6 @@ export const getSeasonalItems = async (navigation) => {
       },
     });
   } catch (error) {
-    if (error.response.status === 401) {
-      alert("Session Expired. Please Login Again");
-      await AsyncStorage.removeItem("token");
-      navigation.navigate("SignIn");
-    } else {
-      console.error(error);
-    }
+    console.error(error);
   }
 };
