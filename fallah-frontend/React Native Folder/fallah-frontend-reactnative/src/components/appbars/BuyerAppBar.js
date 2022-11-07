@@ -127,6 +127,44 @@ const BuyerAppBar = ({ page, navigation }) => {
         </Button>
       </BuyerAppBarLayout>
     );
+  } else if (page === "profile") {
+    return (
+      <BuyerAppBarLayout>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row-reverse",
+          }}
+        >
+          <Button
+            mode="contained"
+            icon={() => (
+              <FontAwesome5 name="sign-out-alt" size={18} color={CREAMWHITE} />
+            )}
+            buttonColor="red"
+            style={{ width: 140 }}
+            contentStyle={{
+              flexDirection: "row-reverse",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            labelStyle={{
+              fontFamily: "Inter-Bold",
+              color: CREAMWHITE,
+              fontSize: 18,
+            }}
+            onPress={async () => {
+              // TODO: Logout
+              await AsyncStorage.removeItem("token");
+              navigation.navigate("SignIn");
+            }}
+          >
+            Logout
+          </Button>
+        </View>
+      </BuyerAppBarLayout>
+    );
   }
 
   console.log("Error: Invalid page name", page);
