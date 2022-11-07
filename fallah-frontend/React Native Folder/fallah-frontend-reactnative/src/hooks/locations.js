@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { LOCALIP } from "@env";
 
-export const getUserLocations = async (navigation, func) => {
+export const getUserLocations = async (func) => {
   const url = `${LOCALIP}/users/location`;
   const token = await AsyncStorage.getItem("token");
 

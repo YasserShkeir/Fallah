@@ -7,7 +7,7 @@ import AppBarMenuAnchor from "../buttons/AppBarMenuAnchor";
 // Hooks
 import { getUserLocations } from "../../hooks/locations";
 
-const AppbarLocationMenu = ({ navigation }) => {
+const AppbarLocationMenu = () => {
   const [visible, setVisible] = useState(false);
   const [locations, setLocations] = useState([]);
   const [location, setLocation] = useState("Loading...");
@@ -24,7 +24,7 @@ const AppbarLocationMenu = ({ navigation }) => {
   useEffect(() => {
     async function prepare() {
       try {
-        await getUserLocations(navigation, getUserLocationsHandler);
+        await getUserLocations(getUserLocationsHandler);
       } catch (e) {
         console.warn(e);
       }
