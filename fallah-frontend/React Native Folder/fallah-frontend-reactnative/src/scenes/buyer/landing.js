@@ -5,13 +5,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Components
 import BuyerBottomNavigation from "../../components/navbars/BuyerBottomNavigation";
 
-// Hooks
-import { getSeasonalItems } from "../../hooks/seasonal";
-
-const handleSeasonalItems = async (navigation) => {
-  await getSeasonalItems(navigation);
-};
-
 const BuyerLanding = ({ navigation }) => {
   useEffect(() => {
     async function prepare(navigation) {
@@ -29,7 +22,6 @@ const BuyerLanding = ({ navigation }) => {
     prepare(navigation);
   }, []);
 
-  handleSeasonalItems(navigation);
   return <BuyerBottomNavigation navigation={navigation} />;
 };
 
