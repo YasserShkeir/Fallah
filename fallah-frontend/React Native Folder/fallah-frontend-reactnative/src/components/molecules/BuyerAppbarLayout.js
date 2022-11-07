@@ -10,6 +10,8 @@ const BuyerAppBarLayout = ({ children }) => {
         backgroundColor: LIGHTGREEN,
         display: "flex",
         justifyContent: "space-between",
+        width: "100%",
+        paddingHorizontal: 10,
       }}
       elevated={true}
     >
