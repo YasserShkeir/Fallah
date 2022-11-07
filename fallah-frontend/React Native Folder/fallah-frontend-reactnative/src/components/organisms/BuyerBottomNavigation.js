@@ -23,6 +23,7 @@ const BuyerBottomNavigation = () => {
     NavBarRoute({ key: "account" }),
   ]);
 
+  // Add Components under each route here
   const HomeRoute = () => {
     return (
       <BuyerMainLayout>
@@ -36,8 +37,18 @@ const BuyerBottomNavigation = () => {
     );
   };
 
-  const SearchRoute = () => <Text>Search</Text>;
-
+  const SearchRoute = () => {
+    return (
+      <BuyerMainLayout>
+        <BuyerAppBar page="magnify" />
+        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+          <Button style={{ width: "100%", backgroundColor: "black" }}>
+            <Text>Test</Text>
+          </Button>
+        </ScrollView>
+      </BuyerMainLayout>
+    );
+  };
   const RecentsRoute = () => <Text>Recents</Text>;
 
   const ProfileRoute = () => <Text>Edit Profile</Text>;
