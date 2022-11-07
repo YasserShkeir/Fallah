@@ -32,11 +32,7 @@ const BuyerLanding = ({ navigation }) => {
   }, []);
 
   handleSeasonalItems(navigation);
-  return (
-    <View style={{ height: "100%" }}>
-      <BuyerBottomNavigation />
-    </View>
-  );
+  return <BuyerBottomNavigation />;
 };
 
 export default BuyerLanding;
