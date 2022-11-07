@@ -4,7 +4,7 @@ import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
-import BuyerBottomNavigation from "../../components/organisms/BuyerBottomNavigation";
+import BuyerBottomNavigation from "../../components/navbars/BuyerBottomNavigation";
 
 // Styles
 

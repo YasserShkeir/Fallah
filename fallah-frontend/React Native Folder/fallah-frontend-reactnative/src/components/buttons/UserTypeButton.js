@@ -1,7 +1,7 @@
 import { Pressable } from "react-native";
 
 // Components
-import ButtonText from "../atoms/ButtonText";
+import ButtonText from "../text/ButtonText";
 
 // Styles
 import {

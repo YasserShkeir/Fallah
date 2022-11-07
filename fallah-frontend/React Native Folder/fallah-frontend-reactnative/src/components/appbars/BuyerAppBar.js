@@ -5,9 +5,9 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 // Components
-import BuyerAppBarLayout from "../molecules/BuyerAppbarLayout";
-import AppbarLocationMenu from "../molecules/BuyerAppbarLocationMenu";
-import AppbarLocationModal from "../molecules/BuyerAppbarLocationModal";
+import BuyerAppBarLayout from "../layouts/BuyerAppbarLayout";
+import AppbarLocationMenu from "../menus/BuyerAppbarLocationMenu";
+import AppbarLocationModal from "../modals/BuyerAppbarLocationModal";
 
 // Styles
 import { CREAMWHITE, DARKGREEN } from "../../styles/colors";

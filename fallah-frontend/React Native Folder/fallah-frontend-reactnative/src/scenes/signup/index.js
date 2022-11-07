@@ -4,9 +4,9 @@ import { View, TextInput } from "react-native";
 import { Text } from "react-native-paper";
 
 // Components
-import GreenButton from "../../components/molecules/GreenButton";
-import UserTypeButton from "../../components/molecules/UserTypeButton";
-import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
+import GreenButton from "../../components/buttons/GreenButton";
+import UserTypeButton from "../../components/buttons/UserTypeButton";
+import UnAuthBackground from "../../components/images/UnauthorizedBG";
 
 // Styles
 import { SignUpButtonContainer } from "../../styles/components";

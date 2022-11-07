@@ -4,13 +4,13 @@ import { Text } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
-import SigninLogo from "../../components/atoms/SigninLogo";
-import UnAuthBackground from "../../components/organisms/UnauthorizedBG";
+import SigninLogo from "../../components/images/SigninLogo";
+import UnAuthBackground from "../../components/images/UnauthorizedBG";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 import { TextFieldWhite } from "../../styles/components";
-import GreenButton from "../../components/molecules/GreenButton";
+import GreenButton from "../../components/buttons/GreenButton";
 
 // Hooks
 import { signin } from "../../hooks/auth";

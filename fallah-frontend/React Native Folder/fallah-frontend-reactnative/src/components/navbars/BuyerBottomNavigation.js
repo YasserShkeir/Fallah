@@ -3,9 +3,9 @@ import { Text, View, Dimensions, ScrollView } from "react-native";
 import { BottomNavigation, Button } from "react-native-paper";
 
 // Components
-import BuyerAppBar from "./BuyerAppBar";
-import BuyerMainLayout from "../../components/molecules/BuyerMainLayout";
-import { NavBarRoute } from "../../components/atoms/NavBarRoute";
+import BuyerAppBar from "../appbars/BuyerAppBar";
+import BuyerMainLayout from "../layouts/BuyerMainLayout";
+import { NavBarRoute } from "../buttons/NavBarRoute";
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
