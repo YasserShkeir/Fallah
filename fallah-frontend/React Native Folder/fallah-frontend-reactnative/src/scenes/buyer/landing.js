@@ -1,12 +1,9 @@
 import { useEffect } from "react";
-import { View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
 import BuyerBottomNavigation from "../../components/navbars/BuyerBottomNavigation";
-
-// Styles
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
@@ -21,6 +18,7 @@ const BuyerLanding = ({ navigation }) => {
       try {
         const token = await AsyncStorage.getItem("token");
         if (!token) {
+          console.log("No token found");
           return navigation.navigate("SignIn");
         }
       } catch (e) {
@@ -32,7 +30,7 @@ const BuyerLanding = ({ navigation }) => {
   }, []);
 
   handleSeasonalItems(navigation);
-  return <BuyerBottomNavigation />;
+  return <BuyerBottomNavigation navigation={navigation} />;
 };
 
 export default BuyerLanding;
