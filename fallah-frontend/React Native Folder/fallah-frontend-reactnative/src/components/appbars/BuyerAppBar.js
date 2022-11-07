@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View } from "react-native";
 import { Text, Appbar, Searchbar, Button } from "react-native-paper";
 
@@ -11,8 +12,11 @@ import AppbarLocationModal from "../modals/BuyerAppbarLocationModal";
 
 // Styles
 import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BuyerAppBar = ({ page }) => {
+const BuyerAppBar = ({ page, navigation }) => {
+  const [value, setValue] = useState("Past Orders");
+
   if (page === "home") {
     return (
       <BuyerAppBarLayout>
@@ -32,10 +36,7 @@ const BuyerAppBar = ({ page }) => {
         <Appbar.Action color={CREAMWHITE} icon="bell" onPress={() => {}} />
       </BuyerAppBarLayout>
     );
-  }
-
-  // Add other pages here
-  else if (page === "magnify") {
+  } else if (page === "search") {
     return (
       <BuyerAppBarLayout>
         <Searchbar
@@ -77,7 +78,58 @@ const BuyerAppBar = ({ page }) => {
         </Button>
       </BuyerAppBarLayout>
     );
+  } else if (page === "orders") {
+    return (
+      <BuyerAppBarLayout>
+        <Button
+          onPress={() => {
+            setValue("Past Orders");
+          }}
+          style={{
+            borderRadius: 0,
+            width: "50%",
+            ...(value === "Past Orders"
+              ? { borderBottomWidth: 2, borderBottomColor: CREAMWHITE }
+              : {}),
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Inter-Bold",
+              color: value === "Past Orders" ? CREAMWHITE : DARKGREEN,
+              fontSize: 16,
+            }}
+          >
+            Past Orders
+          </Text>
+        </Button>
+        <Button
+          onPress={() => {
+            setValue("Scheduled Orders");
+          }}
+          style={{
+            borderRadius: 0,
+            width: "50%",
+            ...(value === "Scheduled Orders"
+              ? { borderBottomWidth: 2, borderBottomColor: CREAMWHITE }
+              : {}),
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Inter-Bold",
+              color: value === "Scheduled Orders" ? CREAMWHITE : DARKGREEN,
+              fontSize: 16,
+            }}
+          >
+            Scheduled Orders
+          </Text>
+        </Button>
+      </BuyerAppBarLayout>
+    );
   }
+
+  console.log("Error: Invalid page name", page);
 
   return (
     <BuyerAppBarLayout>
