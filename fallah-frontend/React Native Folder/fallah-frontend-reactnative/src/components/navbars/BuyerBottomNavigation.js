@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Text, View, Dimensions, ScrollView } from "react-native";
-import { BottomNavigation, Button } from "react-native-paper";
+import { Text, Dimensions } from "react-native";
+import { BottomNavigation } from "react-native-paper";
 
 // Components
-import BuyerAppBar from "../appbars/BuyerAppBar";
-import BuyerMainLayout from "../layouts/BuyerMainLayout";
 import { NavBarRoute } from "../buttons/NavBarRoute";
+
+// Routes
+import BuyerHomeRoute from "../../scenes/buyer/BuyerHomeRoute";
+import BuyerSearchRoute from "../../scenes/buyer/BuyerSearchRoute";
+import BuyerOrdersRoute from "../../scenes/buyer/BuyerOrdersRoute";
+import BuyerProfileRoute from "../../scenes/buyer/BuyerProfileRoute";
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
@@ -14,7 +18,7 @@ import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const windowWidth = Dimensions.get("window").width;
 
-const BuyerBottomNavigation = () => {
+const BuyerBottomNavigation = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     NavBarRoute({ key: "home" }),
@@ -25,33 +29,15 @@ const BuyerBottomNavigation = () => {
 
   // Add Components under each route here
   const HomeRoute = () => {
-    return (
-      <BuyerMainLayout>
-        <BuyerAppBar page="home" />
-        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
-          <Button style={{ width: "100%", backgroundColor: "black" }}>
-            <Text>Test</Text>
-          </Button>
-        </ScrollView>
-      </BuyerMainLayout>
-    );
+    return <BuyerHomeRoute />;
   };
 
   const SearchRoute = () => {
-    return (
-      <BuyerMainLayout>
-        <BuyerAppBar page="magnify" />
-        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
-          <Button style={{ width: "100%", backgroundColor: "black" }}>
-            <Text>Test</Text>
-          </Button>
-        </ScrollView>
-      </BuyerMainLayout>
-    );
+    return <BuyerSearchRoute />;
   };
-  const RecentsRoute = () => <Text>Recents</Text>;
+  const RecentsRoute = () => <BuyerOrdersRoute />;
 
-  const ProfileRoute = () => <Text>Edit Profile</Text>;
+  const ProfileRoute = () => <BuyerProfileRoute navigation={navigation} />;
 
   const renderScene = BottomNavigation.SceneMap({
     home: HomeRoute,
