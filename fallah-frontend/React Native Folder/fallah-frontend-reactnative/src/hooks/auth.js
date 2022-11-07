@@ -1,5 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LOCALIP } from "@env";
 
 export const signup = async (username, email, phone, userType, password) => {
   const data = {
@@ -14,7 +15,7 @@ export const signup = async (username, email, phone, userType, password) => {
   if (username === "" || email === "" || phone === "" || password === "") {
     alert("Please fill in all the fields");
   } else {
-    const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/register`;
+    const url = `${LOCALIP}/auth/register`;
 
     try {
       await axios.post(url, data);
@@ -26,8 +27,7 @@ export const signup = async (username, email, phone, userType, password) => {
 };
 
 export const signin = async (email, password, navigation) => {
-  const url = `${process.env.LOCALIP}:${process.env.PORT}/auth/login`;
-
+  const url = `${LOCALIP}/auth/login`;
   try {
     const response = await axios.post(url, {
       email: email,
@@ -36,7 +36,6 @@ export const signin = async (email, password, navigation) => {
 
     if (response.data.token) {
       await AsyncStorage.setItem("token", response.data.token);
-      console.log(response.data);
 
       alert("Login Successful");
       navigation.navigate("BuyerLanding");

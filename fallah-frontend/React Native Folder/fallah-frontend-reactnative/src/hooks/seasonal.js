@@ -1,10 +1,12 @@
 import axios from "axios";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LOCALIP } from "@env";
 
 export const getSeasonalItems = async (navigation) => {
-  const url = `${process.env.LOCALIP}:${process.env.PORT}/users/seasonal`;
+  const url = `${LOCALIP}/users/seasonal`;
+
   const token = await AsyncStorage.getItem("token");
+
   try {
     await axios.get(url, {
       headers: {
