@@ -69,7 +69,7 @@ const getFollowing = async (req, res) => {
     const user = await User.Buyer.findById(req.user._id);
     const following = await User.Farmer.find({
       _id: { $in: user.following },
-    }).select("_id name email phone");
+    }).select("_id name email phone images");
     res.status(200).json({
       following,
     });
