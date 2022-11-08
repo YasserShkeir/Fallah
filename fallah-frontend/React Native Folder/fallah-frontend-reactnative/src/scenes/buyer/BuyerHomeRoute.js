@@ -1,24 +1,48 @@
 import { useState, useEffect } from "react";
+import { ScrollView } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
+
+// Components
+import images from "../../assets/images";
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
-import { ScrollView } from "react-native";
-import { Button, Text } from "react-native-paper";
+import BuyerSeasonalCard from "../../components/sections/BuyerSeasonalCard";
+import BuyerCategoriesSection from "../../components/sections/BuyerCategoriesSection";
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
+import { getCategories } from "../../hooks/getCategories";
+
+// Styles
+import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const BuyerHomeRoute = () => {
   const [seasonalItems, setSeasonalItems] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const getSeasonalItemsHandler = (response) => {
-    console.log(response.data);
     setSeasonalItems(response.data.seasonalItems);
+  };
+
+  const getCategoriesHandler = (response) => {
+    let data = [];
+
+    response.data.categories.forEach((category) => {
+      category.childCategories.forEach((childCategory) => {
+        if (childCategory.name.startsWith("Other")) {
+          data.push({ childCategory, catName: category.name });
+        }
+      });
+    });
+    //
+    setCategories(data);
   };
 
   useEffect(() => {
     async function prepare() {
       try {
         await getSeasonalItems(getSeasonalItemsHandler);
+        await getCategories(getCategoriesHandler);
       } catch (e) {
         console.warn(e);
       }
@@ -29,10 +53,28 @@ const BuyerHomeRoute = () => {
   return (
     <BuyerMainLayout>
       <BuyerAppBar page="home" />
-      <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
-        <Button style={{ width: "100%", backgroundColor: "black" }}>
-          <Text>Test</Text>
-        </Button>
+      <ScrollView>
+        {seasonalItems.length > 0 ? (
+          <>
+            <BuyerSeasonalCard seasonalItems={seasonalItems[0]} />
+            {categories.length > 0 && images ? (
+              <BuyerCategoriesSection categories={categories} images={images} />
+            ) : (
+              <ActivityIndicator
+                style={{ marginTop: 20 }}
+                animating={true}
+                color={DARKGREEN}
+              />
+            )}
+          </>
+        ) : (
+          <ActivityIndicator
+            animating={true}
+            color={LIGHTGREEN}
+            size="large"
+            style={{ marginTop: "50%" }}
+          />
+        )}
       </ScrollView>
     </BuyerMainLayout>
   );
