@@ -73,6 +73,22 @@ export const SignUpButtonContainer = StyleSheet.create({
   alignItems: "center",
 });
 
+export const BuyerSeasonalCardContainer = StyleSheet.create({
+  width: "100%",
+  backgroundColor: PEACHYYELLOW,
+  borderTopColor: LIGHTGREEN,
+  borderBottomColor: LIGHTGREEN,
+  borderTopWidth: 3,
+  borderBottomWidth: 3,
+  marginVertical: 15,
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingVertical: 10,
+  paddingHorizontal: 15,
+});
+
 export const UNAUTHBG = {
   width: "100%",
   height: "100%",
