@@ -23,6 +23,10 @@ const images = [
     name: "Onions",
     src: require("./onions/allOnions.jpg"),
   },
+  {
+    name: "View All",
+    src: require("./viewAllIcon.png"),
+  },
 ];
 
 export default images;
