@@ -8,10 +8,12 @@ import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
 import BuyerSeasonalCard from "../../components/sections/BuyerSeasonalCard";
 import BuyerCategoriesSection from "../../components/sections/BuyerCategoriesSection";
+import BuyerFavouritesSection from "../../components/sections/BuyerFollowingsSection";
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
 import { getCategories } from "../../hooks/getCategories";
+import { buyerGetFavourites } from "../../hooks/buyerFavourites";
 
 // Styles
 import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
@@ -19,6 +21,7 @@ import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 const BuyerHomeRoute = () => {
   const [seasonalItems, setSeasonalItems] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [followings, setFollowings] = useState([]);
 
   const getSeasonalItemsHandler = (response) => {
     setSeasonalItems(response.data.seasonalItems);
@@ -38,11 +41,16 @@ const BuyerHomeRoute = () => {
     setCategories(data);
   };
 
+  const getFavouritesHandler = (response) => {
+    setFollowings(response.data.following);
+  };
+
   useEffect(() => {
     async function prepare() {
       try {
         await getSeasonalItems(getSeasonalItemsHandler);
         await getCategories(getCategoriesHandler);
+        await buyerGetFavourites(getFavouritesHandler);
       } catch (e) {
         console.warn(e);
       }
@@ -58,7 +66,21 @@ const BuyerHomeRoute = () => {
           <>
             <BuyerSeasonalCard seasonalItems={seasonalItems[0]} />
             {categories.length > 0 && images ? (
-              <BuyerCategoriesSection categories={categories} images={images} />
+              <>
+                <BuyerCategoriesSection
+                  categories={categories}
+                  images={images}
+                />
+                {followings.length > 0 ? (
+                  <BuyerFavouritesSection followings={followings} />
+                ) : (
+                  <ActivityIndicator
+                    style={{ marginTop: 20 }}
+                    size="large"
+                    color={DARKGREEN}
+                  />
+                )}
+              </>
             ) : (
               <ActivityIndicator
                 style={{ marginTop: 20 }}
