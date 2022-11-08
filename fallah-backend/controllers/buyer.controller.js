@@ -31,6 +31,23 @@ const getSeasonalItems = async (req, res) => {
   }
 };
 
+const getFarmers = async (req, res) => {
+  // Get all farmers
+  try {
+    const farmers = await User.Farmer.find().select(
+      "-password -__v -followers -reviews -following -orders "
+    );
+    res.status(200).json({
+      message: "Farmers fetched successfully",
+      farmers,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const followFarmer = async (req, res) => {
   // Follow a farmer
   try {
@@ -1048,6 +1065,7 @@ const deleteScheduledOrderCategory = async (req, res) => {
 module.exports = {
   getSeasonalItems,
   followFarmer,
+  getFarmers,
   getFollowing,
   unFollowFarmer,
   reviewFarmer,

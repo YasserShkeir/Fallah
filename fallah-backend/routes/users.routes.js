@@ -27,6 +27,7 @@ const {
 // -- Buyer Controller
 const {
   getSeasonalItems,
+  getFarmers,
   followFarmer,
   getFollowing,
   unFollowFarmer,
@@ -73,6 +74,8 @@ router.get("/product", auth, farmer, getProducts); // Get all products
 // -- Buyer Routes
 // -- -- Buyer - Seasonal Items
 router.get("/seasonal", auth, buyer, getSeasonalItems); // Get seasonal items
+// -- -- Buyer - Farmers
+router.get("/farmer", auth, buyer, getFarmers); // Get all farmers
 // -- -- Buyer - Following Routes
 router.post("/follow", auth, buyer, followFarmer); // Follow a farmer
 router.get("/follow", auth, buyer, getFollowing); // Get all farmers being followed
