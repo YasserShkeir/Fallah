@@ -32,7 +32,7 @@ const BuyerCategoriesSection = (categories) => {
         }}
       >
         {categories ? (
-          categories.categories.slice(0, 6).map((category) => {
+          categories.categories.slice(0, 5).map((category) => {
             return (
               <BuyerCategoryCard
                 key={category.childCategory._id}
@@ -41,6 +41,15 @@ const BuyerCategoriesSection = (categories) => {
               />
             );
           })
+        ) : (
+          <Text>Loading...</Text>
+        )}
+        {categories ? (
+          <BuyerCategoryCard
+            key={6}
+            images={categories.images}
+            category={{ catName: "View All" }}
+          />
         ) : (
           <Text>Loading...</Text>
         )}
