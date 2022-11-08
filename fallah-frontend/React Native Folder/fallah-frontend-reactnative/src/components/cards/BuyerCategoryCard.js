@@ -12,7 +12,10 @@ const BuyerCategoryCard = ({ images, category }) => {
           }
           style={{ width: 100, height: 120 }}
         />
-        <Card.Title title={category.catName} />
+        <Card.Title
+          title={category.catName}
+          titleStyle={{ fontFamily: "Inter-Regular", fontSize: 14 }}
+        />
       </Card>
     </View>
   );

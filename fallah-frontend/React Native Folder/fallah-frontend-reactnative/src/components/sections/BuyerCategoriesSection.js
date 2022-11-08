@@ -4,9 +4,6 @@ import BuyerCategoryCard from "../cards/BuyerCategoryCard";
 import { LIGHTGREEN, DARKGREEN } from "../../styles/colors";
 
 const BuyerCategoriesSection = (categories) => {
-  // test
-  console.log("categories", categories);
-  console.log("images", categories.images);
   return (
     <View
       style={{
