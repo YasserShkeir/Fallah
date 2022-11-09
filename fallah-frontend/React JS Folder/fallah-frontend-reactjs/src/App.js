@@ -20,6 +20,9 @@ const theme = createTheme({
     creamWhite: {
       main: "#f6f8ff",
     },
+    adminWhite: {
+      main: "#f1f5f4",
+    },
   },
   typography: {
     fontFamily: "Inter, sans-serif",

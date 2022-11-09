@@ -12,6 +12,7 @@ module.exports = {
       "dark-green": "#1e6048",
       "cream-white": "#f6f8ff",
       "peachy-yellow": "#f1c24c",
+      "admin-white": "#f1f5f4",
     },
   },
   plugins: [],
