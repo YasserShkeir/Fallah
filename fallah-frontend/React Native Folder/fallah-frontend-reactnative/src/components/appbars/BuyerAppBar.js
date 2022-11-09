@@ -14,8 +14,14 @@ import AppbarLocationModal from "../modals/BuyerAppbarLocationModal";
 import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BuyerAppBar = ({ page, navigation }) => {
+const BuyerAppBar = ({ page, prop, navigation }) => {
   const [value, setValue] = useState("Past Orders");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+    prop(query);
+  };
 
   if (page === "home") {
     return (
@@ -48,9 +54,12 @@ const BuyerAppBar = ({ page, navigation }) => {
           inputStyle={{ fontFamily: "Inter-Bold", color: DARKGREEN }}
           style={{
             borderRadius: 10,
-            width: "70%",
             height: 40,
+            flexGrow: 1,
+            marginRight: 10,
           }}
+          onChangeText={onChangeSearch}
+          value={searchQuery}
         ></Searchbar>
         <Button
           icon={() => (
