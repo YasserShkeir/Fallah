@@ -12,8 +12,8 @@ import BuyerFavouritesSection from "../../components/sections/BuyerFollowingsSec
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
-import { getCategories } from "../../hooks/getCategories";
-import { buyerGetFavourites } from "../../hooks/buyerFavourites";
+import { getCategories } from "../../hooks/buyerCategories";
+import { buyerGetFavourites } from "../../hooks/buyerFarmer";
 
 // Styles
 import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";

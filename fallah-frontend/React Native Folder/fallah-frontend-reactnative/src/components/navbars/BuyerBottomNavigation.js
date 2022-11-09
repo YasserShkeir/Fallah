@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Text, Dimensions } from "react-native";
 import { BottomNavigation } from "react-native-paper";
 
 // Components
@@ -15,8 +14,6 @@ import BuyerProfileRoute from "../../scenes/buyer/BuyerProfileRoute";
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 // Hooks
-
-const windowWidth = Dimensions.get("window").width;
 
 const BuyerBottomNavigation = ({ navigation }) => {
   const [index, setIndex] = useState(0);
@@ -54,7 +51,7 @@ const BuyerBottomNavigation = ({ navigation }) => {
       barStyle={{
         backgroundColor: LIGHTGREEN,
         height: 70,
-        width: windowWidth,
+        width: "100%",
         justifyContent: "center",
       }}
       activeColor={DARKGREEN}

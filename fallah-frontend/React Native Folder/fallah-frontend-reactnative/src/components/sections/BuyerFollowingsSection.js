@@ -8,7 +8,6 @@ import BuyerFollowingCard from "../cards/BuyerFollowingCard";
 import { DARKGREEN } from "../../styles/colors";
 
 const BuyerFollowingSection = ({ followings }) => {
-  console.log(followings);
   return (
     <View style={{ marginVertical: 15 }}>
       <Text
@@ -16,7 +15,7 @@ const BuyerFollowingSection = ({ followings }) => {
           fontFamily: "Inter-Bold",
           fontSize: 22,
           color: DARKGREEN,
-          marginLeft: 4,
+          marginLeft: 10,
           marginBottom: 10,
         }}
       >
