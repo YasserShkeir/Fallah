@@ -28,6 +28,7 @@ const {
 const {
   getSeasonalItems,
   getFarmers,
+  getSearchProducts,
   followFarmer,
   getFollowing,
   unFollowFarmer,
@@ -74,12 +75,13 @@ router.get("/product", auth, farmer, getProducts); // Get all products
 // -- Buyer Routes
 // -- -- Buyer - Seasonal Items
 router.get("/seasonal", auth, buyer, getSeasonalItems); // Get seasonal items
+// -- -- Buyer - Products
+router.get("/search-products", auth, buyer, getSearchProducts); // Search for products
 // -- -- Buyer - Farmers
 router.get("/farmer", auth, buyer, getFarmers); // Get all farmers
-// -- -- Buyer - Following Routes
-router.post("/follow", auth, buyer, followFarmer); // Follow a farmer
-router.get("/follow", auth, buyer, getFollowing); // Get all farmers being followed
-router.delete("/follow", auth, buyer, unFollowFarmer); // Unfollow a farmer
+router.post("/farmer/follow", auth, buyer, followFarmer); // Follow a farmer
+router.get("/farmer/following", auth, buyer, getFollowing); // Get all farmers that the user is following
+router.post("/farmer/unfollow", auth, buyer, unFollowFarmer); // Unfollow a farmer
 // -- -- Buyer - Reviews Routes
 router.post("/review", auth, buyer, reviewFarmer); // Review a farmer
 router.get("/review", auth, buyer, getReviews); // Get all reviews

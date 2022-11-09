@@ -48,6 +48,29 @@ const getFarmers = async (req, res) => {
   }
 };
 
+const getSearchProducts = async (req, res) => {
+  // Get all products
+  try {
+    const mainCategories = await MainCategory.find();
+    let products = [];
+    mainCategories.forEach((mainCategory) => {
+      mainCategory.childCategories.forEach((childCategory) => {
+        childCategory.products.forEach((product) => {
+          products.push(product);
+        });
+      });
+    });
+    res.status(200).json({
+      message: "Products fetched successfully",
+      products,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 const followFarmer = async (req, res) => {
   // Follow a farmer
   try {
@@ -1066,6 +1089,7 @@ module.exports = {
   getSeasonalItems,
   followFarmer,
   getFarmers,
+  getSearchProducts,
   getFollowing,
   unFollowFarmer,
   reviewFarmer,
