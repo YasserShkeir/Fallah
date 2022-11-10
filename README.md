@@ -4,7 +4,7 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.
 
-**[PROJECT PHILOSOPHY](https://github.com/julescript/well_app#-project-philosophy) • [WIREFRAMES](https://github.com/julescript/well_app#-wireframes) • [TECH STACK](https://github.com/julescript/well_app#-tech-stack) • [IMPLEMENTATION](https://github.com/julescript/well_app#-impplementation) • [HOW TO RUN?](https://github.com/julescript/well_app#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/YasserShkeir/Fallah#-project-philosophy) • [WIREFRAMES](https://github.com/YasserShkeir/Fallah#-wireframes) • [TECH STACK](https://github.com/YasserShkeir/Fallah#-tech-stack) • [IMPLEMENTATION](https://github.com/YasserShkeir/Fallah#-impplementation) • [HOW TO RUN?](https://github.com/YasserShkeir/Fallah#-how-to-run)**
 
 </div>
 
@@ -30,9 +30,9 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Landing                                                                                | Home/Search                                                                               |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| Landing                                                                                | Home/Search                                                                                |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| ![Landing](https://github.com/YasserShkeir/Fallah/blob/master/demo/MobileVisitor1.jpg) | ![Home/Search](https://github.com/YasserShkeir/Fallah/blob/master/demo/MobileVisitor2.jpg) |
 
 | Artists results                                                                                | Artist's Albums                                                                               |
 | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
