@@ -3,7 +3,7 @@ import axios from "axios";
 import { LOCALIP } from "@env";
 
 export const getUserLocations = async (func) => {
-  const url = `${LOCALIP}/users/location`;
+  let url = `${LOCALIP}/users/location`;
   const token = await AsyncStorage.getItem("token");
 
   try {

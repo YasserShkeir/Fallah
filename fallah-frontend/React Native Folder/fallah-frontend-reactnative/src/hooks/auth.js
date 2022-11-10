@@ -15,7 +15,7 @@ export const signup = async (username, email, phone, userType, password) => {
   if (username === "" || email === "" || phone === "" || password === "") {
     alert("Please fill in all the fields");
   } else {
-    const url = `${LOCALIP}/auth/register`;
+    let url = `${LOCALIP}/auth/register`;
 
     try {
       await axios.post(url, data);
@@ -27,7 +27,7 @@ export const signup = async (username, email, phone, userType, password) => {
 };
 
 export const signin = async (email, password, navigation) => {
-  const url = `${LOCALIP}/auth/login`;
+  let url = `${LOCALIP}/auth/login`;
   try {
     const response = await axios.post(url, {
       email: email,

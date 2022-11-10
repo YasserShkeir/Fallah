@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LOCALIP } from "@env";
 
 export const getSeasonalItems = async (func) => {
-  const url = `${LOCALIP}/users/seasonal`;
+  let url = `${LOCALIP}/users/seasonal`;
 
   const token = await AsyncStorage.getItem("token");
 

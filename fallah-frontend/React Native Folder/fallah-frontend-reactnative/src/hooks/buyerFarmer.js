@@ -3,7 +3,7 @@ import axios from "axios";
 import { LOCALIP } from "@env";
 
 export const getFarmers = async (func, id1) => {
-  const url = `${LOCALIP}/users/farmer${id1 ? `/${id1}` : ""}`;
+  let url = `${LOCALIP}/users/farmer${id1 ? `/${id1}` : ""}`;
   const token = await AsyncStorage.getItem("token");
 
   try {
@@ -22,7 +22,7 @@ export const getFarmers = async (func, id1) => {
 };
 
 export const buyerGetFavourites = async (func) => {
-  const url = `${LOCALIP}/users/farmer/following`;
+  let url = `${LOCALIP}/users/farmer/following`;
   const token = await AsyncStorage.getItem("token");
 
   try {
