@@ -21,22 +21,26 @@ const dashboard = sdk.createDashboard({
 const AdminLandingPage = () => {
   const [authenticated] = useState(localStorage.getItem("jwt"));
 
+  const callDash = async () => {
+    await dashboard.render(document.getElementById("dashboard"));
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    dashboard
-      .render(document.getElementById("chart"))
-      .catch((e) => console.log(e.message));
+    callDash();
   }, []);
 
   if (authenticated === null) {
     return <Navigate replace to="/admin" />;
   } else {
+    callDash();
     const username = localStorage.getItem("username");
     return (
       <AdminLayout>
         <p className="text-4xl font-bold text-dark-green">Welcome {username}</p>
-
-        <Box id="chart" className="h-full w-auto my-8"></Box>
+        <Box id="dashboard" className="h-full w-auto my-8">
+          <p>Loading...</p>
+        </Box>
       </AdminLayout>
     );
   }
