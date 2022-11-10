@@ -54,6 +54,10 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 | --------------------------------------------- | ------------------------------------------- |
 | ![Desktop Landing](./demo/DesktopVisitor.png) | ![Mobile Landing](./demo/MobileVisitor.png) |
 
+| Admin Desktop Landing (Dashboard)             | Mobile Sign In Page                         |
+| --------------------------------------------- | ------------------------------------------- |
+| ![Desktop Landing](./demo/AdminDashboard.png) | ![Mobile Landing](./demo/VisitorSignIn.png) |
+
 <br><br>
 <img src="./readme/title6.svg"/>
 
@@ -71,18 +75,13 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Before starting with the steps below, make sure `npm` and `node` are installed globally on your machine.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/YasserShkeir/Fallah.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
    ```
