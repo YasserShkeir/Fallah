@@ -9,7 +9,6 @@ import {
   faAppleAlt,
   faTree,
   faStar,
-  faBarChart,
 } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../assets/images/navBarLogo.png";
@@ -39,48 +38,18 @@ const AdminNavigationBar = () => {
     <div className="bg-light-green flex flex-col sm:w-48 md:w-56 items-center px-5 h-screen justify-between pb-5 fixed overflow-y-auto">
       <div className="w-full flex flex-col gap-2 sm:gap-3 items-center">
         <img src={logo} alt="logo" className="w-20 sm:w-32 md:w-42" />
-        <NavBarLink
-          to={"/admin/home"}
-          children={"Home"}
-          icon={faHome}
-          curr={url}
-        />
-        <NavBarLink
-          to={"/admin/users"}
-          children={"Users"}
-          icon={faUsers}
-          curr={url}
-        />
-        <NavBarLink
-          to={"/admin/orders"}
-          children={"Orders"}
-          icon={faList}
-          curr={url}
-        />
-        <NavBarLink
-          to={"/admin/products"}
-          children={"Products"}
-          icon={faAppleAlt}
-          curr={url}
-        />
-        <NavBarLink
-          to={"/admin/categories"}
-          children={"Categories"}
-          icon={faTree}
-          curr={url}
-        />
-        <NavBarLink
-          to={"/admin/reviews"}
-          children={"Reviews"}
-          icon={faStar}
-          curr={url}
-        />
-        <NavBarLink
-          to={"/admin/statistics"}
-          children={"Statistics"}
-          icon={faBarChart}
-          curr={url}
-        />
+        {[
+          { to: "/admin/home", icon: faHome, text: "Home" },
+          { to: "/admin/users", icon: faUsers, text: "Users" },
+          { to: "/admin/orders", icon: faList, text: "Orders" },
+          { to: "/admin/products", icon: faAppleAlt, text: "Products" },
+          { to: "/admin/categories", icon: faTree, text: "Categories" },
+          { to: "/admin/reviews", icon: faStar, text: "Reviews" },
+        ].map((item) => (
+          <NavBarLink to={item.to} icon={item.icon} curr={url} key={item.to}>
+            {item.text}
+          </NavBarLink>
+        ))}
       </div>
       <Button
         variant="contained"
