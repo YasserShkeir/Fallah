@@ -30,13 +30,9 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Landing                                            | Home/Search                                                                              |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| ![Landing](<img src="./demo/MobileVisitor1.png"/>) | ![Home/Search](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor2.png) |
-
-| Artists results                                                                              | Artist's Albums                                                                              |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| ![Artists results](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.png) | ![Artist's Albums](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.png) |
+| Desktop Landing                         | Mobile Landing                               |
+| --------------------------------------- | -------------------------------------------- |
+| ![Desktop](./demo/PrototypeVisitor.png) | ![Mobile](./demo/PrototypeMobileVisitor.png) |
 
 <br><br>
 
@@ -44,20 +40,20 @@
 
 Here's a brief high-level overview of the tech stack the Well app uses:
 
-- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
-- For persistent storage (database), the app uses the [Hive](https://hivedb.dev/) package which allows the app to create a custom storage schema and save it to a local database.
-- To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-  - 🚨 Currently, notifications aren't working on macOS. This is a known issue that we are working to resolve!
-- The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
+- This project uses [NodeJS](https://nodejs.org/en/) and [ExpressJS](https://expressjs.com/). Node.js is an open-source, cross-platform JavaScript runtime environment, and express is a fast, unopinionated, minimalist web framework for Node.js.
+- For the database, [MongoDB](https://www.mongodb.com/) was used as it allows the app to run smoothly and efficiently, in addition to being able to create custom interactive Data charts for user insights.
+- For the design, [ReactJS](https://reactjs.org/) and [React Native](https://reactnative.dev/) were used.
+- The app uses the font ["Inter"](https://fonts.google.com/specimen/Inter?query=inter) as its main font, and the design of the app adheres to the material design guidelines.
 
 <br><br>
 <img src="./readme/title5.svg"/>
 
-> Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> Using the above mentioned tech stacks and the wireframes built with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing                                                                                | Home/Search                                                                               |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| Visitor Desktop Landing                   | Visitor Mobile Landing                         |
+| ----------------------------------------- | ---------------------------------------------- |
+| ![Desktop Landing 1](./demo/Visitor1.png) | ![Mobile Landing 1](./demo/MobileVisitor1.png) |
+| ![Desktop Landing 2](./demo/Visitor2.png) | ![Mobile Landing 2](./demo/MobileVisitor2.png) |
 
 <br><br>
 <img src="./readme/title6.svg"/>
