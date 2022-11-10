@@ -30,9 +30,9 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Landing                                                                              | Home/Search                                                                              |
-| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| ![Landing](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.png) | ![Home/Search](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor2.png) |
+| Landing                                            | Home/Search                                                                              |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| ![Landing](<img src="./demo/MobileVisitor1.png"/>) | ![Home/Search](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor2.png) |
 
 | Artists results                                                                              | Artist's Albums                                                                              |
 | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
