@@ -7,6 +7,7 @@ import {
   faDollarSign,
   faMoneyBillTransfer,
   faThumbsUp,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
 import AllProductsImg from "./assets/images/landingBG.jpg";
@@ -105,51 +106,57 @@ const Benefits = () => {
 
 const Footer = () => {
   return (
-    <Box className="w-full">
+    <Box className="w-full flex flex-col">
       {/* Version 1 of Footer */}
       {/* <img src={FooterImageTop} className="w-full" />
       <Box className="w-full bg-light-green">
         <img src={FooterImageBot} className="w-full -mt-8" />
       </Box> */}
       {/* Version 2 of Footer */}
-      <img src={FooterImageTop} className="w-full" />
-      <Box className="w-full h-fit flex bg-light-green justify-between -mt-3">
-        {/* Left Side */}
-        <Box className="flex flex-col">
-          <img src={Footer2ImageLeft1} className="w-24 sm:w-52" />
-          <img
-            src={Footer2ImageLeft2}
-            className="w-24 sm:w-52 -mt-3 sm:-mt-10 -ml-3 sm:-ml-7"
-          />
-        </Box>
-        {/* Middle Side */}
-        <Box className="h-auto flex flex-col justify-between font-bold items-center text-sm sm:text-3xl text-cream-white pb-8 gap-5">
-          <p>Fresh from the Farmer...</p>
-          <Box className="flex h-fit flex-wrap gap-4 align-middle justify-center">
-            <Box className="flex h-fit gap-4 align-middle justify-center">
-              <img src={Fruit1} className="w-8 sm:w-24" />
-              <img src={Fruit2} className="w-8 sm:w-24" />
-            </Box>
-            <Box className="flex h-fit gap-4 align-middle justify-center">
-              <img src={Fruit3} className="w-8 sm:w-24" />
-              <img src={Fruit4} className="w-8 sm:w-24" />
-            </Box>
-            <Box className="flex h-fit gap-4 align-middle justify-center">
-              <img src={Fruit5} className="w-8 sm:w-24" />
-              <img src={Fruit6} className="w-8 sm:w-24" />
-            </Box>
-            <Box className="flex h-fit gap-4 align-middle justify-center">
-              <img src={Fruit7} className="w-8 sm:w-24" />
-              <img src={Fruit8} className="w-8 sm:w-24" />
-            </Box>
+      <Box className="w-full">
+        <img src={FooterImageTop} className="w-full" />
+        <Box className="w-full h-fit flex bg-light-green justify-between -mt-3">
+          {/* Left Side */}
+          <Box className="flex flex-col">
+            <img src={Footer2ImageLeft1} className="w-24 sm:w-52" />
+            <img
+              src={Footer2ImageLeft2}
+              className="w-24 sm:w-52 -mt-3 sm:-mt-10 -ml-3 sm:-ml-7"
+            />
           </Box>
+          {/* Middle Side */}
+          <Box className="h-auto flex flex-col justify-between font-bold items-center text-sm sm:text-3xl text-cream-white pb-4 sm:pb-14 gap-5">
+            <p>Fresh from the Farmer...</p>
+            <Box className="flex h-fit flex-wrap gap-4 align-middle justify-center">
+              <Box className="flex h-fit gap-4 align-middle justify-center">
+                <img src={Fruit1} className="w-8 sm:w-24" />
+                <img src={Fruit2} className="w-8 sm:w-24" />
+              </Box>
+              <Box className="flex h-fit gap-4 align-middle justify-center">
+                <img src={Fruit3} className="w-8 sm:w-24" />
+                <img src={Fruit4} className="w-8 sm:w-24" />
+              </Box>
+              <Box className="flex h-fit gap-4 align-middle justify-center">
+                <img src={Fruit5} className="w-8 sm:w-24" />
+                <img src={Fruit6} className="w-8 sm:w-24" />
+              </Box>
+              <Box className="flex h-fit gap-4 align-middle justify-center">
+                <img src={Fruit7} className="w-8 sm:w-24" />
+                <img src={Fruit8} className="w-8 sm:w-24" />
+              </Box>
+            </Box>
 
-          <p>... Fresh to the Buyer</p>
+            <p>... Fresh to the Buyer</p>
+          </Box>
+          {/* Right Side */}
+          <Box>
+            <img src={Footer2ImageRight} className="w-24 sm:w-52" />
+          </Box>
         </Box>
-        {/* Right Side */}
-        <Box>
-          <img src={Footer2ImageRight} className="w-24 sm:w-52" />
-        </Box>
+        <p className="bg-light-green -mt-1 py-2 font-normal text-sm text-center text-peachy-yellow">
+          Copyright 2022 Fallah{" "}
+          <FontAwesomeIcon icon={faHeart} color="var(--peachy-yellow)" />
+        </p>
       </Box>
     </Box>
   );
@@ -162,7 +169,7 @@ const VisitorLandingPage = () => {
       <Box className="mt-32 w-full">
         <img src={AllProductsBottom} className="w-full rotate-180 -mb-3 " />
         <AllProducts />
-        <img src={AllProductsBottom} className="w-full" />
+        <img src={AllProductsBottom} className="w-full -mt-1" />
         <Benefits />
       </Box>
       <Footer />
