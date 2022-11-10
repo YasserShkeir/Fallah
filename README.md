@@ -4,13 +4,14 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.
 
-**[PROJECT PHILOSOPHY](https://github.com/YasserShkeir/Fallah#-project-philosophy) • [WIREFRAMES](https://github.com/YasserShkeir/Fallah#-wireframes) • [TECH STACK](https://github.com/YasserShkeir/Fallah#-tech-stack) • [IMPLEMENTATION](https://github.com/YasserShkeir/Fallah#-implementation) • [HOW TO RUN?](https://github.com/YasserShkeir/Fallah#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/YasserShkeir/Fallah/#-project-philosophy) • [WIREFRAMES](https://github.com/YasserShkeir/Fallah/#-wireframes) • [TECH STACK](https://github.com/YasserShkeir/Fallah/#-tech-stack) • [IMPLEMENTATION](https://github.com/YasserShkeir/Fallah/#-implementation) • [HOW TO RUN?](https://github.com/YasserShkeir/Fallah/#-how-to-run)**
 
 </div>
 
 <br><br>
 
-![-project-philosophy](./readme/title2.svg)
+![](#-project-philosophy)
+![](./readme/title2.svg)
 
 > Fallah is a mobile app made to assist Farmers in selling their produce more efficiently and with minimal loss/ food waste. Fallah was designed to be user friendly for Farmers; just snap a pic and add the details of your harvest, and you're good to go!
 >
@@ -25,7 +26,8 @@
 
 <br><br>
 
-![-wireframes](./readme/title3.svg)
+![](#-wireframes)
+![](./readme/title3.svg)
 
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
@@ -36,7 +38,8 @@
 
 <br><br>
 
-![-tech-stack](./readme/title4.svg)
+![](#-tech-stack)
+![](./readme/title4.svg)
 
 Here's a brief high-level overview of the tech stack the Well app uses:
 
@@ -47,7 +50,8 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 <br><br>
 
-![-implementation](./readme/title5.svg)
+![](#-implementation)
+![](./readme/title5.svg)
 
 > Using the above mentioned tech stacks and the wireframes built with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 
@@ -61,7 +65,8 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 <br><br>
 
-![-how-to-run](./readme/title6.svg)
+![](#-how-to-run)
+![](./readme/title6.svg)
 
 > This is an example of how you may give instructions on setting up your project locally.
 > To get a local copy up and running follow these simple example steps.
