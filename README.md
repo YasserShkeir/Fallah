@@ -30,9 +30,9 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Desktop Landing                         | Mobile Landing                               |
-| --------------------------------------- | -------------------------------------------- |
-| ![Desktop](./demo/PrototypeVisitor.png) | ![Mobile](./demo/PrototypeMobileVisitor.png) |
+| Desktop Visitor Landing                 | Mobile Sign In Page                         |
+| --------------------------------------- | ------------------------------------------- |
+| ![Desktop](./demo/ProtoTypeVisitor.png) | ![Mobile](./demo/ProtoTypeMobileSignin.png) |
 
 <br><br>
 
@@ -50,10 +50,9 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 > Using the above mentioned tech stacks and the wireframes built with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Visitor Desktop Landing                   | Visitor Mobile Landing                         |
-| ----------------------------------------- | ---------------------------------------------- |
-| ![Desktop Landing 1](./demo/Visitor1.png) | ![Mobile Landing 1](./demo/MobileVisitor1.png) |
-| ![Desktop Landing 2](./demo/Visitor2.png) | ![Mobile Landing 2](./demo/MobileVisitor2.png) |
+| Visitor Desktop Landing                       | Visitor Mobile Landing                      |
+| --------------------------------------------- | ------------------------------------------- |
+| ![Desktop Landing](./demo/DesktopVisitor.png) | ![Mobile Landing](./demo/MobileVisitor.png) |
 
 <br><br>
 <img src="./readme/title6.svg"/>
