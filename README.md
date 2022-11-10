@@ -32,11 +32,11 @@
 
 | Landing                                                                              | Home/Search                                                                              |
 | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| ![Landing](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.jpg) | ![Home/Search](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor2.jpg) |
+| ![Landing](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.png) | ![Home/Search](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor2.png) |
 
 | Artists results                                                                              | Artist's Albums                                                                              |
 | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| ![Artists results](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.jpg) | ![Artist's Albums](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.jpg) |
+| ![Artists results](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.png) | ![Artist's Albums](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.png) |
 
 <br><br>
 
