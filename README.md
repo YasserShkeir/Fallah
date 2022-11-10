@@ -30,13 +30,13 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Landing                                                                                | Home/Search                                                                                |
-| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| ![Landing](https://github.com/YasserShkeir/Fallah/blob/master/demo/MobileVisitor1.jpg) | ![Home/Search](https://github.com/YasserShkeir/Fallah/blob/master/demo/MobileVisitor2.jpg) |
+| Landing                                                                              | Home/Search                                                                              |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| ![Landing](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.jpg) | ![Home/Search](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor2.jpg) |
 
-| Artists results                                                                                | Artist's Albums                                                                               |
-| ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| ![Artists results](https://github.com/julescript/spotifyndr/blob/master/demo/Artists_Page.jpg) | ![Artist's Albums](https://github.com/julescript/spotifyndr/blob/master/demo/Albums_Page.jpg) |
+| Artists results                                                                              | Artist's Albums                                                                              |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| ![Artists results](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.jpg) | ![Artist's Albums](https://github.com/YasserShkeir/Fallah/tree/main/demo/MobileVisitor1.jpg) |
 
 <br><br>
 
