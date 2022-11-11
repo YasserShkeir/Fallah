@@ -4,7 +4,7 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.
 
-**[PROJECT PHILOSOPHY](https://github.com/YasserShkeir/Fallah/#-project-philosophy) • [WIREFRAMES](https://github.com/YasserShkeir/Fallah/#-wireframes) • [TECH STACK](https://github.com/YasserShkeir/Fallah/#-tech-stack) • [IMPLEMENTATION](https://github.com/YasserShkeir/Fallah/#-implementation) • [HOW TO RUN?](https://github.com/YasserShkeir/Fallah/#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/YasserShkeir/Fallah/#user-content-#-project-philosophy) • [WIREFRAMES](https://github.com/YasserShkeir/Fallah/#user-content-#-wireframes) • [TECH STACK](https://github.com/YasserShkeir/Fallah/#user-content-#-tech-stack) • [IMPLEMENTATION](https://github.com/YasserShkeir/Fallah/#user-content-#-implementation) • [HOW TO RUN?](https://github.com/YasserShkeir/Fallah/#user-content-#-how-to-run)**
 
 </div>
 
