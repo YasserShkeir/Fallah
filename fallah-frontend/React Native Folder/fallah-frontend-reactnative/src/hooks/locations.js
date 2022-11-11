@@ -5,7 +5,7 @@ import { LOCALIP } from "@env";
 export const getUserLocations = async (func) => {
   let url = `${LOCALIP}/users/location`;
   const token = await AsyncStorage.getItem("token");
-
+  url = url.replace(/"/g, "");
   try {
     await axios
       .get(url, {

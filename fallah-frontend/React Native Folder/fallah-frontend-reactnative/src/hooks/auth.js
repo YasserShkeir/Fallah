@@ -16,7 +16,7 @@ export const signup = async (username, email, phone, userType, password) => {
     alert("Please fill in all the fields");
   } else {
     let url = `${LOCALIP}/auth/register`;
-
+    url = url.replace(/"/g, "");
     try {
       await axios.post(url, data);
       alert("Sign Up Successful");
@@ -28,6 +28,7 @@ export const signup = async (username, email, phone, userType, password) => {
 
 export const signin = async (email, password, navigation) => {
   let url = `${LOCALIP}/auth/login`;
+  url = url.replace(/"/g, "");
   try {
     const response = await axios.post(url, {
       email: email,

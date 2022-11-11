@@ -5,7 +5,7 @@ import { LOCALIP } from "@env";
 export const getFarmers = async (func, id1) => {
   let url = `${LOCALIP}/users/farmer${id1 ? `/${id1}` : ""}`;
   const token = await AsyncStorage.getItem("token");
-
+  url = url.replace(/"/g, "");
   try {
     await axios
       .get(url, {
@@ -24,7 +24,7 @@ export const getFarmers = async (func, id1) => {
 export const buyerGetFavourites = async (func) => {
   let url = `${LOCALIP}/users/farmer/following`;
   const token = await AsyncStorage.getItem("token");
-
+  url = url.replace(/"/g, "");
   try {
     await axios
       .get(url, {

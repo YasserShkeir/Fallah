@@ -4,7 +4,7 @@ import { LOCALIP } from "@env";
 
 export const getSeasonalItems = async (func) => {
   let url = `${LOCALIP}/users/seasonal`;
-
+  url = url.replace(/"/g, "");
   const token = await AsyncStorage.getItem("token");
 
   try {
