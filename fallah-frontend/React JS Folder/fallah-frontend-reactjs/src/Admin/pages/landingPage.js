@@ -6,34 +6,29 @@ import { Box } from "@mui/material";
 
 import AdminLayout from "../components/bodyLayout";
 
-const sdk = new ChartsEmbedSDK({
-  baseUrl: "https://charts.mongodb.com/charts-fallah-jbobq",
-  getUserToken: async () => {
-    const token = localStorage.getItem("jwt");
-    return token;
-  },
-});
-
-const dashboard = sdk.createDashboard({
-  dashboardId: "636bdb19-bdee-41ad-83b2-c4a037701972",
-});
-
 const AdminLandingPage = () => {
   const [authenticated] = useState(localStorage.getItem("jwt"));
 
-  const callDash = async () => {
-    await dashboard.render(document.getElementById("dashboard"));
-  };
+  const sdk = new ChartsEmbedSDK({
+    baseUrl: "https://charts.mongodb.com/charts-fallah-jbobq",
+    getUserToken: async () => {
+      const token = localStorage.getItem("jwt");
+      return token;
+    },
+  });
+
+  const dashboard = sdk.createDashboard({
+    dashboardId: "636bdb19-bdee-41ad-83b2-c4a037701972",
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    callDash();
-  }, []);
+    dashboard.render(document.getElementById("dashboard"));
+  }, [dashboard === null]);
 
   if (authenticated === null) {
     return <Navigate replace to="/admin" />;
   } else {
-    callDash();
     const username = localStorage.getItem("username");
     return (
       <AdminLayout>
