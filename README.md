@@ -11,7 +11,7 @@
 <br><br>
 
 ![](#-project-philosophy)
-![](./readme/title2.svg)
+<img src="./readme/title2.svg" id="#-project-philosophy" />
 
 > Fallah is a mobile app made to assist Farmers in selling their produce more efficiently and with minimal loss/ food waste. Fallah was designed to be user friendly for Farmers; just snap a pic and add the details of your harvest, and you're good to go!
 >
