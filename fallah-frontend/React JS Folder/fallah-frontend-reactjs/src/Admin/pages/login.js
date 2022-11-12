@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { login } from "../hooks/login";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 import Textfield from "@mui/material/TextField";
@@ -19,27 +19,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    await axios
-      .post("http://localhost:3000/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        // check if email ends with @fallah.com
-        if (email.endsWith("@fallah.com")) {
-          localStorage.setItem("jwt", res.data.token);
-          localStorage.setItem("username", res.data.username);
-          navigate("/admin/home");
-        } else {
-          setError(true);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setError(true);
-      });
-
+    login(email, password, setLoading, setError, navigate);
     setLoading(false);
   };
 
