@@ -14,6 +14,18 @@ const AdminUserDataControl = (props) => {
         <Typography variant="h6" className="text-cream-white font-bold w-full">
           | {props.name} Controller |
         </Typography>
+        <AdminUserDataSection
+          name="Search"
+          labelName={props.name}
+          value={props.searchValue}
+          fun={props.search}
+        />
+        <AdminUserDataSection
+          name="Delete"
+          labelName={props.name}
+          value={props.deleteValue}
+          fun={props.delete}
+        />
 
         <Box className="grow flex flex-row-reverse xl:flex-col-reverse">
           <Button
