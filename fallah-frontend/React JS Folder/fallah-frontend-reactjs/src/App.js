@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import ErrorPage from "./Misc/errorPage";
-import Visitor from "./Visitor/landingPage";
+import Visitor from "./Visitor/pages/landingPage";
 import AdminLogin from "./Admin/pages/login";
 import AdminLandingPage from "./Admin/pages/landingPage";
 import AdminOrdersPage from "./Admin/pages/ordersList";
