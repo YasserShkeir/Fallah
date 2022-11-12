@@ -4,10 +4,12 @@ import ChartsEmbedSDK from "@mongodb-js/charts-embed-dom";
 
 import { Box } from "@mui/material";
 
-import AdminLayout from "../components/bodyLayout";
+import AdminLayout from "../components/AdminBodyLayout";
 
 const sdk = new ChartsEmbedSDK({
   baseUrl: "https://charts.mongodb.com/charts-fallah-jbobq",
+  maxDataAge: 300,
+  background: "transparent",
   getUserToken: async () => {
     const token = localStorage.getItem("jwt");
     return token;
@@ -22,9 +24,8 @@ const AdminLandingPage = () => {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
     dashboard.render(document.getElementById("dashboard"));
-  }, [dashboard === null]);
+  }, [dashboard]);
 
   if (authenticated === null) {
     return <Navigate replace to="/admin" />;
@@ -33,7 +34,10 @@ const AdminLandingPage = () => {
     return (
       <AdminLayout>
         <p className="text-4xl font-bold text-dark-green">Welcome {username}</p>
-        <Box id="dashboard" className="h-full w-auto my-8">
+        <Box
+          id="dashboard"
+          className="h-full w-auto my-8 border-light-green border-2"
+        >
           <p>Loading...</p>
         </Box>
       </AdminLayout>
