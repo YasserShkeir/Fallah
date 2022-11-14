@@ -4,12 +4,12 @@ import { Text } from "react-native-paper";
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
 
-const BuyerFollowingCard = ({ following }) => {
+const BuyerFollowingCard = ({ following, navigation }) => {
   const image = following.images[0];
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("BuyerFollowing", {
+        navigation.navigate("BuyerFarmerProfile", {
           farmer: following,
         })
       }
