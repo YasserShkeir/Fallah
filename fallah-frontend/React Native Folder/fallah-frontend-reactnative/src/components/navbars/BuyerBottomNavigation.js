@@ -30,7 +30,7 @@ const BuyerBottomNavigation = ({ navigation }) => {
   };
 
   const SearchRoute = () => {
-    return <BuyerSearchRoute />;
+    return <BuyerSearchRoute navigation={navigation} />;
   };
   const RecentsRoute = () => <BuyerOrdersRoute />;
 
