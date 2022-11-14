@@ -39,3 +39,22 @@ export const buyerGetFavourites = async (func) => {
     console.error(error);
   }
 };
+
+export const getFollowing = async (func) => {
+  let url = `${LOCALIP}/users/farmer/following`;
+  const token = await AsyncStorage.getItem("token");
+  url = url.replace(/"/g, "");
+  try {
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        func(response);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+};
