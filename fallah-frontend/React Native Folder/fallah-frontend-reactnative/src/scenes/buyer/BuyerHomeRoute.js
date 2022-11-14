@@ -8,7 +8,7 @@ import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
 import BuyerSeasonalCard from "../../components/sections/BuyerSeasonalCard";
 import BuyerCategoriesSection from "../../components/sections/BuyerCategoriesSection";
-import BuyerFavouritesSection from "../../components/sections/BuyerFollowingsSection";
+import BuyerFollowingSection from "../../components/sections/BuyerFollowingsSection";
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
@@ -18,7 +18,7 @@ import { buyerGetFavourites } from "../../hooks/buyerFarmer";
 // Styles
 import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
-const BuyerHomeRoute = () => {
+const BuyerHomeRoute = ({ navigation }) => {
   const [seasonalItems, setSeasonalItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [followings, setFollowings] = useState([]);
@@ -72,7 +72,10 @@ const BuyerHomeRoute = () => {
                   images={images}
                 />
                 {followings.length > 0 ? (
-                  <BuyerFavouritesSection followings={followings} />
+                  <BuyerFollowingSection
+                    followings={followings}
+                    navigation={navigation}
+                  />
                 ) : (
                   <ActivityIndicator
                     style={{ marginTop: 20 }}
