@@ -1,21 +1,15 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { LOCALIP } from "@env";
+
+import { configHandler, baseURLs } from "./config";
+
+const usersURL = baseURLs.users;
 
 export const getUserLocations = async (func) => {
-  let url = `${LOCALIP}/users/location`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  const url = usersURL + `location`;
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }

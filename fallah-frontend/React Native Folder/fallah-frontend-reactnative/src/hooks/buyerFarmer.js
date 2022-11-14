@@ -1,68 +1,44 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { LOCALIP } from "@env";
+
+import { configHandler, baseURLs } from "./config";
+
+const usersURL = baseURLs.users;
 
 export const getFarmers = async (func, id1) => {
-  let url = `${LOCALIP}/users/farmer${id1 ? `/${id1}` : ""}`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  const url = usersURL + `/farmer${id1 ? `/${id1}` : ""}`;
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }
 };
 
 export const buyerGetFavourites = async (func) => {
-  let url = `${LOCALIP}/users/farmer/following`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  const url = usersURL + `farmer/following`;
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getFollowing = async (func) => {
-  let url = `${LOCALIP}/users/farmer/following`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  const url = usersURL + `farmer/following`;
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }
 };
 
 export const followFarmer = async (id) => {
-  let url = `${LOCALIP}/users/farmer/follow`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  const url = usersURL + `farmer/follow`;
   try {
     await axios
       .post(
@@ -70,11 +46,7 @@ export const followFarmer = async (id) => {
         {
           id: id,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        await configHandler()
       )
       .then((response) => {
         console.log(response.data);
@@ -85,10 +57,7 @@ export const followFarmer = async (id) => {
 };
 
 export const unfollowFarmer = async (id) => {
-  let url = `${LOCALIP}/users/farmer/unfollow`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
-  console.log(id);
+  const url = usersURL + `farmer/unfollow`;
   try {
     await axios
       .post(
@@ -96,11 +65,7 @@ export const unfollowFarmer = async (id) => {
         {
           id: id,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        await configHandler()
       )
       .then((response) => {
         console.log(response.data);

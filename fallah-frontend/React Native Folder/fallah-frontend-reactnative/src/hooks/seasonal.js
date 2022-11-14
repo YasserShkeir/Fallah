@@ -1,22 +1,16 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LOCALIP } from "@env";
+
+import { configHandler, baseURLs } from "./config";
+
+const usersURL = baseURLs.users;
 
 export const getSeasonalItems = async (func) => {
-  let url = `${LOCALIP}/users/seasonal`;
-  url = url.replace(/"/g, "");
-  const token = await AsyncStorage.getItem("token");
+  const url = usersURL + `seasonal`;
 
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }

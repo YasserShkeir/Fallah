@@ -1,37 +1,25 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { LOCALIP } from "@env";
+
+import { configHandler, baseURLs } from "./config";
+
+const usersURL = baseURLs.users;
 
 export const getRegularOrders = async (func, id) => {
-  let url = `${LOCALIP}/users/regular-order`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  let url = usersURL + `regular-order`;
   if (id) {
-    url = `${LOCALIP}/users/regular-order/${id}`;
+    url = usersURL + `regular-order/${id}`;
     try {
-      await axios
-        .get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          func(response);
-        });
+      await axios.get(url, await configHandler()).then((response) => {
+        func(response);
+      });
     } catch (error) {
       console.error(error);
     }
   } else {
     try {
-      await axios
-        .get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          func(response);
-        });
+      await axios.get(url, await configHandler()).then((response) => {
+        func(response);
+      });
     } catch (error) {
       console.error(error);
     }
@@ -39,35 +27,21 @@ export const getRegularOrders = async (func, id) => {
 };
 
 export const getScheduledOrders = async (func, id) => {
-  let url = `${LOCALIP}/users/scheduled-order`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  let url = usersURL + `scheduled-order`;
   if (id) {
-    url = `${LOCALIP}/users/scheduled-order/${id}`;
+    url = usersURL + `scheduled-order/${id}`;
     try {
-      await axios
-        .get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          func(response);
-        });
+      await axios.get(url, await configHandler()).then((response) => {
+        func(response);
+      });
     } catch (error) {
       console.error(error);
     }
   } else {
     try {
-      await axios
-        .get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          func(response);
-        });
+      await axios.get(url, await configHandler()).then((response) => {
+        func(response);
+      });
     } catch (error) {
       console.error(error);
     }

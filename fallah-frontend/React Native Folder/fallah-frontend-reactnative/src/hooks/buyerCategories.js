@@ -1,40 +1,26 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { LOCALIP } from "@env";
 
-export const getCategories = async (func, id1) => {
-  let url = `${LOCALIP}/users/category${id1 ? `/${id1}` : ""}`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+import { configHandler, baseURLs } from "./config";
+
+const usersURL = baseURLs.users;
+
+export const getCategories = async (func, id) => {
+  const url = usersURL + `category${id ? `/${id}` : ""}`;
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getSearchProducts = async (func) => {
-  let url = `${LOCALIP}/users/search-products`;
-  const token = await AsyncStorage.getItem("token");
-  url = url.replace(/"/g, "");
+  const url = usersURL + `search-products`;
   try {
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        func(response);
-      });
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }
