@@ -14,7 +14,7 @@ import { getFarmers } from "../../hooks/buyerFarmer";
 // Style
 import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
-const BuyerSearchRoute = () => {
+const BuyerSearchRoute = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [farmers, setFarmers] = useState([]);
   const [products, setProducts] = useState([]);
@@ -99,22 +99,46 @@ const BuyerSearchRoute = () => {
           {value === "Farmers"
             ? farmers.slice(0, 5).map((farmer) => {
                 if (searchQuery === "") {
-                  return <BuyerSearchCard key={farmer._id} item={farmer} />;
+                  return (
+                    <BuyerSearchCard
+                      key={farmer._id}
+                      item={farmer}
+                      navigation={navigation}
+                    />
+                  );
                 } else if (
                   farmer.name.toLowerCase().includes(searchQuery.toLowerCase())
                 ) {
-                  return <BuyerSearchCard key={farmer._id} item={farmer} />;
+                  return (
+                    <BuyerSearchCard
+                      key={farmer._id}
+                      item={farmer}
+                      navigation={navigation}
+                    />
+                  );
                 }
               })
             : products.map((product) => {
                 if (searchQuery === "") {
-                  return <BuyerSearchCard key={product._id} item={product} />;
+                  return (
+                    <BuyerSearchCard
+                      key={product._id}
+                      item={product}
+                      navigation={navigation}
+                    />
+                  );
                 } else if (
                   product.productName
                     .toLowerCase()
                     .includes(searchQuery.toLowerCase())
                 ) {
-                  return <BuyerSearchCard key={product._id} item={product} />;
+                  return (
+                    <BuyerSearchCard
+                      key={product._id}
+                      item={product}
+                      navigation={navigation}
+                    />
+                  );
                 }
               })}
         </View>
