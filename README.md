@@ -73,15 +73,15 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 ### User
 
-| Admin Desktop Landing (Dashboard)                    | Mobile Sign In Page                                |
-| ---------------------------------------------------- | -------------------------------------------------- |
-| ![Desktop Landing](./readme/demo/AdminDashboard.png) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
+| User Sign In and Sign Up Page            |
+| ---------------------------------------- |
+| ![Auth](./readme/demo/VisitorSignIn.png) |
 
 ### Buyer
 
-| Admin Desktop Landing (Dashboard)                    | Mobile Sign In Page                                |
-| ---------------------------------------------------- | -------------------------------------------------- |
-| ![Desktop Landing](./readme/demo/AdminDashboard.png) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
+| Buyer Landing Page                               | Mobile Sign In Page                                |
+| ------------------------------------------------ | -------------------------------------------------- |
+| ![Buyer Landing](./readme/demo/BuyerLanding.png) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
 
 <br><br>
 
