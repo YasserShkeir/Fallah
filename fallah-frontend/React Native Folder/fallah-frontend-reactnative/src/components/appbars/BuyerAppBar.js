@@ -15,7 +15,7 @@ import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BuyerAppBar = ({ page, prop, navigation }) => {
-  const [value, setValue] = useState("Past Orders");
+  const [ordersView, setOrdersView] = useState("Regular Orders");
   const [searchQuery, setSearchQuery] = useState("");
 
   const onChangeSearch = (query) => {
@@ -88,16 +88,17 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
       </BuyerAppBarLayout>
     );
   } else if (page === "orders") {
+    prop(ordersView);
     return (
       <BuyerAppBarLayout>
         <Button
           onPress={() => {
-            setValue("Past Orders");
+            setOrdersView("Regular Orders");
           }}
           style={{
             borderRadius: 0,
             width: "50%",
-            ...(value === "Past Orders"
+            ...(ordersView === "Regular Orders"
               ? { borderBottomWidth: 2, borderBottomColor: CREAMWHITE }
               : {}),
           }}
@@ -105,21 +106,21 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
           <Text
             style={{
               fontFamily: "Inter-Bold",
-              color: value === "Past Orders" ? CREAMWHITE : DARKGREEN,
+              color: ordersView === "Regular Orders" ? CREAMWHITE : DARKGREEN,
               fontSize: 16,
             }}
           >
-            Past Orders
+            Regular Orders
           </Text>
         </Button>
         <Button
           onPress={() => {
-            setValue("Scheduled Orders");
+            setOrdersView("Scheduled Orders");
           }}
           style={{
             borderRadius: 0,
             width: "50%",
-            ...(value === "Scheduled Orders"
+            ...(ordersView === "Scheduled Orders"
               ? { borderBottomWidth: 2, borderBottomColor: CREAMWHITE }
               : {}),
           }}
@@ -127,7 +128,7 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
           <Text
             style={{
               fontFamily: "Inter-Bold",
-              color: value === "Scheduled Orders" ? CREAMWHITE : DARKGREEN,
+              color: ordersView === "Scheduled Orders" ? CREAMWHITE : DARKGREEN,
               fontSize: 16,
             }}
           >
