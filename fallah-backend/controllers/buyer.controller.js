@@ -78,8 +78,15 @@ const followFarmer = async (req, res) => {
     const user = await User.Buyer.findById(req.user._id);
     const farmer = await User.Farmer.findById(id);
     if (farmer) {
-      if (user.following.includes(id)) {
-        res.status(400).json({
+      // Check if user already follows the farmer
+      let alreadyFollowing = false;
+      user.following.forEach((following) => {
+        if (following._id.toString() === id) {
+          alreadyFollowing = true;
+        }
+      });
+      if (alreadyFollowing) {
+        res.status(201).json({
           message: "You are already following this farmer",
         });
       } else {
@@ -126,7 +133,13 @@ const unFollowFarmer = async (req, res) => {
     const { id } = req.body;
     const user = await User.Buyer.findById(req.user._id);
     const farmer = await User.Farmer.findById(id);
-    if (farmer && user.following.includes(id)) {
+    let alreadyFollowing = false;
+    user.following.forEach((following) => {
+      if (following._id.toString() === id) {
+        alreadyFollowing = true;
+      }
+    });
+    if (farmer && alreadyFollowing) {
       // Loop through the following array and filter out the id
       user.following = user.following.filter((following) => {
         following.toString() !== id;
@@ -140,7 +153,7 @@ const unFollowFarmer = async (req, res) => {
         message: "Farmer unfollowed successfully",
       });
     } else {
-      res.status(400).json({
+      res.status(201).json({
         message: "Farmer does not exist",
       });
     }
@@ -449,18 +462,10 @@ const getRegularOrders = async (req, res) => {
       }
     } else {
       // Get all regular orders without products inside
-      const regularOrders = user.orders.regularOrders.map((order) => {
-        return {
-          _id: order._id,
-          deliveryStatus: order.deliveryStatus,
-          deliveryLocation: order.deliveryLocation,
-          createdAt: order.createdAt,
-          updated_at: order.updated_at,
-        };
-      });
+
       res.status(200).json({
         message: "Regular orders found",
-        regularOrders: regularOrders,
+        regularOrders: user.orders.regularOrders,
       });
     }
   } catch (error) {
