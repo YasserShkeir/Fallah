@@ -58,3 +58,28 @@ export const getFollowing = async (func) => {
     console.error(error);
   }
 };
+
+export const followFarmer = async (id) => {
+  let url = `${LOCALIP}/users/farmer/follow`;
+  const token = await AsyncStorage.getItem("token");
+  url = url.replace(/"/g, "");
+  try {
+    await axios
+      .post(
+        url,
+        {
+          id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+};
