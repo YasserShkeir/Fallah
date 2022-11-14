@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
-import BuyerAppBar from "../../components/appbars/BuyerAppBar";
 import { ScrollView } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
+
+// Components
 import BuyerRegularOrderCard from "../../components/sections/BuyerRegularOrders";
 import BuyerScheduledOrderCard from "../../components/sections/BuyerScheduledOrders";
+import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
+import BuyerAppBar from "../../components/appbars/BuyerAppBar";
 
+// Hooks
 import { getRegularOrders, getScheduledOrders } from "../../hooks/buyerOrders";
 
 const BuyerOrdersRoute = () => {
@@ -28,14 +31,17 @@ const BuyerOrdersRoute = () => {
   useEffect(() => {
     async function prepare() {
       try {
-        await getRegularOrders(getRegularOrdersHandler);
-        await getScheduledOrders(getScheduledOrdersHandler);
+        if (orderDisplay === "Regular Orders") {
+          await getRegularOrders(getRegularOrdersHandler);
+        } else {
+          await getScheduledOrders(getScheduledOrdersHandler);
+        }
       } catch (e) {
         console.warn(e);
       }
     }
     prepare();
-  }, []);
+  }, [orderDisplay]);
 
   return (
     <BuyerMainLayout>
@@ -43,11 +49,11 @@ const BuyerOrdersRoute = () => {
       <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
         {orderDisplay === "Regular Orders" ? (
           regularOrders.map((order) => {
-            return <BuyerRegularOrderCard props={order} />;
+            return <BuyerRegularOrderCard key={order._id} props={order} />;
           })
         ) : orderDisplay === "Scheduled Orders" ? (
           scheduledOrders.map((order) => {
-            return <BuyerScheduledOrderCard props={order} />;
+            return <BuyerScheduledOrderCard key={order._id} props={order} />;
           })
         ) : (
           <Text>Other Orders</Text>
