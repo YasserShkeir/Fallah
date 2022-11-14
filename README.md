@@ -55,9 +55,29 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 > Using the above mentioned tech stacks and the wireframes built with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Visitor Desktop Landing                              | Visitor Mobile Landing                             |
+### Visitor
+
+| Visitor Desktop Landing                                      | Visitor Mobile Landing                                     |
+| ------------------------------------------------------------ | ---------------------------------------------------------- |
+| ![Visitor Desktop Landing](./readme/demo/DesktopVisitor.png) | ![Visitor Mobile Landing](./readme/demo/MobileVisitor.png) |
+
+### Admin
+
+| Admin Desktop Landing Dashboard                            | Admin Desktop Users Control Section                  |
+| ---------------------------------------------------------- | ---------------------------------------------------- |
+| ![Admin Desktop Landing](./readme/demo/AdminDashboard.png) | ![Admin Desktop Users](./readme/demo/AdminUsers.png) |
+
+| Admin Mobile Landing Dashboard                                         | Admin Mobile Users Control Section                        |
+| ---------------------------------------------------------------------- | --------------------------------------------------------- |
+| ![Admin Mobile Landing](./readme/demo/AdminMobileLandingDashboard.png) | ![Admin Mobile Users](./readme/demo/AdminMobileUsers.png) |
+
+### User
+
+| Admin Desktop Landing (Dashboard)                    | Mobile Sign In Page                                |
 | ---------------------------------------------------- | -------------------------------------------------- |
-| ![Desktop Landing](./readme/demo/DesktopVisitor.png) | ![Mobile Landing](./readme/demo/MobileVisitor.png) |
+| ![Desktop Landing](./readme/demo/AdminDashboard.png) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
+
+### Buyer
 
 | Admin Desktop Landing (Dashboard)                    | Mobile Sign In Page                                |
 | ---------------------------------------------------- | -------------------------------------------------- |
