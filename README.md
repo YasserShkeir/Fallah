@@ -32,9 +32,9 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 > Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Desktop Visitor Landing                 | Mobile Sign In Page                         |
-| --------------------------------------- | ------------------------------------------- |
-| ![Desktop](./demo/ProtoTypeVisitor.png) | ![Mobile](./demo/ProtoTypeMobileSignin.png) |
+| Desktop Visitor Landing                        | Mobile Sign In Page                                |
+| ---------------------------------------------- | -------------------------------------------------- |
+| ![Desktop](./readme/demo/ProtoTypeVisitor.png) | ![Mobile](./readme/demo/ProtoTypeMobileSignin.png) |
 
 <br><br>
 
@@ -55,13 +55,13 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 > Using the above mentioned tech stacks and the wireframes built with figma from the user stories we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Visitor Desktop Landing                       | Visitor Mobile Landing                      |
-| --------------------------------------------- | ------------------------------------------- |
-| ![Desktop Landing](./demo/DesktopVisitor.png) | ![Mobile Landing](./demo/MobileVisitor.png) |
+| Visitor Desktop Landing                              | Visitor Mobile Landing                             |
+| ---------------------------------------------------- | -------------------------------------------------- |
+| ![Desktop Landing](./readme/demo/DesktopVisitor.png) | ![Mobile Landing](./readme/demo/MobileVisitor.png) |
 
-| Admin Desktop Landing (Dashboard)             | Mobile Sign In Page                         |
-| --------------------------------------------- | ------------------------------------------- |
-| ![Desktop Landing](./demo/AdminDashboard.png) | ![Mobile Landing](./demo/VisitorSignIn.png) |
+| Admin Desktop Landing (Dashboard)                    | Mobile Sign In Page                                |
+| ---------------------------------------------------- | -------------------------------------------------- |
+| ![Desktop Landing](./readme/demo/AdminDashboard.png) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
 
 <br><br>
 
