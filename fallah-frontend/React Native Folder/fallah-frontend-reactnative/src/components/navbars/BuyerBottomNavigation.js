@@ -26,7 +26,7 @@ const BuyerBottomNavigation = ({ navigation }) => {
 
   // Add Components under each route here
   const HomeRoute = () => {
-    return <BuyerHomeRoute />;
+    return <BuyerHomeRoute navigation={navigation} />;
   };
 
   const SearchRoute = () => {
