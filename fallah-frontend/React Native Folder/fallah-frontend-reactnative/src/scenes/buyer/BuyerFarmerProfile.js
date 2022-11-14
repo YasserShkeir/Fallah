@@ -16,7 +16,6 @@ const BuyerFarmerProfile = ({ route }) => {
   // Access data sent from payload
   const { farmer } = route.params;
 
-  const [following, setFollowing] = useState([]);
   const [followed, setFollowed] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +25,6 @@ const BuyerFarmerProfile = ({ route }) => {
         setFollowed(true);
       }
     });
-    setFollowing(response.data.following);
   };
 
   const followFarmerButtonHandler = async (check) => {
