@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import { View, Image } from "react-native";
-import { Button, IconButton, Text } from "react-native-paper";
-import IonIcons from "react-native-vector-icons/Ionicons";
+import { IconButton, Text } from "react-native-paper";
 
+// Hooks
+import {
+  getFollowing,
+  followFarmer,
+  unfollowFarmer,
+} from "../../hooks/buyerFarmer";
+
+// Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
-
-import { getFollowing } from "../../hooks/buyerFarmer";
 
 const BuyerFarmerProfile = ({ route }) => {
   // Access data sent from payload
@@ -22,6 +27,18 @@ const BuyerFarmerProfile = ({ route }) => {
       }
     });
     setFollowing(response.data.following);
+  };
+
+  const followFarmerButtonHandler = async (check) => {
+    setLoading(true);
+    if (check) {
+      await unfollowFarmer(farmer._id);
+      setFollowed(false);
+    } else {
+      await followFarmer(farmer._id);
+      setFollowed(true);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -62,7 +79,7 @@ const BuyerFarmerProfile = ({ route }) => {
               borderRadius: 10,
             }}
             onPress={() => {
-              setFollowed(!followed);
+              followFarmerButtonHandler(followed);
             }}
           />
         </View>
