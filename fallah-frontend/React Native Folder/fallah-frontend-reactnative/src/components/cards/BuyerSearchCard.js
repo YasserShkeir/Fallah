@@ -10,8 +10,8 @@ const BuyerSearchCard = ({ item, navigation }) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("BuyerProduct", {
-            product: item,
+          navigation.navigate("BuyerFarmerProfile", {
+            farmer: item,
           })
         }
         style={{
