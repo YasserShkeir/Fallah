@@ -7,7 +7,7 @@ import BuyerFollowingCard from "../cards/BuyerFollowingCard";
 // Styles
 import { DARKGREEN } from "../../styles/colors";
 
-const BuyerFollowingSection = ({ followings }) => {
+const BuyerFollowingSection = ({ followings, navigation }) => {
   return (
     <View style={{ marginVertical: 15 }}>
       <Text
@@ -23,7 +23,11 @@ const BuyerFollowingSection = ({ followings }) => {
       </Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {followings.map((following) => (
-          <BuyerFollowingCard key={following._id} following={following} />
+          <BuyerFollowingCard
+            key={following._id}
+            following={following}
+            navigation={navigation}
+          />
         ))}
       </ScrollView>
     </View>
