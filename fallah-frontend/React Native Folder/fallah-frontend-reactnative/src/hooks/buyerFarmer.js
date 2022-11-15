@@ -77,3 +77,14 @@ export const getFarmerReviews = async (func, id) => {
     console.error(error);
   }
 };
+
+export const getFarmerProducts = async (func, id) => {
+  const url = usersURL + `farmer-product/${id}`;
+  try {
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
