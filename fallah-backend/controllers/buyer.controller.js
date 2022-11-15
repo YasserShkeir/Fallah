@@ -171,8 +171,15 @@ const reviewFarmer = async (req, res) => {
     const user = await User.Buyer.findById(req.user._id);
     const farmer = await User.Farmer.findById(id);
     if (farmer) {
-      if (user.reviews.includes(id)) {
-        res.status(400).json({
+      // Check if user already reviewed the farmer
+      let alreadyReviewed = false;
+      user.reviews.forEach((review) => {
+        if (review.farmerID.toString() === id) {
+          alreadyReviewed = true;
+        }
+      });
+      if (alreadyReviewed) {
+        res.status(201).json({
           message: "You have already reviewed this farmer",
         });
       } else {
