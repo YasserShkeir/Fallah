@@ -147,6 +147,31 @@ const getFarmerReviews = async (req, res) => {
   }
 };
 
+const getFarmerProducts = async (req, res) => {
+  // Loop through all categories and get all products of the farmer
+  const { id } = req.params;
+  try {
+    const farmer = await User.Farmer.findById(id);
+    const categories = await Categories.find();
+    let products = [];
+    categories.forEach((category) => {
+      category.childCategories.forEach((childCategory) => {
+        childCategory.products.forEach((product) => {
+          if (product.farmerID.toString() === farmer._id.toString()) {
+            products.push(product);
+          }
+        });
+      });
+    });
+    res.status(200).json({
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getCategories,
   addLocation,
@@ -154,4 +179,5 @@ module.exports = {
   deleteLocation,
   getLocations,
   getFarmerReviews,
+  getFarmerProducts,
 };

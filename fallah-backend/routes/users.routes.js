@@ -15,6 +15,7 @@ const {
   deleteLocation,
   getLocations,
   getFarmerReviews,
+  getFarmerProducts,
 } = require("../controllers/user.controller");
 
 // -- Farmer Controller
@@ -67,6 +68,7 @@ router.put("/location", auth, user, editLocation); // Add a location
 router.delete("/location", auth, user, deleteLocation); // Delete a location
 router.get("/location", auth, user, getLocations); // Get all locations
 router.get("/farmer-review/:id", auth, user, getFarmerReviews); // Get all reviews
+router.get("/farmer-product/:id", auth, user, getFarmerProducts); // Get all products
 
 // -- Farmer Routes
 router.post("/product", auth, farmer, registerProduct); // Register a product
