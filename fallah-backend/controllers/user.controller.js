@@ -134,10 +134,24 @@ const getLocations = async (req, res) => {
   }
 };
 
+const getFarmerReviews = async (req, res) => {
+  // Get all reviews
+  try {
+    const user = await User.User.findById(req.user._id);
+    res.status(200).json({
+      reviews: user.reviews,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getCategories,
   addLocation,
   editLocation,
   deleteLocation,
   getLocations,
+  getFarmerReviews,
 };
