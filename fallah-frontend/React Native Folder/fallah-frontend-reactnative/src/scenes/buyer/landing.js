@@ -7,13 +7,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import BuyerBottomNavigation from "../../components/navbars/BuyerBottomNavigation";
 
 const BuyerLanding = ({ navigation }) => {
+  let isExpired = false;
   useEffect(() => {
     async function prepare(navigation) {
       try {
         const token = await AsyncStorage.getItem("token");
         const decoded = jwt_decode(token);
         // check if token is expired
-        if (decoded.exp < Date.now() / 1000) {
+        isExpired = !!(decoded.exp < Date.now() / 1000);
+        console.log("isExpired", isExpired);
+        if (isExpired) {
           console.log("No token found");
           AsyncStorage.removeItem("token");
           navigation.navigate("SignIn");
@@ -24,7 +27,7 @@ const BuyerLanding = ({ navigation }) => {
     }
 
     prepare(navigation);
-  }, []);
+  }, [isExpired]);
 
   return <BuyerBottomNavigation navigation={navigation} />;
 };
