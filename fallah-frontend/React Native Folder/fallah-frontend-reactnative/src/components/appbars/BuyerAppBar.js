@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Text, Appbar, Searchbar, Button } from "react-native-paper";
 
@@ -17,11 +17,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const BuyerAppBar = ({ page, prop, navigation }) => {
   const [ordersView, setOrdersView] = useState("Regular Orders");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const onChangeSearch = (query) => {
-    setSearchQuery(query);
-    prop(query);
-  };
 
   if (page === "home") {
     return (
@@ -43,6 +38,11 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
       </BuyerAppBarLayout>
     );
   } else if (page === "search") {
+    const onChangeSearch = (query) => {
+      setSearchQuery(query);
+      prop(query);
+    };
+
     return (
       <BuyerAppBarLayout>
         <Searchbar
