@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import jwt_decode from "jwt-decode";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -10,9 +11,12 @@ const BuyerLanding = ({ navigation }) => {
     async function prepare(navigation) {
       try {
         const token = await AsyncStorage.getItem("token");
-        if (!token) {
+        const decoded = jwt_decode(token);
+        // check if token is expired
+        if (decoded.exp < Date.now() / 1000) {
           console.log("No token found");
-          return navigation.navigate("SignIn");
+          AsyncStorage.removeItem("token");
+          navigation.navigate("SignIn");
         }
       } catch (e) {
         console.warn(e);
