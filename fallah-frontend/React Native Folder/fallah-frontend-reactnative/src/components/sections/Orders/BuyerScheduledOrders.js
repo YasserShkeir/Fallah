@@ -1,8 +1,10 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+
+// Styles
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../../styles/colors";
 
 const BuyerScheduledOrderCard = ({ props }) => {
   const dividor = props.scheduleFrequency === "Daily" ? 1 : 7;
@@ -33,6 +35,16 @@ const BuyerScheduledOrderCard = ({ props }) => {
           color: CREAMWHITE,
         }}
       >
+        {props.deliveryStatus === "Approved" ? (
+          <FontAwesome5Icon name="calendar-alt" size={20} color={CREAMWHITE} />
+        ) : (
+          <FontAwesome5Icon
+            name="calendar-times"
+            size={20}
+            color={CREAMWHITE}
+          />
+        )}
+        {" - "}
         {props.deliveryStatus}{" "}
         {props.deliveryStatus === "Approved" ? "on" : "since"}{" "}
         {props.updated_at.substring(0, 10)}

@@ -1,8 +1,9 @@
 import { View, Image } from "react-native";
 import { Text } from "react-native-paper";
 
-import { BuyerSeasonalCardContainer } from "../../styles/components";
-import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../styles/colors";
+// Styles
+import { BuyerSeasonalCardContainer } from "../../../styles/components";
+import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../../styles/colors";
 
 const BuyerSeasonalCard = (item) => {
   return (

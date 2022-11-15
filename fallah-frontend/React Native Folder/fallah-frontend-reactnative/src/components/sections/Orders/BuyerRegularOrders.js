@@ -1,8 +1,10 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+
+// Styles
+import { DARKGREEN, LIGHTGREEN } from "../../../styles/colors";
 
 const BuyerRegularOrderCard = ({ props }) => {
   return (

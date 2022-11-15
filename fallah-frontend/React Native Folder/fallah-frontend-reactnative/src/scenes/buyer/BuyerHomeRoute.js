@@ -6,9 +6,9 @@ import { ActivityIndicator } from "react-native-paper";
 import images from "../../assets/images";
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
-import BuyerSeasonalCard from "../../components/sections/BuyerSeasonalCard";
-import BuyerCategoriesSection from "../../components/sections/BuyerCategoriesSection";
-import BuyerFollowingSection from "../../components/sections/BuyerFollowingsSection";
+import BuyerSeasonalCard from "../../components/sections/HomePage/BuyerSeasonalCard";
+import BuyerCategoriesSection from "../../components/sections/HomePage/BuyerCategoriesSection";
+import BuyerFollowingSection from "../../components/sections/HomePage/BuyerFollowingsSection";
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
