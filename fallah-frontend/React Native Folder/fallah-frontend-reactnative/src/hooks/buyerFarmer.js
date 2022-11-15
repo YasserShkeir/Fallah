@@ -40,17 +40,13 @@ export const getFollowing = async (func) => {
 export const followFarmer = async (id) => {
   const url = usersURL + `farmer/follow`;
   try {
-    await axios
-      .post(
-        url,
-        {
-          id: id,
-        },
-        await configHandler()
-      )
-      .then((response) => {
-        console.log(response.data);
-      });
+    await axios.post(
+      url,
+      {
+        id: id,
+      },
+      await configHandler()
+    );
   } catch (error) {
     console.error(error);
   }
@@ -59,17 +55,24 @@ export const followFarmer = async (id) => {
 export const unfollowFarmer = async (id) => {
   const url = usersURL + `farmer/unfollow`;
   try {
-    await axios
-      .post(
-        url,
-        {
-          id: id,
-        },
-        await configHandler()
-      )
-      .then((response) => {
-        console.log(response.data);
-      });
+    await axios.post(
+      url,
+      {
+        id: id,
+      },
+      await configHandler()
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getFarmerReviews = async (func, id) => {
+  const url = usersURL + `farmer-review/${id}`;
+  try {
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
   } catch (error) {
     console.error(error);
   }
