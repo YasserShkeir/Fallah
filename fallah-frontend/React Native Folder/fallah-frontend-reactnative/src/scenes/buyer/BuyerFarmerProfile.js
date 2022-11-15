@@ -7,10 +7,11 @@ import {
   getFollowing,
   followFarmer,
   unfollowFarmer,
+  getFarmerReviews,
 } from "../../hooks/buyerFarmer";
 
 // Styles
-import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const BuyerFarmerProfile = ({ route }) => {
   // Access data sent from payload
@@ -18,6 +19,8 @@ const BuyerFarmerProfile = ({ route }) => {
 
   const [followed, setFollowed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  let averageRating = 0;
 
   const getFollowingHandler = (response) => {
     response.data.following.forEach((follow) => {
@@ -39,10 +42,15 @@ const BuyerFarmerProfile = ({ route }) => {
     setLoading(false);
   };
 
+  const getFarmerReviewsHandler = (response) => {
+    setReviews(response.data.reviews);
+  };
+
   useEffect(() => {
     async function prepare() {
       try {
         await getFollowing(getFollowingHandler);
+        await getFarmerReviews(getFarmerReviewsHandler, farmer._id);
       } catch (e) {
         console.warn(e);
       }
@@ -50,49 +58,123 @@ const BuyerFarmerProfile = ({ route }) => {
     prepare();
   }, []);
 
+  const ratingSwitch = (param) => {
+    const stars = (param) => {
+      let stars = [];
+      for (let i = 0; i < param; i++) {
+        stars.push(
+          <Image
+            key={i}
+            source={require("../../assets/icons/DefaultStar.png")}
+            style={{ width: 24, height: 24 }}
+          />
+        );
+      }
+      for (let i = 0; i < 5 - param; i++) {
+        stars.push(
+          <Image
+            key={i + 5}
+            source={require("../../assets/icons/EmptyStar.png")}
+            style={{ width: 24, height: 24 }}
+          />
+        );
+      }
+      return stars;
+    };
+
+    switch (param) {
+      case 1:
+        return stars(1);
+      case 2:
+        return stars(2);
+      case 3:
+        return stars(3);
+      case 4:
+        return stars(4);
+      case 5:
+        return stars(5);
+      default:
+        return "No reviews yet";
+    }
+  };
+
   return (
     <View>
-      <View>
-        <View
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          width: "100%",
+          padding: 10,
+          position: "absolute",
+          top: 0,
+          zIndex: 1,
+        }}
+      >
+        <IconButton
+          // Check if the user is already following the farmer
+          icon={followed ? "heart" : "heart-outline"}
+          disabled={loading}
+          iconColor={LIGHTGREEN}
+          size={25}
           style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            width: "100%",
-            padding: 10,
-            position: "absolute",
-            top: 0,
-            zIndex: 1,
+            backgroundColor: CREAMWHITE,
+            borderRadius: 10,
           }}
-        >
-          <IconButton
-            // Check if the user is already following the farmer
-            icon={followed ? "heart" : "heart-outline"}
-            disabled={loading}
-            iconColor={LIGHTGREEN}
-            size={25}
-            style={{
-              backgroundColor: CREAMWHITE,
-              borderRadius: 10,
-            }}
-            onPress={() => {
-              followFarmerButtonHandler(followed);
-            }}
-          />
-        </View>
-        <Image
-          source={{ uri: farmer.images[0] }}
-          style={{ width: "100%", height: 250 }}
+          onPress={() => {
+            followFarmerButtonHandler(followed);
+          }}
         />
       </View>
-
-      <View style={{ padding: 10 }}>
+      <Image
+        source={{ uri: farmer.images[0] }}
+        style={{ width: "100%", height: 250 }}
+      />
+      <Text
+        style={{
+          fontFamily: "Inter-Bold",
+          fontSize: 32,
+          color: DARKGREEN,
+          margin: 10,
+        }}
+      >
+        {farmer.name}
+      </Text>
+      <View
+        style={{
+          paddingHorizontal: 10,
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
         <Text
-          style={{ fontFamily: "Inter-Bold", fontSize: 24, color: LIGHTGREEN }}
+          style={{
+            fontFamily: "Inter-Bold",
+            fontSize: 24,
+            color: LIGHTGREEN,
+            display: "flex",
+            marginRight: 10,
+          }}
         >
-          {farmer.name}
+          Rating:{" "}
+          {reviews.forEach((review) => {
+            averageRating += review.rating;
+          })}
+          {Math.round(averageRating / reviews.length)}/5
         </Text>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          {ratingSwitch(Math.round(averageRating / reviews.length))}
+        </View>
       </View>
     </View>
   );
