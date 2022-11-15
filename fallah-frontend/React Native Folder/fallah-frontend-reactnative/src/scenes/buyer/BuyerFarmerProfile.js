@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, Image } from "react-native";
-import { IconButton, Text } from "react-native-paper";
+import { ActivityIndicator, IconButton, Text } from "react-native-paper";
 
 // Hooks
 import {
@@ -8,6 +8,7 @@ import {
   followFarmer,
   unfollowFarmer,
   getFarmerReviews,
+  getFarmerProducts,
 } from "../../hooks/buyerFarmer";
 
 // Styles
@@ -20,6 +21,7 @@ const BuyerFarmerProfile = ({ route }) => {
   const [followed, setFollowed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [products, setProducts] = useState([]);
   let averageRating = 0;
 
   const getFollowingHandler = (response) => {
@@ -46,11 +48,16 @@ const BuyerFarmerProfile = ({ route }) => {
     setReviews(response.data.reviews);
   };
 
+  const getFarmerProductsHandler = (response) => {
+    setProducts(response.data.products);
+  };
+
   useEffect(() => {
     async function prepare() {
       try {
         await getFollowing(getFollowingHandler);
         await getFarmerReviews(getFarmerReviewsHandler, farmer._id);
+        await getFarmerProducts(getFarmerProductsHandler, farmer._id);
       } catch (e) {
         console.warn(e);
       }
@@ -94,7 +101,7 @@ const BuyerFarmerProfile = ({ route }) => {
       case 5:
         return stars(5);
       default:
-        return "No reviews yet";
+        return <ActivityIndicator />;
     }
   };
 
@@ -164,7 +171,9 @@ const BuyerFarmerProfile = ({ route }) => {
           {reviews.forEach((review) => {
             averageRating += review.rating;
           })}
-          {Math.round(averageRating / reviews.length)}/5
+          {averageRating / reviews.length
+            ? Math.round(averageRating / reviews.length) + "/5"
+            : "Loading..."}
         </Text>
         <View
           style={{
