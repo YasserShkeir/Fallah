@@ -16,10 +16,7 @@ import GreenButton from "../../components/buttons/GreenButton";
 import { signin } from "../../hooks/auth";
 
 const handleSignIn = async (email, password, navigation) => {
-  const response = await signin(email, password, navigation);
-  if (response) {
-    navigation.navigate("BuyerLanding");
-  }
+  await signin(email, password, navigation);
 };
 
 const SignIn = ({ navigation }) => {
