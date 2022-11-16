@@ -15,17 +15,6 @@ export const getFarmers = async (func, id1) => {
   }
 };
 
-export const buyerGetFavourites = async (func) => {
-  const url = usersURL + `farmer/following`;
-  try {
-    await axios.get(url, await configHandler()).then((response) => {
-      func(response);
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const getFollowing = async (func) => {
   const url = usersURL + `farmer/following`;
   try {
