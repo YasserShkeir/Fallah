@@ -22,9 +22,12 @@ const registerProduct = async (req, res) => {
       amountAvailable,
     } = req.body;
 
+    const farmer = await User.Farmer.findById(req.user._id);
+
     let newProduct = {
       // Create a new product
       farmerID: req.user._id.toString(),
+      farmerName: farmer.name,
       productName,
       images,
       startingSeason,

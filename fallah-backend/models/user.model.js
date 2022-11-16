@@ -209,6 +209,10 @@ const farmerSchema = User.discriminator(
   "Farmer",
   new mongoose.Schema(
     {
+      description: {
+        type: String,
+        required: "Description is required",
+      },
       followers: [
         {
           buyerID: {
