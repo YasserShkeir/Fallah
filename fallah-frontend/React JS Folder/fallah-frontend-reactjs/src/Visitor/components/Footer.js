@@ -28,7 +28,11 @@ const Footer = () => {
         </Box> */}
       {/* Version 2 of Footer */}
       <Box className="w-full">
-        <img src={FooterImageTop} className="w-full" alt="FooterImageTop" />
+        <img
+          src={FooterImageTop}
+          className="w-full max-h-52"
+          alt="FooterImageTop"
+        />
         <Box className="w-full h-fit flex bg-light-green justify-between -mt-3">
           {/* Left Side */}
           <Box className="flex flex-col">

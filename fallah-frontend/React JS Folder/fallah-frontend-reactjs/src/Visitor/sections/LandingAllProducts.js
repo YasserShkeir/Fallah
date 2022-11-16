@@ -11,7 +11,7 @@ const AllProducts = () => {
         <p className="font-bold text-4xl md:text-6xl">
           Fresher, Cheaper Produce{" "}
         </p>
-        <p className="font-normal text-md md:text-xl my-12 sm:my-20">
+        <p className="font-normal text-md md:text-xl xl:text-3xl my-12 sm:my-20">
           Cut the Wait, Cut the Price! Buy directly from our beloved farmers to
           save a dime, and save some time!
         </p>

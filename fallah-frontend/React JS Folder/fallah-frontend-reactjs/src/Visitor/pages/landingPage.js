@@ -14,13 +14,13 @@ const VisitorLandingPage = () => {
       <Box className="mt-32 w-full">
         <img
           src={AllProductsBottom}
-          className="w-full rotate-180 -mb-3 "
+          className="w-full rotate-180 -mb-3 max-h-40 "
           alt="AllProductsBottomRotated"
         />
         <AllProducts />
         <img
           src={AllProductsBottom}
-          className="w-full -mt-1"
+          className="w-full -mt-1 max-h-40"
           alt="AllProductsBottom"
         />
         <Benefits />

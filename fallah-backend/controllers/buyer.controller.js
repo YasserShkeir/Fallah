@@ -996,7 +996,6 @@ const addScheduledOrderCategory = async (req, res) => {
 
             const category = scheduledOrder.requestedCategories.find(
               (category) => {
-                console.log(category);
                 return (
                   category.categoryID.toString() === childCategoryID.toString()
                 );

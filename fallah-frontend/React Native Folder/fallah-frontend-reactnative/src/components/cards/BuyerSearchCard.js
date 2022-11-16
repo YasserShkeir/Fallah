@@ -8,7 +8,6 @@ import BuyerItemCard from "./BuyerItemCard";
 import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../styles/colors";
 
 const BuyerSearchCard = ({ item, location, navigation }) => {
-  console.log(item);
   const image = item.images[0];
   if (item.__t === "Farmer") {
     return (

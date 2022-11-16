@@ -7,8 +7,10 @@ const NavBarLink = ({ to, children, icon, curr, setUrl }) => {
     <Link
       to={to}
       className={
-        "flex items-center text-cream-white text-sm md:text-base font-bold px-3 sm:px-4 gap-4 sm:gap-6 bg-dark-green rounded-md w-fit sm:w-full " +
-        (curr === to ? " py-2 bg-cream-white text-dark-green" : " py-2")
+        "flex items-center text-cream-white text-sm md:text-base font-bold px-3 sm:px-4 gap-4 sm:gap- rounded-md w-fit sm:w-full " +
+        (curr === to
+          ? " py-2 bg-cream-white text-dark-green"
+          : "bg-dark-green py-2")
       }
       onClick={() => setUrl(to)}
     >
