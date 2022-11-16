@@ -72,6 +72,7 @@ const BuyerSearchRoute = ({ navigation }) => {
                   <BuyerSearchCard
                     key={product._id}
                     item={product}
+                    location={"search"}
                     navigation={navigation}
                   />
                 );
@@ -84,6 +85,7 @@ const BuyerSearchRoute = ({ navigation }) => {
                   <BuyerSearchCard
                     key={product._id}
                     item={product}
+                    location={"search"}
                     navigation={navigation}
                   />
                 );
