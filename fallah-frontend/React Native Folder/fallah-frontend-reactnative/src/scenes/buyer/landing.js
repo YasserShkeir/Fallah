@@ -15,7 +15,6 @@ const BuyerLanding = ({ navigation }) => {
         const decoded = jwt_decode(token);
         // check if token is expired
         isExpired = !!(decoded.exp < Date.now() / 1000);
-        console.log("isExpired", isExpired);
         if (isExpired) {
           console.log("No token found");
           AsyncStorage.removeItem("token");
