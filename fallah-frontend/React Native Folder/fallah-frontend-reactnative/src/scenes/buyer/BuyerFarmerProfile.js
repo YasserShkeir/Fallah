@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { View, Image } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import { ActivityIndicator, IconButton, Text } from "react-native-paper";
+
+// Components
+import BuyerItemCard from "../../components/cards/BuyerItemCard";
 
 // Hooks
 import {
@@ -14,7 +17,7 @@ import {
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
-const BuyerFarmerProfile = ({ route }) => {
+const BuyerFarmerProfile = ({ route, navigation }) => {
   // Access data sent from payload
   const { farmer } = route.params;
 
@@ -144,10 +147,22 @@ const BuyerFarmerProfile = ({ route }) => {
           fontFamily: "Inter-Bold",
           fontSize: 32,
           color: DARKGREEN,
-          margin: 10,
+          marginTop: 10,
+          marginLeft: 10,
         }}
       >
         {farmer.name}
+      </Text>
+      <Text
+        style={{
+          fontFamily: "Inter-Regular",
+          fontSize: 20,
+          color: DARKGREEN,
+          margin: 5,
+          marginLeft: 10,
+        }}
+      >
+        {farmer.description}
       </Text>
       <View
         style={{
@@ -156,6 +171,9 @@ const BuyerFarmerProfile = ({ route }) => {
           flexDirection: "row",
           width: "100%",
           alignItems: "center",
+          borderBottomColor: LIGHTGREEN,
+          borderBottomWidth: 2,
+          paddingBottom: 10,
         }}
       >
         <Text
@@ -184,6 +202,31 @@ const BuyerFarmerProfile = ({ route }) => {
         >
           {ratingSwitch(Math.round(averageRating / reviews.length))}
         </View>
+      </View>
+      <View style={{ padding: 5 }}>
+        <Text
+          style={{
+            fontFamily: "Inter-Bold",
+            fontSize: 24,
+            color: DARKGREEN,
+            margin: 5,
+            marginLeft: 10,
+          }}
+        >
+          Products
+        </Text>
+        <ScrollView>
+          {products.map((product) => {
+            return (
+              <BuyerItemCard
+                key={product._id}
+                item={product}
+                location={"profile"}
+                navigation={navigation}
+              />
+            );
+          })}
+        </ScrollView>
       </View>
     </View>
   );
