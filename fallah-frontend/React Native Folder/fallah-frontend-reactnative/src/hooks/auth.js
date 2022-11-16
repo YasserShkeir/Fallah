@@ -39,7 +39,9 @@ export const signin = async (email, password, navigation) => {
       await AsyncStorage.setItem("token", response.data.token);
 
       alert("Login Successful");
-      navigation.navigate("BuyerLanding");
+      response.data.userType === "buyer"
+        ? navigation.navigate("BuyerLanding")
+        : navigation.navigate("FarmerLanding");
     } else {
       alert("Login Failed");
     }
