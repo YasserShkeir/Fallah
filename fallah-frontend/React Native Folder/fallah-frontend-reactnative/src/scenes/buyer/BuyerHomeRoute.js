@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator, Text } from "react-native-paper";
 
 // Components
 import images from "../../assets/images";
@@ -13,7 +13,7 @@ import BuyerFollowingSection from "../../components/sections/HomePage/BuyerFollo
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
 import { getCategories } from "../../hooks/buyerCategories";
-import { buyerGetFavourites } from "../../hooks/buyerFarmer";
+import { getFollowing } from "../../hooks/buyerFarmer";
 
 // Styles
 import { DARKGREEN, LIGHTGREEN } from "../../styles/colors";
@@ -41,7 +41,7 @@ const BuyerHomeRoute = ({ navigation }) => {
     setCategories(data);
   };
 
-  const getFavouritesHandler = (response) => {
+  const getFollowingHandler = (response) => {
     setFollowings(response.data.following);
   };
 
@@ -50,7 +50,7 @@ const BuyerHomeRoute = ({ navigation }) => {
       try {
         await getSeasonalItems(getSeasonalItemsHandler);
         await getCategories(getCategoriesHandler);
-        await buyerGetFavourites(getFavouritesHandler);
+        await getFollowing(getFollowingHandler);
       } catch (e) {
         console.warn(e);
       }
@@ -76,11 +76,24 @@ const BuyerHomeRoute = ({ navigation }) => {
                     followings={followings}
                     navigation={navigation}
                   />
+                ) : followings.length === 0 ? (
+                  <Text
+                    style={{
+                      paddingHorizontal: 15,
+                      paddingVertical: 10,
+                      fontSize: 18,
+                      color: DARKGREEN,
+                      fontFamily: "Inter-Bold",
+                    }}
+                  >
+                    No Followings
+                  </Text>
                 ) : (
                   <ActivityIndicator
-                    style={{ marginTop: 20 }}
-                    size="large"
+                    animating={true}
                     color={DARKGREEN}
+                    size="large"
+                    style={{ marginTop: 20 }}
                   />
                 )}
               </>
