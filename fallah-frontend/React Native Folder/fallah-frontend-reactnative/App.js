@@ -8,8 +8,11 @@ import * as Font from "expo-font";
 // Components
 import SignIn from "./src/scenes/signin/index";
 import SignUp from "./src/scenes/signup/index";
+// -- Buyer
 import BuyerLanding from "./src/scenes/buyer/landing";
 import BuyerFarmerProfile from "./src/scenes/buyer/BuyerFarmerProfile";
+// -- Farmer
+import FarmerLanding from "./src/scenes/farmer/landing";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "./src/styles/colors";
@@ -75,7 +78,7 @@ export default function App() {
               headerTintColor: CREAMWHITE,
             }}
           />
-          <Stack.Group>
+          <Stack.Group navigationKey="buyer">
             <Stack.Screen
               name="BuyerLanding"
               component={BuyerLanding}
@@ -94,6 +97,13 @@ export default function App() {
                 },
                 headerTintColor: CREAMWHITE,
               }}
+            />
+          </Stack.Group>
+          <Stack.Group navigationKey="farmer">
+            <Stack.Screen
+              name="FarmerLanding"
+              component={FarmerLanding}
+              options={{ headerShown: false }}
             />
           </Stack.Group>
         </Stack.Navigator>
