@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import { SafeAreaView, Platform, StatusBar } from "react-native";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
-import FarmerAppBar from "../../components/appbars/FarmerAppBar";
 import FarmerBottomNavigation from "../../components/navbars/FarmerBottomNavigation";
 
 const FarmerLanding = ({ navigation }) => {
@@ -27,21 +25,9 @@ const FarmerLanding = ({ navigation }) => {
     }
 
     prepare();
-  }, []);
+  }, [isExpired]);
 
-  return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        height: "100%",
-      }}
-    >
-      <FarmerAppBar navigation={navigation} />
-      <FarmerBottomNavigation navigation={navigation} />
-    </SafeAreaView>
-  );
+  return <FarmerBottomNavigation navigation={navigation} />;
 };
 
 export default FarmerLanding;
