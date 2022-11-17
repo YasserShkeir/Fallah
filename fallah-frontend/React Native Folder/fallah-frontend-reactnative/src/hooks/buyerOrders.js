@@ -26,6 +26,28 @@ export const getRegularOrders = async (func, id) => {
   }
 };
 
+export const createRegularOrder = async (data) => {
+  const deliveryLocationID = data;
+  console.log("deliveryLocationID", deliveryLocationID);
+  let url = usersURL + `regular-order`;
+  try {
+    await axios
+      .post(
+        url,
+
+        {
+          deliveryLocationID: deliveryLocationID,
+        },
+        await configHandler()
+      )
+      .then((response) => {
+        console.log("Added Order");
+      });
+  } catch (error) {
+    console.error("Error API: ", error);
+  }
+};
+
 export const getScheduledOrders = async (func, id) => {
   let url = usersURL + `scheduled-order`;
   if (id) {
