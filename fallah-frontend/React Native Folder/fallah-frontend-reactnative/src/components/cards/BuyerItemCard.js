@@ -39,7 +39,7 @@ const availableMonths = (item) => {
 const BuyerItemCard = ({ item, location, navigation }) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("BuyerProduct", { product: item })}
+      onPress={() => navigation.navigate("BuyerItemProfile", { product: item })}
       style={{
         width: "100%",
         height: 120,
