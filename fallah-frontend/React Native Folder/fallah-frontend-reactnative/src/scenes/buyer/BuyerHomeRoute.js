@@ -64,7 +64,10 @@ const BuyerHomeRoute = ({ navigation }) => {
       <ScrollView>
         {seasonalItems.length > 0 ? (
           <>
-            <BuyerSeasonalCard seasonalItems={seasonalItems[0]} />
+            <BuyerSeasonalCard
+              item={seasonalItems[0]}
+              navigation={navigation}
+            />
             {categories.length > 0 && images ? (
               <>
                 <BuyerCategoriesSection
