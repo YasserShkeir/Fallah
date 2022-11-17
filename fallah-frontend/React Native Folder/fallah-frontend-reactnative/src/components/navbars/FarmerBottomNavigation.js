@@ -1,66 +1,87 @@
-// Unlike Buyer Bottom Nav, Farmer Bottom Nav will be based on AppBar
+// To Follow Best Practice for React Native, we should use Routing to navigate between pages
+// Refer to Buyer Navigation for a similar approach
 
-import { Appbar } from "react-native-paper";
-import {
-  CREAMWHITE,
-  DARKGREEN,
-  LIGHTGREEN,
-  PEACHYYELLOW,
-} from "../../styles/colors";
+import { useState } from "react";
+import { SafeAreaView, StatusBar } from "react-native";
+import { BottomNavigation, FAB } from "react-native-paper";
+
+// Components
+import { NavBarRoute } from "../buttons/NavBarRoute";
+import FarmerAppBar from "../appbars/FarmerAppBar";
+
+// Routes
+import FarmerHomeRoute from "../../scenes/farmer/FarmerHomeRoute";
+import FarmerProductsRoute from "../../scenes/farmer/FarmerProductsRoute";
+import FarmerStatRoute from "../../scenes/farmer/FarmerStatRoute";
+import FarmerProfileRoute from "../../scenes/farmer/FarmerProfileRoute";
+
+// Styles
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const FarmerBottomNavigation = ({ navigation }) => {
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    NavBarRoute({ key: "home" }),
+    NavBarRoute({ key: "food-apple" }),
+    NavBarRoute({ key: "chart-box" }),
+    NavBarRoute({ key: "account" }),
+  ]);
+
+  // Add Components under each route here
+  const HomeRoute = () => {
+    return <FarmerHomeRoute navigation={navigation} />;
+  };
+
+  const ProductsRoute = () => {
+    return <FarmerProductsRoute navigation={navigation} />;
+  };
+
+  const StatisticsRoute = () => {
+    return <FarmerStatRoute navigation={navigation} />;
+  };
+
+  const ProfileRoute = () => {
+    return <FarmerProfileRoute navigation={navigation} />;
+  };
+
+  const renderScene = BottomNavigation.SceneMap({
+    home: HomeRoute,
+    "food-apple": ProductsRoute,
+    "chart-box": StatisticsRoute,
+    account: ProfileRoute,
+  });
+
   return (
-    <Appbar
+    <SafeAreaView
       style={{
-        backgroundColor: LIGHTGREEN,
-        elevation: 0,
-        borderTopWidth: 2,
-        borderTopColor: PEACHYYELLOW,
-        height: 60,
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexDirection: "row",
-        paddingHorizontal: 15,
-        bottom: 0,
-        position: "absolute",
-        width: "100%",
+        flex: 1,
+        backgroundColor: CREAMWHITE,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        height: "100%",
       }}
     >
-      <Appbar.Action
-        icon="home"
-        color={CREAMWHITE}
-        size={28}
-        onPress={() => navigation.navigate("FarmerLanding")}
-      />
-      <Appbar.Action
-        icon="home"
-        color={CREAMWHITE}
-        size={28}
-        onPress={() => navigation.navigate("FarmerLanding")}
-      />
-      <Appbar.Action
-        icon="plus"
-        color={CREAMWHITE}
-        size={50}
-        style={{
-          marginBottom: 65,
-          backgroundColor: PEACHYYELLOW,
+      <FarmerAppBar navigation={navigation} />
+
+      <BottomNavigation
+        navigationState={{ index, routes }}
+        onIndexChange={setIndex}
+        renderScene={renderScene}
+        barStyle={{
+          backgroundColor: LIGHTGREEN,
+          height: 70,
+          width: "100%",
+          justifyContent: "center",
         }}
-        onPress={() => navigation.navigate("FarmerAddProduct")}
+        activeColor={DARKGREEN}
+        inactiveColor={CREAMWHITE}
+        labeled={false}
       />
-      <Appbar.Action
-        icon="home"
-        color={CREAMWHITE}
-        size={28}
-        onPress={() => navigation.navigate("FarmerLanding")}
+      <FAB
+        style={{ position: "absolute", right: 10, bottom: 85 }}
+        icon="plus"
+        onPress={() => navigation.navigate("FarmerAddItem")}
       />
-      <Appbar.Action
-        icon="account"
-        color={CREAMWHITE}
-        size={28}
-        onPress={() => navigation.navigate("FarmerProfile")}
-      />
-    </Appbar>
+    </SafeAreaView>
   );
 };
 
