@@ -7,7 +7,7 @@ import AppBarMenuAnchor from "../buttons/AppBarMenuAnchor";
 // Hooks
 import { getUserLocations } from "../../hooks/locations";
 
-const AppbarLocationMenu = () => {
+const AppbarLocationMenu = ({ page, setLocationImp }) => {
   const [visible, setVisible] = useState(false);
   const [locations, setLocations] = useState([]);
   const [location, setLocation] = useState("Loading...");
@@ -15,10 +15,10 @@ const AppbarLocationMenu = () => {
   const getUserLocationsHandler = async (response) => {
     let data = [];
     response.data.locations.map((location) => {
-      data.push(location.name);
+      data.push(location);
     });
     setLocations(data);
-    setLocation(data[0]);
+    setLocation(data[0].name);
   };
 
   useEffect(() => {
@@ -50,12 +50,13 @@ const AppbarLocationMenu = () => {
       {locations.map((location) => {
         return (
           <Menu.Item
-            key={location}
+            key={location.name}
             onPress={() => {
-              setLocation(location);
+              setLocation(location.name);
+              page === "orders" ? setLocationImp(location) : null;
               closeMenu();
             }}
-            title={location}
+            title={location.name}
           />
         );
       })}
