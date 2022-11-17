@@ -24,8 +24,11 @@ const SignIn = ({ navigation }) => {
     async function prepare() {
       try {
         const token = await AsyncStorage.getItem("token");
+        const userType = await AsyncStorage.getItem("userType");
         if (token) {
-          return navigation.navigate("BuyerLanding");
+          return navigation.navigate(
+            userType === "buyer" ? "BuyerLanding" : "FarmerLanding"
+          );
         }
       } catch (e) {
         console.warn(e);
