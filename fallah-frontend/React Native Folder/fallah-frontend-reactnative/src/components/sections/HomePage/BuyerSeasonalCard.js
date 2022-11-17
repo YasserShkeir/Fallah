@@ -1,13 +1,20 @@
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 
 // Styles
 import { BuyerSeasonalCardContainer } from "../../../styles/components";
 import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../../styles/colors";
 
-const BuyerSeasonalCard = (item) => {
+const BuyerSeasonalCard = ({ item, navigation }) => {
   return (
-    <View style={BuyerSeasonalCardContainer}>
+    <TouchableOpacity
+      style={BuyerSeasonalCardContainer}
+      onPress={() => {
+        navigation.navigate("BuyerItemProfile", {
+          product: item,
+        });
+      }}
+    >
       <View
         style={{
           display: "flex",
@@ -35,7 +42,7 @@ const BuyerSeasonalCard = (item) => {
           }}
         >
           {" "}
-          {item.seasonalItems.productName}{" "}
+          {item.productName}{" "}
         </Text>
         <Text
           style={{
@@ -48,10 +55,10 @@ const BuyerSeasonalCard = (item) => {
         </Text>
       </View>
       <Image
-        source={{ uri: item.seasonalItems.images[0] }}
+        source={{ uri: item.images[0] }}
         style={{ width: 100, height: 100, borderRadius: 10 }}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
