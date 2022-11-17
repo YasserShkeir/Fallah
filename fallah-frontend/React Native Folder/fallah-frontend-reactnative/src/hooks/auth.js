@@ -37,6 +37,7 @@ export const signin = async (email, password, navigation) => {
 
     if (response.data.token) {
       await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("userType", response.data.userType);
 
       alert("Login Successful");
       response.data.userType === "buyer"
