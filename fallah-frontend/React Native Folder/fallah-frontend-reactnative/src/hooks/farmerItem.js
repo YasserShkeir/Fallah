@@ -4,6 +4,17 @@ import { configHandler, baseURLs } from "./config";
 
 const usersURL = baseURLs.users;
 
+export const getSelfProducts = async (func) => {
+  const url = usersURL + `product`;
+  try {
+    await axios.get(url, await configHandler()).then((response) => {
+      func(response);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const addFarmerItem = async (data) => {
   let {
     mainCategoryID,
