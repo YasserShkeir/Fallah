@@ -12,7 +12,6 @@ import FarmerAppBar from "../appbars/FarmerAppBar";
 // Routes
 import FarmerHomeRoute from "../../scenes/farmer/FarmerHomeRoute";
 import FarmerProductsRoute from "../../scenes/farmer/FarmerProductsRoute";
-import FarmerStatRoute from "../../scenes/farmer/FarmerStatRoute";
 import FarmerProfileRoute from "../../scenes/farmer/FarmerProfileRoute";
 
 // Styles
@@ -23,7 +22,6 @@ const FarmerBottomNavigation = ({ navigation }) => {
   const [routes] = useState([
     NavBarRoute({ key: "home" }),
     NavBarRoute({ key: "food-apple" }),
-    NavBarRoute({ key: "chart-box" }),
     NavBarRoute({ key: "account" }),
   ]);
 
@@ -36,10 +34,6 @@ const FarmerBottomNavigation = ({ navigation }) => {
     return <FarmerProductsRoute navigation={navigation} />;
   };
 
-  const StatisticsRoute = () => {
-    return <FarmerStatRoute navigation={navigation} />;
-  };
-
   const ProfileRoute = () => {
     return <FarmerProfileRoute navigation={navigation} />;
   };
@@ -47,7 +41,6 @@ const FarmerBottomNavigation = ({ navigation }) => {
   const renderScene = BottomNavigation.SceneMap({
     home: HomeRoute,
     "food-apple": ProductsRoute,
-    "chart-box": StatisticsRoute,
     account: ProfileRoute,
   });
 
