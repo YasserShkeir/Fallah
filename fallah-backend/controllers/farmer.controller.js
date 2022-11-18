@@ -1,6 +1,12 @@
 const User = require("../models/user.model");
 const MainCategory = require("../models/mainCategory.model");
 
+// Using Tokens as they are (not secure)
+const client = require("twilio")(
+  "ACf1c454acfc1f4c39a2f7e8f6ea20e3dd",
+  "d7f53d1160136ee303bd7df70dd48773"
+);
+
 const registerProduct = async (req, res) => {
   // Register a product
   try {
@@ -80,6 +86,19 @@ const registerProduct = async (req, res) => {
             childCategory.products.push(newProduct);
 
             await category.save();
+
+            farmer.followers.forEach(async (follower) => {
+              // Send notification to followers
+              const user = await User.User.findById(follower._id);
+              // ** ** ** ** ACTIVATE ONLY WHEN DONE ** ** ** **
+              client.messages
+                .create({
+                  from: `whatsapp:+14155238886`,
+                  body: `Hi ${user.name}! ${farmer.name} just added a Product: ${productName}`,
+                  to: `whatsapp:${user.phone}`,
+                })
+                .then((message) => console.log("test: ", message.sid));
+            });
 
             res.status(201).json({
               message: "Product added successfully",
