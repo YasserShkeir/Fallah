@@ -12,6 +12,7 @@ import SignUp from "./src/scenes/signup/index";
 import BuyerLanding from "./src/scenes/buyer/landing";
 import BuyerFarmerProfile from "./src/scenes/buyer/BuyerFarmerProfile";
 import BuyerItemProfile from "./src/scenes/buyer/BuyerItemProfile";
+import BuyerRegularOrderProfile from "./src/scenes/buyer/BuyerRegularOrderProfile";
 // -- Farmer
 import FarmerLanding from "./src/scenes/farmer/landing";
 import FarmerAddItem from "./src/scenes/farmer/FarmerAddItem";
@@ -106,6 +107,20 @@ export default function App() {
               component={BuyerItemProfile}
               options={{
                 title: "Item Profile",
+                headerStyle: {
+                  backgroundColor: LIGHTGREEN,
+                },
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerTintColor: CREAMWHITE,
+              }}
+            />
+            <Stack.Screen
+              name="BuyerRegularOrderProfile"
+              component={BuyerRegularOrderProfile}
+              options={{
+                title: "Order Profile",
                 headerStyle: {
                   backgroundColor: LIGHTGREEN,
                 },
