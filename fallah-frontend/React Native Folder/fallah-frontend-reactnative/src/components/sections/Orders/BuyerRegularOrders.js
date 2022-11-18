@@ -4,20 +4,18 @@ import { Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Styles
-import { DARKGREEN, LIGHTGREEN } from "../../../styles/colors";
+import { DARKGREEN, LIGHTGREEN, CREAMWHITE } from "../../../styles/colors";
 
 const BuyerRegularOrderCard = ({ props }) => {
   return (
     <View
       style={{
-        display: "flex",
-        borderTopColor: LIGHTGREEN,
-        borderTopWidth: 2,
-        borderBottomColor: LIGHTGREEN,
-        borderBottomWidth: 2,
+        backgroundColor: LIGHTGREEN,
+        borderRadius: 10,
         marginTop: 5,
+        marginBottom: 5,
         width: "100%",
-        padding: 5,
+        padding: 10,
         justifyContent: "center",
       }}
     >
@@ -33,7 +31,7 @@ const BuyerRegularOrderCard = ({ props }) => {
             style={{
               fontFamily: "Inter-Bold",
               fontSize: 14,
-              color: LIGHTGREEN,
+              color: CREAMWHITE,
             }}
           >
             {props.deliveryStatus} on {props.updated_at.substring(0, 10)}
@@ -78,7 +76,7 @@ const BuyerRegularOrderCard = ({ props }) => {
                       fontFamily: "Inter-Bold",
                       fontSize: 14,
                       width: 30,
-                      color: LIGHTGREEN,
+                      color: CREAMWHITE,
                     }}
                   >
                     {product.amount}
@@ -120,23 +118,21 @@ const BuyerRegularOrderCard = ({ props }) => {
           ) : null}
         </View>
 
-        <View>
-          <Text
-            style={{
-              fontFamily: "Inter-Regular",
-              fontSize: 16,
-              marginTop: 10,
-              color: DARKGREEN,
-            }}
-          >
-            Total: $ {props.orderSubtotal}
-          </Text>
-        </View>
+        <Text
+          style={{
+            fontFamily: "Inter-Regular",
+            fontSize: 16,
+            marginTop: 10,
+            color: CREAMWHITE,
+          }}
+        >
+          Total: $ {props.orderSubtotal}
+        </Text>
       </View>
       <FontAwesome5Icon
         name="chevron-right"
         size={18}
-        color={DARKGREEN}
+        color={CREAMWHITE}
         style={{
           position: "absolute",
           right: 10,
