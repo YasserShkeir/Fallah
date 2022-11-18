@@ -8,7 +8,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 // Components
 import BuyerAppBarLayout from "../layouts/BuyerAppbarLayout";
 import AppbarLocationMenu from "../menus/BuyerAppbarLocationMenu";
-import AppbarLocationModal from "../modals/BuyerAppbarLocationModal";
 
 // Styles
 import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
@@ -32,7 +31,6 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
             Deliver To:
           </Text>
           <AppbarLocationMenu />
-          <AppbarLocationModal />
         </View>
         <Appbar.Action color={CREAMWHITE} icon="bell" onPress={() => {}} />
       </BuyerAppBarLayout>
