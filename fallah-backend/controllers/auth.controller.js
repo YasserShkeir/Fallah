@@ -51,10 +51,11 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, phone, userType, password } = req.body;
+  const { name, description, email, phone, userType, password } = req.body;
 
   try {
     const user = await User.User.findOne({ email });
+
     if (user) {
       return res.status(409).send({ message: "User already exists" });
     }
@@ -64,6 +65,7 @@ const register = async (req, res) => {
     if (userType === "farmer") {
       const newUser = new User.Farmer({
         name,
+        description,
         email,
         phone,
         userType,
