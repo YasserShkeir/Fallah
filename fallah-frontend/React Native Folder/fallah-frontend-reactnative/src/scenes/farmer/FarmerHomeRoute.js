@@ -113,18 +113,14 @@ const FarmerHomeRoute = ({ navigation }) => {
         </Text>
         <ScrollView>
           {products ? (
-            products.map((mainCat) => {
-              return mainCat.childCategories.map((childCat) => {
-                return childCat.products.map((item) => {
-                  return (
-                    <ItemCard
-                      key={item._id}
-                      item={item}
-                      navigation={navigation}
-                    />
-                  );
-                });
-              });
+            products.map((product) => {
+              return (
+                <ItemCard
+                  key={product._id}
+                  item={product}
+                  navigation={navigation}
+                />
+              );
             })
           ) : (
             <ActivityIndicator />
