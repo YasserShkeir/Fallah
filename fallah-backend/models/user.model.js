@@ -147,9 +147,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: "Password is required",
   },
-  images: {
-    type: Array,
-  },
+
   locations: [locationsSchema], // Add the locations schema to the user schema
   created_at: {
     type: Date,
@@ -209,6 +207,12 @@ const farmerSchema = User.discriminator(
   "Farmer",
   new mongoose.Schema(
     {
+      images: {
+        type: Array,
+        default: [
+          "https://thumbs.dreamstime.com/b/young-farmer-gardener-yellow-straw-hat-no-face-plain-head-avatar-character-icon-illustration-202519395.jpg",
+        ],
+      },
       description: {
         type: String,
         required: "Description is required",
