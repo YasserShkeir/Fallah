@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { configHandler, baseURLs } from "./config";
 
@@ -118,10 +119,21 @@ export const deleteFarmerItem = async (data) => {
     productID: productID,
   };
 
+  console.log("newProduct: ", newProduct);
+
   let url = usersURL + `product`;
   try {
     await axios
-      .delete(url, { data: newProduct }, await configHandler())
+      .delete(url, {
+        headers: {
+          Authorization: "Bearer " + (await AsyncStorage.getItem("token")),
+        },
+        data: {
+          categoryID: categoryID,
+          childCategoryID: childCategoryID,
+          productID: productID,
+        },
+      })
       .then((response) => {
         console.log("Deleted Item");
       });
