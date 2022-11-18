@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { configHandler, baseURLs } from "./config";
 
 const usersURL = baseURLs.users;
@@ -42,6 +42,26 @@ export const createRegularOrder = async (data) => {
       )
       .then((response) => {
         console.log("Added Order");
+      });
+  } catch (error) {
+    console.error("Error API: ", error);
+  }
+};
+
+export const deleteRegularOrder = async (id) => {
+  let url = usersURL + `regular-order`;
+  try {
+    await axios
+      .delete(url, {
+        headers: {
+          Authorization: "Bearer " + (await AsyncStorage.getItem("token")),
+        },
+        data: {
+          regularOrderID: id,
+        },
+      })
+      .then((response) => {
+        console.log("Deleted Order");
       });
   } catch (error) {
     console.error("Error API: ", error);
