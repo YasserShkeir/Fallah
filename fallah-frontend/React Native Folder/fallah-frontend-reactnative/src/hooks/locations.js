@@ -14,3 +14,14 @@ export const getUserLocations = async (func) => {
     console.error(error);
   }
 };
+
+export const addLocation = async (location) => {
+  const url = usersURL + `location`;
+  try {
+    await axios.post(url, location, await configHandler()).then((response) => {
+      console.log("Added Location");
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
