@@ -26,7 +26,7 @@ import {
 // Styles
 import { CREAMWHITE, DARKGREEN, PEACHYYELLOW } from "../../styles/colors";
 
-const BuyerOrdersRoute = () => {
+const BuyerOrdersRoute = (navigation) => {
   const [orderDisplay, setOrderDisplay] = useState("Regular Orders");
   const [regularOrders, setRegularOrders] = useState([]);
   const [scheduledOrders, setScheduledOrders] = useState([]);
@@ -86,7 +86,11 @@ const BuyerOrdersRoute = () => {
         ) : orderDisplay === "Regular Orders" ? (
           regularOrders.map((order) => {
             return (
-              <BuyerRegularOrderCard key={order._id.toString()} props={order} />
+              <BuyerRegularOrderCard
+                key={order._id.toString()}
+                order={order}
+                navigation={navigation}
+              />
             );
           })
         ) : orderDisplay === "Scheduled Orders" ? (
