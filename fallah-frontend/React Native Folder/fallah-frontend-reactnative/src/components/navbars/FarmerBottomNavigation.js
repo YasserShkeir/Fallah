@@ -2,7 +2,7 @@
 // Refer to Buyer Navigation for a similar approach
 
 import { useState } from "react";
-import { SafeAreaView, StatusBar } from "react-native";
+import { SafeAreaView, StatusBar, Dimensions } from "react-native";
 import { BottomNavigation, FAB } from "react-native-paper";
 
 // Components
@@ -11,17 +11,17 @@ import FarmerAppBar from "../appbars/FarmerAppBar";
 
 // Routes
 import FarmerHomeRoute from "../../scenes/farmer/FarmerHomeRoute";
-import FarmerProductsRoute from "../../scenes/farmer/FarmerProductsRoute";
 import FarmerProfileRoute from "../../scenes/farmer/FarmerProfileRoute";
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
+const { width, height } = Dimensions.get("window");
+
 const FarmerBottomNavigation = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     NavBarRoute({ key: "home" }),
-    NavBarRoute({ key: "food-apple" }),
     NavBarRoute({ key: "account" }),
   ]);
 
@@ -30,17 +30,12 @@ const FarmerBottomNavigation = ({ navigation }) => {
     return <FarmerHomeRoute navigation={navigation} />;
   };
 
-  const ProductsRoute = () => {
-    return <FarmerProductsRoute navigation={navigation} />;
-  };
-
   const ProfileRoute = () => {
     return <FarmerProfileRoute navigation={navigation} />;
   };
 
   const renderScene = BottomNavigation.SceneMap({
     home: HomeRoute,
-    "food-apple": ProductsRoute,
     account: ProfileRoute,
   });
 
@@ -70,7 +65,14 @@ const FarmerBottomNavigation = ({ navigation }) => {
         labeled={false}
       />
       <FAB
-        style={{ position: "absolute", right: 10, bottom: 85 }}
+        style={{
+          position: "absolute",
+          right: width / 2 - 35,
+          bottom: 50,
+          backgroundColor: DARKGREEN,
+          borderRadius: 50,
+        }}
+        color={CREAMWHITE}
         icon="plus"
         onPress={() => navigation.navigate("FarmerAddItem")}
       />
