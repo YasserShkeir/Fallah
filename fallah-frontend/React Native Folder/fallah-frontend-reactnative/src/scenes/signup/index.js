@@ -18,6 +18,7 @@ import { signup } from "../../hooks/auth";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
+  const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [userType, setUserType] = useState("buyer");
@@ -25,7 +26,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
 
   const handleSignUp = async () => {
-    await signup(username, email, phone, userType, password);
+    await signup(username, description, email, phone, userType, password);
   };
 
   return (
@@ -46,6 +47,14 @@ const SignUp = () => {
         placeholder="Username"
         onChangeText={(text) => setUsername(text)}
         value={username}
+      />
+
+      <TextInput
+        style={TextFieldWhite}
+        placeholder="Description"
+        numberOfLines={2}
+        onChangeText={(text) => setDescription(text)}
+        value={description}
       />
 
       <TextInput
