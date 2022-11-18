@@ -258,10 +258,21 @@ const deleteProduct = async (req, res) => {
 const getProducts = async (req, res) => {
   // Get all products for current farmer
   try {
-    const products = await MainCategory.find(
-      { "childCategories.products.farmerID": req.user._id.toString() },
-      { "childCategories.products.$": 1 }
-    );
+    const farmer = await User.Farmer.findById(req.user._id);
+
+    const products = [];
+
+    const categories = await MainCategory.find();
+
+    categories.forEach((category) => {
+      category.childCategories.forEach((childCategory) => {
+        childCategory.products.forEach((product) => {
+          if (product.farmerID === farmer._id.toString()) {
+            products.push(product);
+          }
+        });
+      });
+    });
 
     res.status(200).json({
       message: "Products fetched successfully",
