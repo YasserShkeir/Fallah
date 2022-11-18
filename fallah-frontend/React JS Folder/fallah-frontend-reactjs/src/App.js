@@ -8,6 +8,7 @@ import AdminLogin from "./Admin/pages/login";
 import AdminLandingPage from "./Admin/pages/landingPage";
 import AdminOrdersPage from "./Admin/pages/ordersList";
 import AdminUsersPage from "./Admin/pages/usersList";
+import AdminProductsPage from "./Admin/pages/productsList";
 
 const theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/admin/home" element={<AdminLandingPage />} />
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
           <Route path="/admin/users" element={<AdminUsersPage />} />
+          <Route path="/admin/products" element={<AdminProductsPage />} />
         </Routes>
       </ThemeProvider>
     </div>
