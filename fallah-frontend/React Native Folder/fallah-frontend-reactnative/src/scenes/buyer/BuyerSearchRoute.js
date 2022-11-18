@@ -61,7 +61,8 @@ const BuyerSearchRoute = ({ navigation }) => {
                 />
               );
             } else if (
-              item.name.toLowerCase().includes(searchQuery.toLowerCase())
+              item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              item.description.toLowerCase().includes(searchQuery.toLowerCase())
             ) {
               return (
                 <BuyerSearchCard
@@ -82,7 +83,10 @@ const BuyerSearchRoute = ({ navigation }) => {
                 />
               );
             } else if (
-              item.name.toLowerCase().includes(searchQuery.toLowerCase())
+              item.productName
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              item.farmerName.toLowerCase().includes(searchQuery.toLowerCase())
             ) {
               return (
                 <BuyerSearchCard
