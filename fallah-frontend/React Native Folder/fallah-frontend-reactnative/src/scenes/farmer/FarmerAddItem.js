@@ -3,6 +3,10 @@ import { Button, Text, TextInput } from "react-native-paper";
 import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
+// Components
+import ProductTextInput from "../../components/text/FarmerProductTextInput";
+import Row from "../../components/layouts/Row";
+
 // Hooks
 import { getUserLocations } from "../../hooks/locations";
 import { getCategories } from "../../hooks/buyerCategories";
@@ -10,39 +14,6 @@ import { addFarmerItem } from "../../hooks/farmerItem";
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
-
-const ProductTextInput = ({ label, value, onChangeText, style }) => {
-  return (
-    <TextInput
-      mode="outlined"
-      outlineStyle={{
-        borderRadius: 10,
-        borderColor: "black",
-        borderWidth: 1,
-      }}
-      style={{ backgroundColor: "white", marginVertical: 5, ...style }}
-      label={label}
-      value={value}
-      onChangeText={onChangeText}
-    />
-  );
-};
-
-const Row = ({ children }) => {
-  return (
-    <View
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      {children}
-    </View>
-  );
-};
 
 const FarmerAddItem = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
@@ -79,7 +50,6 @@ const FarmerAddItem = ({ navigation }) => {
   };
 
   const getUserLocationsHandler = async (response) => {
-    console.log(response.data.locations);
     let data = [];
     response.data.locations.map((location) => {
       data.push({ label: location.name, value: location._id });
