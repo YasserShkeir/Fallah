@@ -40,6 +40,8 @@ const registerProduct = async (req, res) => {
       minBulkAmount,
       bulkPrice,
       amountAvailable,
+      mainCategoryID,
+      childCategoryID,
     };
 
     const category = await MainCategory.findById(mainCategoryID); // Get the category
@@ -141,19 +143,18 @@ const editProduct = async (req, res) => {
         if (product) {
           // Edit the product
 
-          if (productName) product.productName = productName;
-          if (images) product.images = images;
-          if (startingSeason) product.startingSeason = startingSeason;
-          if (endingSeason) product.endingSeason = endingSeason;
-          if (harvestedOn) product.harvestedOn = harvestedOn;
-          if (pickupLocationID) product.pickupLocationID = pickupLocationID;
-          if (freshnessStatus) product.freshnessStatus = freshnessStatus;
-          if (measuringUnit) product.measuringUnit = measuringUnit;
-          if (pricePerMeasuringUnit)
-            product.pricePerMeasuringUnit = pricePerMeasuringUnit;
-          if (minBulkAmount) product.minBulkAmount = minBulkAmount;
-          if (bulkPrice) product.bulkPrice = bulkPrice;
-          if (amountAvailable) product.amountAvailable = amountAvailable;
+          product.productName = productName;
+          product.images = images;
+          product.startingSeason = startingSeason;
+          product.endingSeason = endingSeason;
+          product.harvestedOn = harvestedOn;
+          product.pickupLocationID = pickupLocationID;
+          product.freshnessStatus = freshnessStatus;
+          product.measuringUnit = measuringUnit;
+          product.pricePerMeasuringUnit = pricePerMeasuringUnit;
+          product.minBulkAmount = minBulkAmount;
+          product.bulkPrice = bulkPrice;
+          product.amountAvailable = amountAvailable;
 
           await category.save();
 
