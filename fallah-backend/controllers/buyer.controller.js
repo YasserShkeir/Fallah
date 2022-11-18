@@ -372,7 +372,6 @@ const deleteRegularOrder = async (req, res) => {
         // Find the main category
         let mainCategory = await MainCategory.findById(mainCategoryIDOrder);
         // Find the child category
-
         let childCategory = mainCategory.childCategories.find(
           (childCategory) => {
             return (
@@ -380,14 +379,16 @@ const deleteRegularOrder = async (req, res) => {
             );
           }
         );
-        // Find the product
-        let product = childCategory.products.find((product) => {
-          return product._id.toString() === productIDOrder.toString();
-        });
+        // Find the product if it exists
+        if (childCategory.products.length > 0) {
+          let product = childCategory.products.find((product) => {
+            return product._id.toString() === productIDOrder.toString();
+          });
 
-        // Save the quantity back to the product available amount
-        product.amountAvailable += quantityOrder;
-        await mainCategory.save();
+          // Save the quantity back to the product available amount
+          product.amountAvailable += quantityOrder;
+          await mainCategory.save();
+        }
       }
       // Find the buyer and delete the order
       user.orders.regularOrders = user.orders.regularOrders.filter((order) => {
