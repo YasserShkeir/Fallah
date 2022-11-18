@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
-import { View, Image, ScrollView, Dimensions } from "react-native";
-import { Text, Button } from "react-native-paper";
+import {
+  View,
+  Image,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+} from "react-native";
+import { Text, Button, IconButton } from "react-native-paper";
 
 // Components
 import ProductTextInput from "../../components/text/FarmerProductTextInput";
@@ -14,7 +20,7 @@ import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const { width, height } = Dimensions.get("window");
 
-const FarmerItemProfile = ({ route }) => {
+const FarmerItemProfile = ({ route, navigation }) => {
   const { product } = route.params;
 
   const [name, setName] = useState(product.productName);
@@ -43,8 +49,29 @@ const FarmerItemProfile = ({ route }) => {
     product.amountAvailable.toString()
   );
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          icon="delete"
+          iconColor={CREAMWHITE}
+          size={30}
+          style={{ backgroundColor: "red" }}
+          onPress={() => {
+            let data = {
+              categoryID: product.mainCategoryID,
+              childCategoryID: product.childCategoryID,
+              productID: product._id,
+            };
+            deleteFarmerItem(data);
+          }}
+        />
+      ),
+    });
+  }, []);
+
   return (
-    <View
+    <SafeAreaView
       style={{
         height: "100%",
         width: "100%",
@@ -52,33 +79,34 @@ const FarmerItemProfile = ({ route }) => {
         flexDirection: "column",
       }}
     >
-      <View>
-        <ScrollView
-          horizontal={true}
-          pagingEnabled={true}
-          style={{
-            height: 250,
-            backgroundColor: DARKGREEN,
-          }}
-        >
-          {product.images.map((image) => (
-            <Image
-              key={image}
-              source={{ uri: image }}
-              style={{
-                width: width,
-                height: 250,
-              }}
-            />
-          ))}
-        </ScrollView>
-      </View>
+      <ScrollView
+        horizontal={true}
+        pagingEnabled={true}
+        style={{
+          height: 350,
+          backgroundColor: DARKGREEN,
+        }}
+      >
+        {product.images.map((image) => (
+          <Image
+            key={image}
+            source={{ uri: image }}
+            style={{
+              width: width,
+              height: 250,
+            }}
+          />
+        ))}
+      </ScrollView>
       <View
         style={{
           borderBottomColor: LIGHTGREEN,
           borderBottomWidth: 2,
           width: "100%",
           paddingHorizontal: 10,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
         }}
       >
         <Text
@@ -91,11 +119,20 @@ const FarmerItemProfile = ({ route }) => {
         >
           {product.productName}
         </Text>
+        <IconButton
+          icon="pencil"
+          iconColor={CREAMWHITE}
+          style={{
+            position: "absolute",
+            right: 0,
+            backgroundColor: LIGHTGREEN,
+          }}
+          size={20}
+        />
       </View>
       <ScrollView
         style={{
           padding: 10,
-          paddingBottom: 50,
         }}
       >
         <Text
@@ -184,10 +221,10 @@ const FarmerItemProfile = ({ route }) => {
             label="Amount Available"
             value={amountAvailable}
             onChangeText={(value) => setAmountAvailable(value)}
-            style={{ width: "45%" }}
+            style={{ width: "45%", marginBottom: 40 }}
           />
           <Button
-            style={{ width: "45%", marginTop: 10 }}
+            style={{ width: "45%", marginTop: 10, marginBottom: 35 }}
             contentStyle={{
               backgroundColor: LIGHTGREEN,
               height: 45,
@@ -231,7 +268,7 @@ const FarmerItemProfile = ({ route }) => {
           </Button>
         </Row>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
