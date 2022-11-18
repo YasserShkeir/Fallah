@@ -97,3 +97,24 @@ export const editFarmerItem = async (data) => {
     console.error("2: ", error);
   }
 };
+
+export const deleteFarmerItem = async (data) => {
+  let { categoryID, childCategoryID, productID } = data;
+
+  const newProduct = {
+    categoryID: categoryID,
+    childCategoryID: childCategoryID,
+    productID: productID,
+  };
+
+  let url = usersURL + `product`;
+  try {
+    await axios
+      .delete(url, { data: newProduct }, await configHandler())
+      .then((response) => {
+        console.log("Deleted Item");
+      });
+  } catch (error) {
+    console.error("2: ", error);
+  }
+};
