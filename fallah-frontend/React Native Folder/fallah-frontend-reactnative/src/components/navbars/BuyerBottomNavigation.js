@@ -13,8 +13,6 @@ import BuyerProfileRoute from "../../scenes/buyer/BuyerProfileRoute";
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
-// Hooks
-
 const BuyerBottomNavigation = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -32,7 +30,7 @@ const BuyerBottomNavigation = ({ navigation }) => {
   const SearchRoute = () => {
     return <BuyerSearchRoute navigation={navigation} />;
   };
-  const RecentsRoute = () => <BuyerOrdersRoute />;
+  const RecentsRoute = () => <BuyerOrdersRoute navigation={navigation} />;
 
   const ProfileRoute = () => <BuyerProfileRoute navigation={navigation} />;
 
