@@ -2,9 +2,17 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LOCALIP } from "@env";
 
-export const signup = async (username, email, phone, userType, password) => {
+export const signup = async (
+  username,
+  description,
+  email,
+  phone,
+  userType,
+  password
+) => {
   const data = {
     name: username,
+    description: description,
     email: email,
     phone: phone,
     userType: userType,
@@ -12,7 +20,13 @@ export const signup = async (username, email, phone, userType, password) => {
   };
 
   // Check credentials
-  if (username === "" || email === "" || phone === "" || password === "") {
+  if (
+    username === "" ||
+    description === "" ||
+    email === "" ||
+    phone === "" ||
+    password === ""
+  ) {
     alert("Please fill in all the fields");
   } else {
     let url = `${LOCALIP}/auth/register`;
