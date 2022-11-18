@@ -9,6 +9,7 @@ const BuyerSearchType = (props) => {
     <View style={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <Button
         onPress={() => {
+          props.setSearchQuery("");
           props.setValue("Farmers");
         }}
         style={{
@@ -31,6 +32,7 @@ const BuyerSearchType = (props) => {
       </Button>
       <Button
         onPress={() => {
+          props.setSearchQuery("");
           props.setValue("Products");
         }}
         style={{

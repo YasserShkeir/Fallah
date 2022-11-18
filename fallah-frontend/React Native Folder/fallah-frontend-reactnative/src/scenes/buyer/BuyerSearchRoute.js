@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { FlatList } from "react-native";
 
 // Components
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
@@ -42,56 +42,60 @@ const BuyerSearchRoute = ({ navigation }) => {
   return (
     <BuyerMainLayout>
       <BuyerAppBar page="search" prop={onChangeSearch} />
-      <BuyerSearchType value={value} setValue={setValue} />
-      <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
-        {value === "Farmers"
-          ? farmers.slice(0, 5).map((farmer) => {
-              if (searchQuery === "") {
-                return (
-                  <BuyerSearchCard
-                    key={farmer._id}
-                    item={farmer}
-                    navigation={navigation}
-                  />
-                );
-              } else if (
-                farmer.name.toLowerCase().includes(searchQuery.toLowerCase())
-              ) {
-                return (
-                  <BuyerSearchCard
-                    key={farmer._id}
-                    item={farmer}
-                    navigation={navigation}
-                  />
-                );
-              }
-            })
-          : products.map((product) => {
-              if (searchQuery === "") {
-                return (
-                  <BuyerSearchCard
-                    key={product._id}
-                    item={product}
-                    location={"search"}
-                    navigation={navigation}
-                  />
-                );
-              } else if (
-                product.productName
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase())
-              ) {
-                return (
-                  <BuyerSearchCard
-                    key={product._id}
-                    item={product}
-                    location={"search"}
-                    navigation={navigation}
-                  />
-                );
-              }
-            })}
-      </ScrollView>
+      <BuyerSearchType
+        value={value}
+        setValue={setValue}
+        setSearchQuery={setSearchQuery}
+      />
+      <FlatList
+        style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+        data={value === "Farmers" ? farmers : products}
+        renderItem={({ item }) => {
+          if (value === "Farmers") {
+            if (searchQuery === "") {
+              return (
+                <BuyerSearchCard
+                  key={item._id}
+                  item={item}
+                  navigation={navigation}
+                />
+              );
+            } else if (
+              item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            ) {
+              return (
+                <BuyerSearchCard
+                  key={item._id}
+                  item={item}
+                  navigation={navigation}
+                />
+              );
+            }
+          } else {
+            if (searchQuery === "") {
+              return (
+                <BuyerSearchCard
+                  key={item._id}
+                  item={item}
+                  location={"search"}
+                  navigation={navigation}
+                />
+              );
+            } else if (
+              item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            ) {
+              return (
+                <BuyerSearchCard
+                  key={item._id}
+                  item={item}
+                  location={"search"}
+                  navigation={navigation}
+                />
+              );
+            }
+          }
+        }}
+      />
     </BuyerMainLayout>
   );
 };
