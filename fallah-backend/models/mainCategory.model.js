@@ -19,13 +19,17 @@ const mainCatSchema = new mongoose.Schema({
         required: "Child Category Name is required",
         unique: true,
       },
-      image: {
-        type: String,
-        required: "Child Category Image is required",
-      },
       products: [
         {
           // Create a schema for the products collection
+          mainCategoryID: {
+            type: String,
+            required: true,
+          },
+          childCategoryID: {
+            type: String,
+            required: true,
+          },
           farmerID: {
             type: String,
             required: true,
