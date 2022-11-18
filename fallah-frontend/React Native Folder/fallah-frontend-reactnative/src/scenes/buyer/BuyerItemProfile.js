@@ -21,12 +21,10 @@ const { width, height } = Dimensions.get("window");
 
 const BuyerItemProfile = ({ route, navigation }) => {
   const { product } = route.params;
-  console.log(product);
 
   const [regularOrders, setRegularOrders] = useState([]);
 
   const getRegularOrdersHandler = (response) => {
-    console.log(response.data.regularOrders);
     setRegularOrders(response.data.regularOrders);
   };
 
