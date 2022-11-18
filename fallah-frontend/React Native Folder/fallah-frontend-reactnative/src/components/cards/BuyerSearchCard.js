@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Image } from "react-native";
 import { Text } from "react-native-paper";
 
 // Components
-import BuyerItemCard from "./BuyerItemCard";
+import ItemCard from "./ItemCard";
 
 // Styles
 import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../styles/colors";
@@ -86,7 +86,7 @@ const BuyerSearchCard = ({ item, location, navigation }) => {
     );
   } else {
     return (
-      <BuyerItemCard
+      <ItemCard
         key={item._id}
         item={item}
         location={location}

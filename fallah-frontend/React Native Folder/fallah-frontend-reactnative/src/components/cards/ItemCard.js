@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity, View, Image } from "react-native";
 import { Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
@@ -36,10 +37,18 @@ const availableMonths = (item) => {
   );
 };
 
-const BuyerItemCard = ({ item, location, navigation }) => {
+const ItemCard = ({ item, location, navigation }) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("BuyerItemProfile", { product: item })}
+      onPress={async () => {
+        await AsyncStorage.getItem("userType").then((userType) => {
+          if (userType === "buyer") {
+            navigation.navigate("BuyerItemProfile", { product: item });
+          } else {
+            navigation.navigate("FarmerItemProfile", { product: item });
+          }
+        });
+      }}
       style={{
         width: "100%",
         height: 120,
@@ -118,4 +127,4 @@ const BuyerItemCard = ({ item, location, navigation }) => {
   );
 };
 
-export default BuyerItemCard;
+export default ItemCard;

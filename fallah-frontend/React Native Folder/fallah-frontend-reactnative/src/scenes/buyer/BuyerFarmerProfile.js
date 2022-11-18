@@ -3,7 +3,7 @@ import { View, Image, ScrollView } from "react-native";
 import { ActivityIndicator, IconButton, Text } from "react-native-paper";
 
 // Components
-import BuyerItemCard from "../../components/cards/BuyerItemCard";
+import ItemCard from "../../components/cards/ItemCard";
 
 // Hooks
 import {
@@ -218,7 +218,7 @@ const BuyerFarmerProfile = ({ route, navigation }) => {
         <ScrollView>
           {products.map((product) => {
             return (
-              <BuyerItemCard
+              <ItemCard
                 key={product._id}
                 item={product}
                 location={"profile"}

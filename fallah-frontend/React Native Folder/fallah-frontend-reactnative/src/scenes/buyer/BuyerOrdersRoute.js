@@ -74,7 +74,7 @@ const BuyerOrdersRoute = () => {
     }
     prepare();
     setLoading(false);
-  }, [locationImp]);
+  }, [orderDisplay]);
 
   return (
     <BuyerMainLayout>
