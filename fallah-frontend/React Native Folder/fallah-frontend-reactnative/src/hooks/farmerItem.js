@@ -50,3 +50,50 @@ export const addFarmerItem = async (data) => {
     console.error("2: ", error);
   }
 };
+
+export const editFarmerItem = async (data) => {
+  let {
+    productID,
+    categoryID,
+    childCategoryID,
+    productName,
+    images,
+    startingSeason,
+    endingSeason,
+    harvestedOn,
+    pickupLocationID,
+    freshnessStatus,
+    measuringUnit,
+    pricePerMeasuringUnit,
+    minBulkAmount,
+    bulkPrice,
+    amountAvailable,
+  } = data;
+
+  const newProduct = {
+    productID: productID,
+    categoryID: categoryID,
+    childCategoryID: childCategoryID,
+    productName: productName,
+    images: images,
+    startingSeason: startingSeason,
+    endingSeason: endingSeason,
+    harvestedOn: harvestedOn,
+    pickupLocationID: pickupLocationID,
+    freshnessStatus: parseFloat(freshnessStatus),
+    measuringUnit: measuringUnit,
+    pricePerMeasuringUnit: parseFloat(pricePerMeasuringUnit),
+    minBulkAmount: parseFloat(minBulkAmount),
+    bulkPrice: parseFloat(bulkPrice),
+    amountAvailable: parseFloat(amountAvailable),
+  };
+
+  let url = usersURL + `product`;
+  try {
+    await axios.put(url, newProduct, await configHandler()).then((response) => {
+      console.log("Edited Item");
+    });
+  } catch (error) {
+    console.error("2: ", error);
+  }
+};
