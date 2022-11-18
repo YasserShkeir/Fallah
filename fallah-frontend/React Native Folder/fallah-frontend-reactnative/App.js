@@ -14,6 +14,8 @@ import BuyerFarmerProfile from "./src/scenes/buyer/BuyerFarmerProfile";
 import BuyerItemProfile from "./src/scenes/buyer/BuyerItemProfile";
 // -- Farmer
 import FarmerLanding from "./src/scenes/farmer/landing";
+import FarmerAddItem from "./src/scenes/farmer/FarmerAddItem";
+import FarmerItemProfile from "./src/scenes/farmer/FarmerItemProfile";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "./src/styles/colors";
@@ -119,6 +121,34 @@ export default function App() {
               name="FarmerLanding"
               component={FarmerLanding}
               options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="FarmerAddItem"
+              component={FarmerAddItem}
+              options={{
+                title: "Add Item",
+                headerStyle: {
+                  backgroundColor: LIGHTGREEN,
+                },
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerTintColor: CREAMWHITE,
+              }}
+            />
+            <Stack.Screen
+              name="FarmerItemProfile"
+              component={FarmerItemProfile}
+              options={{
+                title: "Item Profile",
+                headerStyle: {
+                  backgroundColor: LIGHTGREEN,
+                },
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerTintColor: CREAMWHITE,
+              }}
             />
           </Stack.Group>
         </Stack.Navigator>
