@@ -6,6 +6,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 // Hooks
 import { getUserLocations } from "../../hooks/locations";
 import { getCategories } from "../../hooks/buyerCategories";
+import { addFarmerItem } from "../../hooks/farmerItem";
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
@@ -81,7 +82,7 @@ const FarmerAddItem = ({ navigation }) => {
     console.log(response.data.locations);
     let data = [];
     response.data.locations.map((location) => {
-      data.push(location);
+      data.push({ label: location.name, value: location._id });
     });
 
     setLocations(data);
@@ -272,6 +273,32 @@ const FarmerAddItem = ({ navigation }) => {
           contentStyle={{
             backgroundColor: LIGHTGREEN,
             height: 45,
+          }}
+          onPress={async () => {
+            const data = {
+              mainCategoryID: MCValue,
+              childCategoryID: CCValue,
+              productName: name,
+              images: image,
+              startingSeason: startingSeason,
+              endingSeason: endingSeason,
+              harvestedOn: harvestedOn,
+              pickupLocationID: locationValue,
+              freshnessStatus: freshStatus,
+              measuringUnit: measuringUnit,
+              pricePerMeasuringUnit: MUPrice,
+              minBulkAmount: bulkAmt,
+              bulkPrice: bulkPrice,
+              amountAvailable: amountAvailable,
+            };
+
+            await addFarmerItem(data)
+              .then((res) => {
+                console.log("1: ", res);
+              })
+              .catch((err) => {
+                console.log("1: ", err);
+              });
           }}
         >
           <Text
