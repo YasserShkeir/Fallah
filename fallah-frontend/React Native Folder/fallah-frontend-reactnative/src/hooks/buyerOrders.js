@@ -118,6 +118,27 @@ export const addProductToRegularOrder = async (payload) => {
   }
 };
 
+export const removeProductFromRegularOrder = async (orderID, productID) => {
+  let url = usersURL + `regular-order/product`;
+  try {
+    await axios
+      .delete(url, {
+        headers: {
+          Authorization: "Bearer " + (await AsyncStorage.getItem("token")),
+        },
+        data: {
+          regularOrderID: orderID,
+          productID: productID,
+        },
+      })
+      .then((response) => {
+        console.log("Removed Product From Order");
+      });
+  } catch (error) {
+    console.error("Error API: ", error);
+  }
+};
+
 export const getScheduledOrders = async (func, id) => {
   let url = usersURL + `scheduled-order`;
   if (id) {
