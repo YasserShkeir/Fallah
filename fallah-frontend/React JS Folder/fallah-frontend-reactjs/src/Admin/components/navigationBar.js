@@ -29,8 +29,8 @@ const AdminNavigationBar = () => {
           { to: "/admin/users", icon: faUsers, text: "Users" },
           { to: "/admin/orders", icon: faList, text: "Orders" },
           { to: "/admin/products", icon: faAppleAlt, text: "Products" },
-          { to: "/admin/categories", icon: faTree, text: "Categories" },
-          { to: "/admin/reviews", icon: faStar, text: "Reviews" },
+          // { to: "/admin/categories", icon: faTree, text: "Categories" },
+          // { to: "/admin/reviews", icon: faStar, text: "Reviews" },
         ].map((item) => (
           <NavBarLink
             to={item.to}
