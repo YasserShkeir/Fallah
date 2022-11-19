@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View, Image, SafeAreaView, FlatList, Dimensions } from "react-native";
 import { ActivityIndicator, IconButton, Text } from "react-native-paper";
 
 // Components
@@ -16,6 +16,8 @@ import {
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
+
+const { height, width } = Dimensions.get("window");
 
 const BuyerFarmerProfile = ({ route, navigation }) => {
   // Access data sent from payload
@@ -109,7 +111,7 @@ const BuyerFarmerProfile = ({ route, navigation }) => {
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <View
         style={{
           display: "flex",
@@ -203,7 +205,7 @@ const BuyerFarmerProfile = ({ route, navigation }) => {
           {ratingSwitch(Math.round(averageRating / reviews.length))}
         </View>
       </View>
-      <View style={{ padding: 5 }}>
+      <View style={{ padding: 5, height: height - 470 }}>
         <Text
           style={{
             fontFamily: "Inter-Bold",
@@ -215,20 +217,19 @@ const BuyerFarmerProfile = ({ route, navigation }) => {
         >
           Products
         </Text>
-        <ScrollView>
-          {products.map((product) => {
-            return (
-              <ItemCard
-                key={product._id}
-                item={product}
-                location={"profile"}
-                navigation={navigation}
-              />
-            );
-          })}
-        </ScrollView>
+        <FlatList
+          data={products}
+          renderItem={({ item }) => (
+            <ItemCard
+              key={item._id}
+              item={item}
+              location={"profile"}
+              navigation={navigation}
+            />
+          )}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
