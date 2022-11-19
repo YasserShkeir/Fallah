@@ -511,7 +511,6 @@ const addProductToRegularOrder = async (req, res) => {
           const product = childCategory.products.find((product) => {
             return product._id.toString() === productID.toString();
           });
-
           if (product) {
             const productInOrder = regularOrder.products.find((product) => {
               return product.productID.toString() === productID.toString();
