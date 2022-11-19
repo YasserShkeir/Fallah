@@ -68,6 +68,26 @@ export const deleteRegularOrder = async (id) => {
   }
 };
 
+export const updateRegularOrderLocation = async (orderID, locationID) => {
+  let url = usersURL + `regular-order/location`;
+  try {
+    await axios
+      .put(
+        url,
+        {
+          regularOrderID: orderID,
+          deliveryLocationID: locationID,
+        },
+        await configHandler()
+      )
+      .then((response) => {
+        console.log("Updated Order Location");
+      });
+  } catch (error) {
+    console.error("Error API: ", error);
+  }
+};
+
 export const getScheduledOrders = async (func, id) => {
   let url = usersURL + `scheduled-order`;
   if (id) {
