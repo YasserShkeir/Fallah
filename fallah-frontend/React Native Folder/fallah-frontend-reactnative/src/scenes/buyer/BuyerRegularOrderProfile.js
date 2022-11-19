@@ -1,53 +1,50 @@
 import { useState, useEffect } from "react";
 import { View } from "react-native";
-import { Button, Text, Appbar } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Components
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import AppbarLocationMenu from "../../components/menus/BuyerAppbarLocationMenu";
+import BuyerOrderProfileItemCard from "../../components/cards/BuyerOrderProfileItemCard";
+import BuyerOrderProfileFooter from "../../components/navbars/BuyerOrderProfileFooter";
 
 // Hooks
 import {
   deleteRegularOrder,
   updateRegularOrderLocation,
-  removeProductFromRegularOrder,
 } from "../../hooks/buyerOrders";
 
 // Styles
-import {
-  CREAMWHITE,
-  DARKGREEN,
-  LIGHTGREEN,
-  PEACHYYELLOW,
-} from "../../styles/colors";
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 
 const BuyerRegularOrderProfile = ({ route, navigation }) => {
   const order = route.params.order;
   const [orderLocation, setOrderLocation] = useState(order.deliveryLocation);
   const [orderProducts, setOrderProducts] = useState(order.products);
-
+  console.log("order", order.deliveryStatus);
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <Button
-          mode="contained"
-          icon="delete"
-          contentStyle={{ backgroundColor: "red" }}
-          labelStyle={{ color: "white", fontFamily: "Inter-Bold" }}
-          onPress={async () => {
-            await deleteRegularOrder(order._id)
-              .then((response) => {
-                console.log("response", response);
-              })
-              .catch((error) => {
-                console.log("error data: ", error);
-              });
-          }}
-        >
-          Delete Order
-        </Button>
-      ),
+      headerRight: () =>
+        order.deliveryStatus === "Pending" ? (
+          <Button
+            mode="contained"
+            icon="delete"
+            contentStyle={{ backgroundColor: "red" }}
+            labelStyle={{ color: "white", fontFamily: "Inter-Bold" }}
+            onPress={async () => {
+              await deleteRegularOrder(order._id)
+                .then((response) => {
+                  console.log("response", response);
+                })
+                .catch((error) => {
+                  console.log("error data: ", error);
+                });
+            }}
+          >
+            Delete Order
+          </Button>
+        ) : null,
     });
 
     updateRegularOrderLocation(order._id, orderLocation._id);
@@ -90,62 +87,12 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
       {orderProducts.length > 0 ? (
         orderProducts.map((product) => {
           return (
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                marginHorizontal: 20,
-                borderRadius: 10,
-                backgroundColor: LIGHTGREEN,
-              }}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: "Inter-Bold",
-                    fontSize: 16,
-                    color: CREAMWHITE,
-                  }}
-                >
-                  {product.productName}
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: "Inter-Medium",
-                    fontSize: 14,
-                    color: CREAMWHITE,
-                  }}
-                >
-                  Subtotal: ${product.productTotal}
-                </Text>
-              </View>
-              <Button
-                mode="contained"
-                icon="delete"
-                contentStyle={{ backgroundColor: "red" }}
-                labelStyle={{ color: "white", fontFamily: "Inter-Bold" }}
-                onPress={async () => {
-                  await removeProductFromRegularOrder(
-                    order._id,
-                    product._id
-                  ).then((response) => {
-                    console.log("response", response);
-                  });
-                }}
-              >
-                Remove
-              </Button>
-            </View>
+            <BuyerOrderProfileItemCard
+              order={order}
+              product={product}
+              key={product._id}
+              navigation={navigation}
+            />
           );
         })
       ) : (
@@ -161,41 +108,7 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
           No products in this order
         </Text>
       )}
-      <Appbar
-        style={{
-          backgroundColor: LIGHTGREEN,
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          height: 70,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 20,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Inter-Bold",
-            fontSize: 18,
-            color: CREAMWHITE,
-          }}
-        >
-          Order Total: ${order.orderSubtotal}
-        </Text>
-        <Button
-          buttonColor={PEACHYYELLOW}
-          labelStyle={{
-            fontFamily: "Inter-Bold",
-            fontSize: 18,
-            color: DARKGREEN,
-          }}
-          onPress={() => {}}
-        >
-          Approve Order
-        </Button>
-      </Appbar>
+      <BuyerOrderProfileFooter order={order} orderProducts={orderProducts} />
     </BuyerMainLayout>
   );
 };
