@@ -5,6 +5,7 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Components
 import BuyerItemFooter from "../../components/navbars/BuyerItemProfileFooter";
+import DropDownPicker from "react-native-dropdown-picker";
 
 // Hooks
 import { getRegularOrders } from "../../hooks/buyerOrders";
@@ -23,9 +24,31 @@ const BuyerItemProfile = ({ route, navigation }) => {
   const { product } = route.params;
 
   const [regularOrders, setRegularOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(regularOrders[0]);
+  const [orderMenuVisible, setOrderMenuVisible] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [payload, setPayload] = useState({
+    regularOrderID: selectedOrder,
+    mainCategoryID: product.mainCategoryID,
+    childCategoryID: product.childCategoryID,
+    productID: product._id,
+    quantity: quantity,
+  });
 
   const getRegularOrdersHandler = (response) => {
-    setRegularOrders(response.data.regularOrders);
+    let regularOrders = [];
+
+    response.data.regularOrders.forEach((order) => {
+      regularOrders.push({
+        label:
+          order.deliveryLocation.name +
+          " - " +
+          order.created_at.substring(0, 10),
+        value: order._id,
+      });
+    });
+
+    setRegularOrders(regularOrders);
   };
 
   useEffect(() => {
@@ -39,6 +62,16 @@ const BuyerItemProfile = ({ route, navigation }) => {
     }
     prepare();
   }, []);
+
+  useEffect(() => {
+    setPayload({
+      regularOrderID: selectedOrder,
+      mainCategoryID: product.mainCategoryID,
+      childCategoryID: product.childCategoryID,
+      productID: product._id,
+      quantity: quantity,
+    });
+  }, [quantity]);
 
   return (
     <View
@@ -130,7 +163,51 @@ const BuyerItemProfile = ({ route, navigation }) => {
           days ago
         </Text>
       </View>
-      <BuyerItemFooter item={product} />
+      <View
+        style={{
+          borderBottomColor: LIGHTGREEN,
+          borderBottomWidth: 2,
+          paddingVertical: 10,
+          width: "100%",
+          paddingHorizontal: 10,
+          backgroundColor: DARKGREEN,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {regularOrders.length > 0 ? (
+          <DropDownPicker
+            containerStyle={{
+              width: "100%",
+            }}
+            textStyle={{ fontFamily: "Inter-Regular" }}
+            placeholder="Select Order"
+            open={orderMenuVisible}
+            value={selectedOrder}
+            items={regularOrders}
+            setOpen={setOrderMenuVisible}
+            setValue={setSelectedOrder}
+            setItems={setRegularOrders}
+          />
+        ) : (
+          <Text
+            style={{
+              fontFamily: "Inter-Regular",
+              color: CREAMWHITE,
+              fontSize: 18,
+            }}
+          >
+            No orders yet
+          </Text>
+        )}
+      </View>
+      <BuyerItemFooter
+        item={product}
+        setQuantity={setQuantity}
+        payload={payload}
+      />
     </View>
   );
 };
