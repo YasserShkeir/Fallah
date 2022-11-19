@@ -2,12 +2,15 @@ import { useState } from "react";
 import { View, Dimensions } from "react-native";
 import { Button, Text, Appbar } from "react-native-paper";
 
+// Hooks
+import { addProductToRegularOrder } from "../../hooks/buyerOrders";
+
 // Styles
 import { CREAMWHITE, LIGHTGREEN, PEACHYYELLOW } from "../../styles/colors";
 
 const { width } = Dimensions.get("window");
 
-const BuyerItemFooter = ({ item }) => {
+const BuyerItemFooter = ({ item, setQuantity, payload }) => {
   const [count, setCount] = useState(1);
 
   return (
@@ -39,6 +42,7 @@ const BuyerItemFooter = ({ item }) => {
           onPress={() => {
             if (count > 1) {
               setCount(count - 1);
+              setQuantity(count - 1);
             }
           }}
         />
@@ -57,6 +61,7 @@ const BuyerItemFooter = ({ item }) => {
           onPress={() => {
             if (count < item.amountAvailable) {
               setCount(count + 1);
+              setQuantity(count + 1);
             } else {
               alert("Not enough in stock");
             }
@@ -88,7 +93,9 @@ const BuyerItemFooter = ({ item }) => {
         </Text>
         <Button
           mode="contained"
-          onPress={() => console.log("Pressed")}
+          onPress={() => {
+            addProductToRegularOrder(payload);
+          }}
           style={{
             width: "36%",
             backgroundColor: CREAMWHITE,
@@ -112,7 +119,7 @@ const BuyerItemFooter = ({ item }) => {
         >
           Total: $
           {count < item.minBulkAmount
-            ? count * item.pricePerMeasuringUnit
+            ? (count * item.pricePerMeasuringUnit).toFixed(2)
             : (count * item.bulkPrice).toFixed(2)}
         </Text>
       </View>
