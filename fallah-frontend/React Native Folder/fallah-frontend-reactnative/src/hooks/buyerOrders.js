@@ -88,6 +88,36 @@ export const updateRegularOrderLocation = async (orderID, locationID) => {
   }
 };
 
+export const addProductToRegularOrder = async (payload) => {
+  const {
+    regularOrderID,
+    mainCategoryID,
+    childCategoryID,
+    productID,
+    quantity,
+  } = payload;
+  let url = usersURL + `regular-order/product`;
+  try {
+    await axios
+      .post(
+        url,
+        {
+          regularOrderID: regularOrderID,
+          mainCategoryID: mainCategoryID,
+          childCategoryID: childCategoryID,
+          productID: productID,
+          quantity: quantity,
+        },
+        await configHandler()
+      )
+      .then((response) => {
+        console.log("Added Product to Order");
+      });
+  } catch (error) {
+    console.error("Error API: ", error);
+  }
+};
+
 export const getScheduledOrders = async (func, id) => {
   let url = usersURL + `scheduled-order`;
   if (id) {
