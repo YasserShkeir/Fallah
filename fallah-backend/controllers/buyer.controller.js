@@ -648,7 +648,7 @@ const removeProductFromRegularOrder = async (req, res) => {
 
     if (regularOrder.deliveryStatus === "Pending") {
       const productInOrder = regularOrder.products.find((product) => {
-        return product.productID.toString() === productID.toString();
+        return product._id.toString() === productID.toString();
       });
 
       if (productInOrder) {
@@ -677,7 +677,7 @@ const removeProductFromRegularOrder = async (req, res) => {
               product.amountAvailable += productInOrder.amount;
               regularOrder.products = regularOrder.products.filter(
                 (product) => {
-                  return product.productID.toString() !== productID.toString();
+                  return product._id.toString() !== productID.toString();
                 }
               );
 
