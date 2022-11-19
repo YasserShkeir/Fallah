@@ -139,6 +139,25 @@ export const removeProductFromRegularOrder = async (orderID, productID) => {
   }
 };
 
+export const approveRegularOrder = async (orderID) => {
+  let url = usersURL + `regular-order`;
+  try {
+    await axios
+      .put(
+        url,
+        {
+          regularOrderID: orderID,
+        },
+        await configHandler()
+      )
+      .then((response) => {
+        console.log("Approved Order");
+      });
+  } catch (error) {
+    console.error("Error API: ", error);
+  }
+};
+
 export const getScheduledOrders = async (func, id) => {
   let url = usersURL + `scheduled-order`;
   if (id) {
