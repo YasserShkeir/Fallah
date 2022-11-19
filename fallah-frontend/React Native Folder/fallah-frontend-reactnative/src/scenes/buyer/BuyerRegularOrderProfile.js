@@ -161,6 +161,41 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
           No products in this order
         </Text>
       )}
+      <Appbar
+        style={{
+          backgroundColor: LIGHTGREEN,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 70,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Inter-Bold",
+            fontSize: 18,
+            color: CREAMWHITE,
+          }}
+        >
+          Order Total: ${order.orderSubtotal}
+        </Text>
+        <Button
+          buttonColor={PEACHYYELLOW}
+          labelStyle={{
+            fontFamily: "Inter-Bold",
+            fontSize: 18,
+            color: DARKGREEN,
+          }}
+          onPress={() => {}}
+        >
+          Approve Order
+        </Button>
+      </Appbar>
     </BuyerMainLayout>
   );
 };
