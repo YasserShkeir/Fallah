@@ -14,9 +14,6 @@ import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BuyerAppBar = ({ page, prop, navigation }) => {
-  const [ordersView, setOrdersView] = useState("Regular Orders");
-  const [searchQuery, setSearchQuery] = useState("");
-
   if (page === "home") {
     return (
       <BuyerAppBarLayout>
@@ -36,6 +33,8 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
       </BuyerAppBarLayout>
     );
   } else if (page === "search") {
+    const [searchQuery, setSearchQuery] = useState("");
+
     const onChangeSearch = (query) => {
       setSearchQuery(query);
       prop(query);
@@ -86,6 +85,7 @@ const BuyerAppBar = ({ page, prop, navigation }) => {
       </BuyerAppBarLayout>
     );
   } else if (page === "orders") {
+    const [ordersView, setOrdersView] = useState("Regular Orders");
     prop(ordersView);
     return (
       <BuyerAppBarLayout>
