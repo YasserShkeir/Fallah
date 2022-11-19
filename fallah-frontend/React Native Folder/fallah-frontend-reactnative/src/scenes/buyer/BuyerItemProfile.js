@@ -35,24 +35,27 @@ const BuyerItemProfile = ({ route, navigation }) => {
     quantity: quantity,
   });
 
-  const getRegularOrdersHandler = (response) => {
-    let regularOrders = [];
-
-    response.data.regularOrders.forEach((order) => {
-      regularOrders.push({
-        label:
-          order.deliveryLocation.name +
-          " - " +
-          order.created_at.substring(0, 10),
-        value: order._id,
-      });
-    });
-
-    setRegularOrders(regularOrders);
-  };
-
   useEffect(() => {
     navigation.setOptions({ title: product.productName });
+
+    const getRegularOrdersHandler = (response) => {
+      let regularOrders = [];
+
+      response.data.regularOrders.forEach((order) => {
+        if (order.deliveryStatus === "Pending") {
+          regularOrders.push({
+            label:
+              order.deliveryLocation.name +
+              " - " +
+              order.created_at.substring(0, 10),
+            value: order._id,
+          });
+        }
+      });
+
+      setRegularOrders(regularOrders);
+    };
+
     async function prepare() {
       try {
         await getRegularOrders(getRegularOrdersHandler);
@@ -190,6 +193,9 @@ const BuyerItemProfile = ({ route, navigation }) => {
             setOpen={setOrderMenuVisible}
             setValue={setSelectedOrder}
             setItems={setRegularOrders}
+            onChangeValue={(value) => {
+              setSelectedOrder(value);
+            }}
           />
         ) : (
           <Text
@@ -199,7 +205,7 @@ const BuyerItemProfile = ({ route, navigation }) => {
               fontSize: 18,
             }}
           >
-            No orders yet
+            No Active orders yet
           </Text>
         )}
       </View>
