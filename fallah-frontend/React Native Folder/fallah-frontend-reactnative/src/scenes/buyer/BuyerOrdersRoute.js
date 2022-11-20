@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, RefreshControl } from "react-native";
 import {
   ActivityIndicator,
   Text,
@@ -10,8 +10,8 @@ import {
 } from "react-native-paper";
 
 // Components
-import BuyerRegularOrderCard from "../../components/sections/Orders/BuyerRegularOrders";
-import BuyerScheduledOrderCard from "../../components/sections/Orders/BuyerScheduledOrders";
+import BuyerRegularOrderCard from "../../components/sections/Buyer/Orders/BuyerRegularOrders";
+import BuyerScheduledOrderCard from "../../components/sections/Buyer/Orders/BuyerScheduledOrders";
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
 import AppbarLocationMenu from "../../components/menus/BuyerAppbarLocationMenu";
@@ -51,15 +51,16 @@ const BuyerOrdersRoute = (navigation) => {
       });
   };
 
+  const getRegularOrdersHandler = (response) => {
+    setRegularOrders(response.data.regularOrders);
+  };
+
+  const getScheduledOrdersHandler = (response) => {
+    setScheduledOrders(response.data.scheduledOrders);
+  };
+
   useEffect(() => {
     setLoading(true);
-    const getRegularOrdersHandler = (response) => {
-      setRegularOrders(response.data.regularOrders);
-    };
-
-    const getScheduledOrdersHandler = (response) => {
-      setScheduledOrders(response.data.scheduledOrders);
-    };
 
     async function prepare() {
       try {
@@ -80,7 +81,17 @@ const BuyerOrdersRoute = (navigation) => {
     <BuyerMainLayout>
       <BuyerAppBar page="orders" prop={orderDisplayHandler} />
 
-      <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={() => {
+              getRegularOrders(getRegularOrdersHandler);
+            }}
+          />
+        }
+        style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+      >
         {loading ? (
           <ActivityIndicator />
         ) : orderDisplay === "Regular Orders" ? (
