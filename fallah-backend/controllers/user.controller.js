@@ -135,9 +135,10 @@ const getLocations = async (req, res) => {
 };
 
 const getFarmerReviews = async (req, res) => {
+  const { id } = req.params;
   // Get all reviews
   try {
-    const user = await User.User.findById(req.user._id);
+    const user = await User.User.findById(id);
     res.status(200).json({
       reviews: user.reviews,
     });
