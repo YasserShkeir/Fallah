@@ -54,7 +54,7 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
     <BuyerMainLayout>
       <View
         style={{
-          display: "flex",
+          display: order.deliveryStatus === "Pending" ? "flex" : "none",
           flexDirection: "row",
           alignItems: "center",
           paddingVertical: 10,
