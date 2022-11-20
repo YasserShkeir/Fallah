@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { View, Dimensions } from "react-native";
-import { Button, Text, Appbar } from "react-native-paper";
+import { Button, Text, Appbar, TextInput } from "react-native-paper";
 
 // Hooks
 import { addProductToRegularOrder } from "../../hooks/buyerOrders";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN, PEACHYYELLOW } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const { width } = Dimensions.get("window");
 
 const BuyerItemFooter = ({ item, setQuantity, payload }) => {
   const [count, setCount] = useState(1);
-
+  const [loading, setLoading] = useState(false);
   return (
     <Appbar
       style={{
@@ -29,11 +30,9 @@ const BuyerItemFooter = ({ item, setQuantity, payload }) => {
     >
       <View
         style={{
-          display: "flex",
-          flexDirection: "row",
+          ...flexRow,
           width: "50%",
           justifyContent: "space-between",
-          alignItems: "center",
         }}
       >
         <Appbar.Action
@@ -46,15 +45,43 @@ const BuyerItemFooter = ({ item, setQuantity, payload }) => {
             }
           }}
         />
+
+        <TextInput
+          mode="outlined"
+          ref={(ref) =>
+            ref && ref.setNativeProps({ style: { fontFamily: "Inter-Bold" } })
+          }
+          style={{
+            backgroundColor: "transparent",
+            height: 26,
+            fontFamily: count ? "Inter-Bold" : "Inter-Bold",
+            color: count ? CREAMWHITE : CREAMWHITE,
+            fontSize: 24,
+            paddingVertical: 5,
+          }}
+          outlineStyle={{
+            backgroundColor: "transparent",
+            borderColor: "transparent",
+            fontFamily: count ? "Inter-Bold" : "Inter-Bold",
+            color: count ? CREAMWHITE : CREAMWHITE,
+          }}
+          textColor={count < item.minBulkAmount ? CREAMWHITE : PEACHYYELLOW}
+          value={count.toString()}
+          onChangeText={(text) => {
+            setCount(parseFloat(text));
+            setQuantity(parseFloat(text));
+          }}
+        />
         <Text
           style={{
-            color: PEACHYYELLOW,
-            fontSize: 24,
-            fontFamily: "Inter-Bold",
+            fontFamily: "Inter-Medium",
+            fontSize: 18,
+            color: CREAMWHITE,
           }}
         >
-          {count} {item.measuringUnit}
+          {item.measuringUnit}
         </Text>
+
         <Appbar.Action
           icon="plus"
           color={CREAMWHITE}
@@ -70,11 +97,9 @@ const BuyerItemFooter = ({ item, setQuantity, payload }) => {
       </View>
       <View
         style={{
-          display: "flex",
-          flexDirection: "row",
+          ...flexRow,
           width: width,
           justifyContent: "space-between",
-          alignItems: "center",
           borderTopColor: CREAMWHITE,
           borderTopWidth: 1,
           paddingTop: 8,
@@ -93,8 +118,18 @@ const BuyerItemFooter = ({ item, setQuantity, payload }) => {
         </Text>
         <Button
           mode="contained"
-          onPress={() => {
-            addProductToRegularOrder(payload);
+          onPress={async () => {
+            setLoading(true);
+            if (!payload.regularOrderID) {
+              alert("Please add an order first");
+              setLoading(false);
+              return;
+            } else {
+              await addProductToRegularOrder(payload);
+            }
+            const res = await addProductToRegularOrder(payload);
+            alert("Order Added!");
+            setLoading(false);
           }}
           style={{
             width: "36%",
@@ -105,8 +140,9 @@ const BuyerItemFooter = ({ item, setQuantity, payload }) => {
             fontFamily: "Inter-Bold",
             fontSize: 18,
           }}
+          loading={loading}
         >
-          Confirm
+          {loading ? "Loading" : "Confirm"}
         </Button>
         <Text
           style={{
