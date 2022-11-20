@@ -26,9 +26,9 @@ const BuyerOrderProfileItemCard = ({ order, product, navigation }) => {
     >
       <View
         style={{
-          width: "95%",
+          width: order.deliveryStatus === "Pending" ? "30%" : "95%",
           display: "flex",
-          flexDirection: order.deliveryStatus === "pending" ? "column" : "row",
+          flexDirection: order.deliveryStatus === "Pending" ? "column" : "row",
           justifyContent: "space-between",
           alignItems: "center",
         }}
@@ -52,7 +52,7 @@ const BuyerOrderProfileItemCard = ({ order, product, navigation }) => {
           Subtotal: ${product.productTotal}
         </Text>
       </View>
-      {order.deliveryStatus === "pending" ? (
+      {order.deliveryStatus === "Pending" ? (
         <Button
           mode="contained"
           icon="delete"
