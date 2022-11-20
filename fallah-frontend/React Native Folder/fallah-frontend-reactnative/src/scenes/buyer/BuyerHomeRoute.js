@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, RefreshControl } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 
 // Components
 import images from "../../assets/images";
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
-import BuyerSeasonalCard from "../../components/sections/HomePage/BuyerSeasonalCard";
-import BuyerCategoriesSection from "../../components/sections/HomePage/BuyerCategoriesSection";
-import BuyerFollowingSection from "../../components/sections/HomePage/BuyerFollowingsSection";
+import BuyerSeasonalCard from "../../components/sections/Buyer/HomePage/BuyerSeasonalCard";
+import BuyerCategoriesSection from "../../components/sections/Buyer/HomePage/BuyerCategoriesSection";
+import BuyerFollowingSection from "../../components/sections/Buyer/HomePage/BuyerFollowingsSection";
 
 // Hooks
 import { getSeasonalItems } from "../../hooks/seasonal";
@@ -22,6 +22,7 @@ const BuyerHomeRoute = ({ navigation }) => {
   const [seasonalItems, setSeasonalItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [followings, setFollowings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getSeasonalItemsHandler = (response) => {
     setSeasonalItems(response.data.seasonalItems);
@@ -46,6 +47,7 @@ const BuyerHomeRoute = ({ navigation }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     async function prepare() {
       try {
         await getSeasonalItems(getSeasonalItemsHandler);
@@ -56,12 +58,22 @@ const BuyerHomeRoute = ({ navigation }) => {
       }
     }
     prepare();
+    setLoading(false);
   }, []);
 
   return (
     <BuyerMainLayout>
       <BuyerAppBar page="home" />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={() => {
+              getFollowing(getFollowingHandler);
+            }}
+          />
+        }
+      >
         {seasonalItems.length > 0 ? (
           <>
             <BuyerSeasonalCard
