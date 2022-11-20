@@ -142,10 +142,10 @@ const unFollowFarmer = async (req, res) => {
     if (farmer && alreadyFollowing) {
       // Loop through the following array and filter out the id
       user.following = user.following.filter((following) => {
-        following.toString() !== id;
+        return following._id.toString() !== id;
       });
       farmer.followers = farmer.followers.filter((follower) => {
-        follower.toString() !== req.user._id.toString();
+        return follower._id.toString() !== req.user._id.toString();
       });
       await user.save();
       await farmer.save();
