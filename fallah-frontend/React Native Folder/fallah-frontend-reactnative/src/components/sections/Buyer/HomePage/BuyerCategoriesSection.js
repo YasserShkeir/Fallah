@@ -2,10 +2,10 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 
 // Components
-import BuyerCategoryCard from "../../cards/BuyerCategoryCard";
+import BuyerCategoryCard from "../../../cards/BuyerCategoryCard";
 
 // Styles
-import { LIGHTGREEN, DARKGREEN } from "../../../styles/colors";
+import { LIGHTGREEN, DARKGREEN } from "../../../../styles/colors";
 
 const BuyerCategoriesSection = (categories) => {
   return (

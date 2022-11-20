@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 
 // Styles
-import { LIGHTGREEN, DARKGREEN } from "../../../styles/colors";
+import { LIGHTGREEN, DARKGREEN } from "../../../../styles/colors";
 
 const BuyerSearchType = (props) => {
   return (

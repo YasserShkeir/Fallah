@@ -4,7 +4,7 @@ import { Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Styles
-import { DARKGREEN, LIGHTGREEN, CREAMWHITE } from "../../../styles/colors";
+import { DARKGREEN, LIGHTGREEN, CREAMWHITE } from "../../../../styles/colors";
 
 const BuyerRegularOrderCard = ({ order, navigation }) => {
   return (

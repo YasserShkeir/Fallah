@@ -2,8 +2,8 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 
 // Styles
-import { BuyerSeasonalCardContainer } from "../../../styles/components";
-import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../../styles/colors";
+import { BuyerSeasonalCardContainer } from "../../../../styles/components";
+import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../../../styles/colors";
 
 const BuyerSeasonalCard = ({ item, navigation }) => {
   return (

@@ -2,10 +2,10 @@ import { View, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 
 // Components
-import BuyerFollowingCard from "../../cards/BuyerFollowingCard";
+import BuyerFollowingCard from "../../../cards/BuyerFollowingCard";
 
 // Styles
-import { DARKGREEN } from "../../../styles/colors";
+import { DARKGREEN } from "../../../../styles/colors";
 
 const BuyerFollowingSection = ({ followings, navigation }) => {
   return (

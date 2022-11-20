@@ -4,7 +4,7 @@ import { Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Styles
-import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../../styles/colors";
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../../../styles/colors";
 
 const BuyerScheduledOrderCard = ({ props }) => {
   const dividor = props.scheduleFrequency === "Daily" ? 1 : 7;
