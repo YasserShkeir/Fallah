@@ -1,24 +1,18 @@
 import { useState, useEffect } from "react";
-import { View, Image, ScrollView, Dimensions } from "react-native";
+import { View } from "react-native";
 import { Text } from "react-native-paper";
-import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+import DropDownPicker from "react-native-dropdown-picker";
 
 // Components
 import BuyerItemFooter from "../../components/navbars/BuyerItemProfileFooter";
-import DropDownPicker from "react-native-dropdown-picker";
+import ProductTopSection from "../../components/sections/Buyer/Products/ProductTopSection";
 
 // Hooks
 import { getRegularOrders } from "../../hooks/buyerOrders";
 
 // Styles
-import {
-  CREAMWHITE,
-  DARKGREEN,
-  LIGHTGREEN,
-  PEACHYYELLOW,
-} from "../../styles/colors";
-
-const { width, height } = Dimensions.get("window");
+import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const BuyerItemProfile = ({ route, navigation }) => {
   const { product } = route.params;
@@ -74,7 +68,7 @@ const BuyerItemProfile = ({ route, navigation }) => {
       productID: product._id,
       quantity: quantity,
     });
-  }, [quantity]);
+  }, [quantity, selectedOrder]);
 
   return (
     <View
@@ -85,74 +79,26 @@ const BuyerItemProfile = ({ route, navigation }) => {
         flexDirection: "column",
       }}
     >
-      <View>
-        <ScrollView
-          horizontal={true}
-          pagingEnabled={true}
-          style={{
-            height: 250,
-            backgroundColor: DARKGREEN,
-          }}
-        >
-          {product.images.map((image) => (
-            <Image
-              key={image}
-              source={{ uri: image }}
-              style={{
-                width: width,
-                height: 250,
-              }}
-            />
-          ))}
-        </ScrollView>
-      </View>
+      <ProductTopSection product={product} />
       <View
         style={{
+          ...flexRow,
           borderBottomColor: LIGHTGREEN,
           borderBottomWidth: 2,
-          paddingBottom: 10,
+          paddingVertical: 5,
           width: "100%",
           paddingHorizontal: 10,
+          justifyContent: "space-between",
         }}
       >
         <Text
           style={{
-            fontFamily: "Inter-Bold",
+            fontFamily: "Inter-Medium",
             color: DARKGREEN,
-            fontSize: 24,
-            marginVertical: 10,
+            fontSize: 16,
+            marginVertical: 4,
           }}
         >
-          {product.productName}
-        </Text>
-        <Text
-          style={{
-            backgroundColor: LIGHTGREEN,
-            color: CREAMWHITE,
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            fontFamily: "Inter-Regular",
-            fontSize: 18,
-            borderRadius: 10,
-          }}
-        >
-          Prices: <FontAwesome5Icon name="box" size={18} color={PEACHYYELLOW} />{" "}
-          ${product.pricePerMeasuringUnit}/{product.measuringUnit}
-          {" - "}
-          <FontAwesome5Icon name="boxes" size={18} color={PEACHYYELLOW} /> $
-          {product.bulkPrice}/{product.measuringUnit}*
-        </Text>
-      </View>
-      <View
-        style={{
-          borderBottomColor: LIGHTGREEN,
-          borderBottomWidth: 2,
-          paddingBottom: 10,
-          width: "100%",
-          paddingHorizontal: 10,
-        }}
-      >
-        <Text>
           Harvested{" "}
           {(
             (new Date() -
@@ -164,6 +110,18 @@ const BuyerItemProfile = ({ route, navigation }) => {
             86400000
           ).toFixed(0)}{" "}
           days ago
+        </Text>
+
+        <Text
+          style={{
+            fontFamily: "Inter-Medium",
+            color: DARKGREEN,
+            fontSize: 16,
+            marginVertical: 4,
+          }}
+        >
+          {product.amountAvailable - quantity}
+          {product.measuringUnit} available
         </Text>
       </View>
       <View
