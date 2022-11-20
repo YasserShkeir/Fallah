@@ -28,7 +28,6 @@ export const getRegularOrders = async (func, id) => {
 
 export const createRegularOrder = async (data) => {
   const deliveryLocationID = data;
-  console.log("deliveryLocationID", deliveryLocationID);
   let url = usersURL + `regular-order`;
   try {
     await axios
@@ -111,7 +110,7 @@ export const addProductToRegularOrder = async (payload) => {
         await configHandler()
       )
       .then((response) => {
-        console.log("Added Product to Order");
+        return response;
       });
   } catch (error) {
     console.error("Error API: ", error);

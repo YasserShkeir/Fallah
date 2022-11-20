@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Text, TextInput } from "react-native-paper";
-import { View } from "react-native";
+import { SafeAreaView } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
 // Components
@@ -72,7 +72,7 @@ const FarmerAddItem = ({ navigation }) => {
   }, []);
 
   return (
-    <View
+    <SafeAreaView
       style={{
         padding: 10,
       }}
@@ -281,7 +281,7 @@ const FarmerAddItem = ({ navigation }) => {
           </Text>
         </Button>
       </Row>
-    </View>
+    </SafeAreaView>
   );
 };
 

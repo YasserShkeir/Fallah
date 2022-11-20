@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, SafeAreaView, RefreshControl } from "react-native";
 import {
   Dialog,
   Portal,
@@ -23,6 +23,7 @@ import {
   DARKGREEN,
   PEACHYYELLOW,
 } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const FarmerHomeRoute = ({ navigation }) => {
   const [showDialog, setShowDialog] = useState(false);
@@ -30,6 +31,7 @@ const FarmerHomeRoute = ({ navigation }) => {
   const [locationLat, setLocationLat] = useState("");
   const [locationLong, setLocationLong] = useState("");
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const openDialog = () => setShowDialog(true);
   const closeDialog = () => setShowDialog(false);
@@ -48,6 +50,7 @@ const FarmerHomeRoute = ({ navigation }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     async function prepare() {
       try {
         await getSelfProducts(getSelfProductsHandler);
@@ -56,20 +59,19 @@ const FarmerHomeRoute = ({ navigation }) => {
       }
     }
     prepare();
+    setLoading(false);
   }, []);
 
   return (
-    <View>
+    <SafeAreaView>
       <View
         style={{
+          ...flexRow,
           borderBottomColor: LIGHTGREEN,
           borderBottomWidth: 1,
           padding: 10,
           paddingHorizontal: 15,
-          display: "flex",
-          flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: "center",
         }}
       >
         <Button
@@ -111,7 +113,30 @@ const FarmerHomeRoute = ({ navigation }) => {
         >
           Your Products
         </Text>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={async () => {
+                setLoading(true);
+                await getSelfProducts(getSelfProductsHandler);
+                setLoading(false);
+              }}
+            />
+          }
+        >
+          {products.length === 0 ? (
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: "Inter-Regular",
+                textAlign: "center",
+                marginTop: 20,
+              }}
+            >
+              You have no products yet.
+            </Text>
+          ) : null}
           {products ? (
             products.map((product) => {
               return (
@@ -171,7 +196,7 @@ const FarmerHomeRoute = ({ navigation }) => {
           </Dialog.Actions>
         </Dialog>
       </Portal>
-    </View>
+    </SafeAreaView>
   );
 };
 
