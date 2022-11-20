@@ -1,10 +1,9 @@
 const User = require("../models/user.model");
 const MainCategory = require("../models/mainCategory.model");
 
-// Using Tokens as they are (not secure)
 const client = require("twilio")(
-  "ACf1c454acfc1f4c39a2f7e8f6ea20e3dd",
-  "d7f53d1160136ee303bd7df70dd48773"
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
 );
 
 const registerProduct = async (req, res) => {
