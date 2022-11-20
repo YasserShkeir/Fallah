@@ -34,6 +34,10 @@ const mainCatSchema = new mongoose.Schema({
             type: String,
             required: true,
           },
+          farmerName: {
+            type: String,
+            required: true,
+          },
           productName: {
             type: String,
             required: "Product Name is required",
