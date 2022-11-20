@@ -17,6 +17,7 @@ import { editFarmerItem, deleteFarmerItem } from "../../hooks/farmerItem";
 
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const { width, height } = Dimensions.get("window");
 
@@ -100,13 +101,11 @@ const FarmerItemProfile = ({ route, navigation }) => {
       </ScrollView>
       <View
         style={{
+          ...flexRow,
           borderBottomColor: LIGHTGREEN,
           borderBottomWidth: 2,
           width: "100%",
           paddingHorizontal: 10,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
         }}
       >
         <Text

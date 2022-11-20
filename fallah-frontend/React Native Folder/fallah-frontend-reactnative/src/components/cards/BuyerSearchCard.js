@@ -6,6 +6,7 @@ import ItemCard from "./ItemCard";
 
 // Styles
 import { LIGHTGREEN, DARKGREEN, CREAMWHITE } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const BuyerSearchCard = ({ item, location, navigation }) => {
   const image = item.images[0];
@@ -18,16 +19,14 @@ const BuyerSearchCard = ({ item, location, navigation }) => {
           })
         }
         style={{
+          ...flexRow,
           width: "100%",
           height: 120,
           marginHorizontal: 3,
           marginVertical: 5,
           backgroundColor: LIGHTGREEN,
           justifyContent: "flex-start",
-          alignItems: "center",
           borderRadius: 10,
-          display: "flex",
-          flexDirection: "row",
           paddingHorizontal: 10,
         }}
       >

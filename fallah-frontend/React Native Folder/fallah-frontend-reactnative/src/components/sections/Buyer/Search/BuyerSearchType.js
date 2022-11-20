@@ -3,10 +3,11 @@ import { Text, Button } from "react-native-paper";
 
 // Styles
 import { LIGHTGREEN, DARKGREEN } from "../../../../styles/colors";
+import { flexRow } from "../../../../styles/components";
 
 const BuyerSearchType = (props) => {
   return (
-    <View style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+    <View style={{ ...flexRow, width: "100%" }}>
       <Button
         onPress={() => {
           props.setSearchQuery("");

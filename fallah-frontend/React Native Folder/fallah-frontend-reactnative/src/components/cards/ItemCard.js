@@ -5,6 +5,7 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Styles
 import { LIGHTGREEN, CREAMWHITE } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const monthNames = [
   "January",
@@ -50,16 +51,14 @@ const ItemCard = ({ item, location, navigation }) => {
         });
       }}
       style={{
+        ...flexRow,
         width: "100%",
         height: 120,
         marginHorizontal: 3,
         marginVertical: 5,
         backgroundColor: LIGHTGREEN,
         justifyContent: "flex-start",
-        alignItems: "center",
         borderRadius: 10,
-        display: "flex",
-        flexDirection: "row",
         paddingHorizontal: 10,
       }}
     >

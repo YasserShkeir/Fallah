@@ -1,16 +1,15 @@
 import { View } from "react-native";
 import { Text, IconButton } from "react-native-paper";
 import { CREAMWHITE } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const AppBarMenuAnchor = ({ onPress, locations, location }) => {
   return (
     <View
       style={{
-        display: "flex",
-        flexDirection: "row",
+        ...flexRow,
         paddingLeft: 8,
         color: CREAMWHITE,
-        alignItems: "center",
         height: 20,
       }}
     >

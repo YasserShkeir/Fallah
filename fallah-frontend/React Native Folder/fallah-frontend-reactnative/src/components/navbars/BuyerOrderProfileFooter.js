@@ -10,19 +10,19 @@ import {
   LIGHTGREEN,
   PEACHYYELLOW,
 } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const BuyerOrderProfileFooter = ({ order, orderProducts }) => {
   return (
     <Appbar
       style={{
+        ...flexRow,
         backgroundColor: LIGHTGREEN,
         position: "absolute",
         left: 0,
         right: 0,
         bottom: 0,
         height: 70,
-        display: "flex",
-        flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 20,
       }}
@@ -50,9 +50,7 @@ const BuyerOrderProfileFooter = ({ order, orderProducts }) => {
               : { backgroundColor: PEACHYYELLOW }
           }
           onPress={async () => {
-            await approveRegularOrder(order._id).then((response) => {
-              console.log("response", response);
-            });
+            await approveRegularOrder(order._id);
           }}
         >
           Approve Order

@@ -5,6 +5,7 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Styles
 import { DARKGREEN, LIGHTGREEN, CREAMWHITE } from "../../../../styles/colors";
+import { flexRow } from "../../../../styles/components";
 
 const BuyerRegularOrderCard = ({ order, navigation }) => {
   return (
@@ -88,8 +89,7 @@ const BuyerRegularOrderCard = ({ order, navigation }) => {
                 <View
                   key={product._id}
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
+                    ...flexRow,
                     marginTop: 5,
                   }}
                 >

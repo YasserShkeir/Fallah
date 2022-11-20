@@ -2,6 +2,12 @@ import { CREAMWHITE, LIGHTGREEN, DARKGREEN, PEACHYYELLOW } from "./colors";
 
 import { StyleSheet } from "react-native";
 
+export const flexRow = {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+};
+
 export const AtomButtonText1 = StyleSheet.create({
   color: CREAMWHITE,
   fontSize: 22,
@@ -59,6 +65,7 @@ export const SignUpButton2 = StyleSheet.create({
 });
 
 export const SignUpButtonContainer = StyleSheet.create({
+  ...flexRow,
   height: 60,
   borderColor: CREAMWHITE,
   borderStyle: "solid",
@@ -67,13 +74,11 @@ export const SignUpButtonContainer = StyleSheet.create({
   width: "80%",
   marginBottom: 15,
   marginTop: 5,
-  display: "flex",
-  flexDirection: "row",
   justifyContent: "space-evenly",
-  alignItems: "center",
 });
 
 export const BuyerSeasonalCardContainer = StyleSheet.create({
+  ...flexRow,
   width: "100%",
   backgroundColor: PEACHYYELLOW,
   borderTopColor: LIGHTGREEN,
@@ -81,10 +86,7 @@ export const BuyerSeasonalCardContainer = StyleSheet.create({
   borderTopWidth: 3,
   borderBottomWidth: 3,
   marginVertical: 15,
-  display: "flex",
-  flexDirection: "row",
   justifyContent: "space-between",
-  alignItems: "center",
   paddingVertical: 10,
   paddingHorizontal: 15,
 });

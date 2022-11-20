@@ -5,19 +5,16 @@ import { Button, Text } from "react-native-paper";
 import { removeProductFromRegularOrder } from "../../hooks/buyerOrders";
 
 // Styles
-import { CREAMWHITE, LIGHTGREEN, PEACHYYELLOW } from "../../styles/colors";
+import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
-const BuyerOrderProfileItemCard = ({ order, product, navigation }) => {
-  console.log("product", navigation);
+const BuyerOrderProfileItemCard = ({ order, product }) => {
   return (
     <View
       style={{
-        display: "flex",
-        flexDirection: "row",
+        ...flexRow,
         justifyContent: "space-between",
-        alignItems: "center",
-        paddingVertical: 10,
-        paddingHorizontal: 10,
+        padding: 10,
         marginVertical: 5,
         marginHorizontal: 20,
         borderRadius: 10,
@@ -26,11 +23,12 @@ const BuyerOrderProfileItemCard = ({ order, product, navigation }) => {
     >
       <View
         style={{
-          width: order.deliveryStatus === "Pending" ? "30%" : "95%",
+          width: order.deliveryStatus === "Pending" ? "50%" : "95%",
           display: "flex",
           flexDirection: order.deliveryStatus === "Pending" ? "column" : "row",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems:
+            order.deliveryStatus === "Pending" ? "flex-start" : "center",
         }}
       >
         <Text
@@ -59,11 +57,8 @@ const BuyerOrderProfileItemCard = ({ order, product, navigation }) => {
           contentStyle={{ backgroundColor: "red" }}
           labelStyle={{ color: "white", fontFamily: "Inter-Bold" }}
           onPress={async () => {
-            await removeProductFromRegularOrder(order._id, product._id).then(
-              (response) => {
-                console.log("response", response);
-              }
-            );
+            await removeProductFromRegularOrder(order._id, product._id);
+            alert("Product removed from order");
           }}
         >
           Remove

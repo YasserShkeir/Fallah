@@ -1,14 +1,13 @@
 import { View } from "react-native";
+import { flexRow } from "../../styles/components";
 
 const Row = ({ children }) => {
   return (
     <View
       style={{
+        ...flexRow,
         width: "100%",
-        display: "flex",
-        flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center",
       }}
     >
       {children}

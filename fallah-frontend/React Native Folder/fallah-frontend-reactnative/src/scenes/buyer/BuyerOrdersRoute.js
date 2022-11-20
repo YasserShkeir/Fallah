@@ -25,6 +25,7 @@ import {
 
 // Styles
 import { CREAMWHITE, DARKGREEN, PEACHYYELLOW } from "../../styles/colors";
+import { flexRow } from "../../styles/components";
 
 const BuyerOrdersRoute = (navigation) => {
   const [orderDisplay, setOrderDisplay] = useState("Regular Orders");
@@ -147,10 +148,9 @@ const BuyerOrdersRoute = (navigation) => {
           </Dialog.Title>
           <Dialog.Content
             style={{
+              ...flexRow,
               color: CREAMWHITE,
               fontFamily: "Inter-Medium",
-              display: "flex",
-              flexDirection: "row",
             }}
           >
             <Text

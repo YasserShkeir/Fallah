@@ -6,6 +6,7 @@ import BuyerCategoryCard from "../../../cards/BuyerCategoryCard";
 
 // Styles
 import { LIGHTGREEN, DARKGREEN } from "../../../../styles/colors";
+import { flexRow } from "../../../../styles/components";
 
 const BuyerCategoriesSection = (categories) => {
   return (
@@ -18,7 +19,6 @@ const BuyerCategoriesSection = (categories) => {
     >
       <Text
         style={{
-          marginBottom: 10,
           fontFamily: "Inter-Bold",
           fontSize: 22,
           color: DARKGREEN,
@@ -28,9 +28,8 @@ const BuyerCategoriesSection = (categories) => {
       </Text>
       <View
         style={{
+          ...flexRow,
           width: "100%",
-          display: "flex",
-          flexDirection: "row",
           justifyContent: "space-between",
           flexWrap: "wrap",
         }}

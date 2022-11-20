@@ -6,17 +6,16 @@ import RatingSwitch from "./RatingSwitch";
 
 // Styles
 import { LIGHTGREEN } from "../../../../styles/colors";
+import { flexRow } from "../../../../styles/components";
 
 const ReviewsSection = ({ reviews }) => {
   let averageRating = 0;
   return (
     <View
       style={{
+        ...flexRow,
         paddingHorizontal: 10,
-        display: "flex",
-        flexDirection: "row",
         width: "100%",
-        alignItems: "center",
         borderBottomColor: LIGHTGREEN,
         borderBottomWidth: 2,
         paddingBottom: 10,
@@ -42,9 +41,8 @@ const ReviewsSection = ({ reviews }) => {
       </Text>
       <View
         style={{
+          ...flexRow,
           width: "100%",
-          display: "flex",
-          flexDirection: "row",
         }}
       >
         {reviews.length > 0 ? (
@@ -56,8 +54,7 @@ const ReviewsSection = ({ reviews }) => {
           >
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
+                ...flexRow,
                 marginBottom: 2,
               }}
             >

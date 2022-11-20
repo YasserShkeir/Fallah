@@ -9,8 +9,6 @@ const FarmerAppBar = ({ navigation }) => {
     <Appbar
       style={{
         backgroundColor: LIGHTGREEN,
-        display: "flex",
-        flexDirection: "row",
         justifyContent: "center",
         width: "100%",
       }}
