@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View } from "react-native";
+import { ScrollView, View, RefreshControl } from "react-native";
 import { Button, Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
@@ -16,13 +16,13 @@ import {
 } from "../../hooks/buyerOrders";
 
 // Styles
-import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
+import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
 
 const BuyerRegularOrderProfile = ({ route, navigation }) => {
   const order = route.params.order;
+  const orderProducts = order.products;
   const [orderLocation, setOrderLocation] = useState(order.deliveryLocation);
-  const [orderProducts, setOrderProducts] = useState(order.products);
-  console.log("order", order.deliveryStatus);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     navigation.setOptions({
       headerRight: () =>
@@ -84,30 +84,43 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
       >
         Products in this order:
       </Text>
-      {orderProducts.length > 0 ? (
-        orderProducts.map((product) => {
-          return (
-            <BuyerOrderProfileItemCard
-              order={order}
-              product={product}
-              key={product._id}
-              navigation={navigation}
-            />
-          );
-        })
-      ) : (
-        <Text
-          style={{
-            fontFamily: "Inter-Medium",
-            fontSize: 16,
-            color: DARKGREEN,
-            marginVertical: 10,
-            marginHorizontal: 20,
-          }}
-        >
-          No products in this order
-        </Text>
-      )}
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={() => {
+              setLoading(true);
+
+              setLoading(false);
+            }}
+          />
+        }
+      >
+        {orderProducts.length > 0 ? (
+          orderProducts.map((product) => {
+            return (
+              <BuyerOrderProfileItemCard
+                order={order}
+                product={product}
+                key={product._id}
+                navigation={navigation}
+              />
+            );
+          })
+        ) : (
+          <Text
+            style={{
+              fontFamily: "Inter-Medium",
+              fontSize: 16,
+              color: DARKGREEN,
+              marginVertical: 10,
+              marginHorizontal: 20,
+            }}
+          >
+            No products in this order
+          </Text>
+        )}
+      </ScrollView>
       <BuyerOrderProfileFooter order={order} orderProducts={orderProducts} />
     </BuyerMainLayout>
   );
