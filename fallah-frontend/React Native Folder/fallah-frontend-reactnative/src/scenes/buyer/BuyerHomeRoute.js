@@ -3,7 +3,7 @@ import { ScrollView, RefreshControl } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 
 // Components
-import images from "../../assets/images";
+import { categoriesImages } from "../../assets/images";
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
 import BuyerSeasonalCard from "../../components/sections/Buyer/HomePage/BuyerSeasonalCard";
@@ -80,11 +80,11 @@ const BuyerHomeRoute = ({ navigation }) => {
               item={seasonalItems[0]}
               navigation={navigation}
             />
-            {categories.length > 0 && images ? (
+            {categories.length > 0 && categoriesImages ? (
               <>
                 <BuyerCategoriesSection
                   categories={categories}
-                  images={images}
+                  images={categoriesImages}
                 />
                 {followings.length > 0 ? (
                   <BuyerFollowingSection

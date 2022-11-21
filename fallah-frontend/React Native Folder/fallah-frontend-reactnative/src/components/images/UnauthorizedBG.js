@@ -1,14 +1,14 @@
 import { ImageBackground } from "react-native";
 
 // Assets
-import loginBG from "../../assets/images/loginBG.jpg";
+import { miscImages } from "../../assets/images";
 
 // Styles
 import { UNAUTHBG } from "../../styles/components";
 
 const UnAuthBackground = ({ children }) => {
   return (
-    <ImageBackground source={loginBG} style={UNAUTHBG}>
+    <ImageBackground source={miscImages[2].src} style={UNAUTHBG}>
       {children}
     </ImageBackground>
   );

@@ -1,6 +1,5 @@
 import { View, Image } from "react-native";
-
-import loginLogo from "../../assets/images/LightLoginLogo.png";
+import { miscImages } from "../../assets/images";
 
 const SigninLogo = () => {
   return (
@@ -12,7 +11,7 @@ const SigninLogo = () => {
         alignItems: "center",
       }}
     >
-      <Image source={loginLogo} style={{ width: 300, height: 150 }} />
+      <Image source={miscImages[1].src} style={{ width: 300, height: 150 }} />
     </View>
   );
 };

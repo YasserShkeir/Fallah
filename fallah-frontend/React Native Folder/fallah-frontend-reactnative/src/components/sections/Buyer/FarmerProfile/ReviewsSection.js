@@ -24,7 +24,7 @@ const ReviewsSection = ({ reviews }) => {
       <Text
         style={{
           fontFamily: "Inter-Bold",
-          fontSize: 40,
+          fontSize: reviews.length > 0 ? 40 : 24,
           color: LIGHTGREEN,
           display: "flex",
           marginRight: 10,
