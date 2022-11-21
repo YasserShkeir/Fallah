@@ -4,12 +4,14 @@ import { FlatList, RefreshControl } from "react-native";
 // Components
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
-import BuyerSearchCard from "../../components/cards/BuyerSearchCard";
 import BuyerSearchType from "../../components/sections/Buyer/Search/BuyerSearchType";
+import SearchListItem from "../../components/sections/Buyer/Search/SearchListItem";
 
 // Hooks
 import { getSearchProducts } from "../../hooks/buyerCategories";
 import { getFarmers } from "../../hooks/buyerFarmer";
+
+// Styles
 import { PEACHYYELLOW } from "../../styles/colors";
 
 const BuyerSearchRoute = ({ navigation }) => {
@@ -70,53 +72,14 @@ const BuyerSearchRoute = ({ navigation }) => {
         style={{ paddingHorizontal: 10, paddingVertical: 5 }}
         data={value === "Farmers" ? farmers : products}
         renderItem={({ item }) => {
-          if (value === "Farmers") {
-            if (searchQuery === "") {
-              return (
-                <BuyerSearchCard
-                  key={item._id}
-                  item={item}
-                  navigation={navigation}
-                />
-              );
-            } else if (
-              item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              item.description.toLowerCase().includes(searchQuery.toLowerCase())
-            ) {
-              return (
-                <BuyerSearchCard
-                  key={item._id}
-                  item={item}
-                  navigation={navigation}
-                />
-              );
-            }
-          } else {
-            if (searchQuery === "") {
-              return (
-                <BuyerSearchCard
-                  key={item._id}
-                  item={item}
-                  location="search"
-                  navigation={navigation}
-                />
-              );
-            } else if (
-              item.productName
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-              item.farmerName.toLowerCase().includes(searchQuery.toLowerCase())
-            ) {
-              return (
-                <BuyerSearchCard
-                  key={item._id}
-                  item={item}
-                  location="search"
-                  navigation={navigation}
-                />
-              );
-            }
-          }
+          return (
+            <SearchListItem
+              value={value}
+              searchQuery={searchQuery}
+              item={item}
+              navigation={navigation}
+            />
+          );
         }}
       />
     </BuyerMainLayout>
