@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { ScrollView, View, RefreshControl } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { View } from "react-native";
+import { Button } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 // Components
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import AppbarLocationMenu from "../../components/menus/BuyerAppbarLocationMenu";
-import BuyerOrderProfileItemCard from "../../components/cards/BuyerOrderProfileItemCard";
 import BuyerOrderProfileFooter from "../../components/navbars/BuyerOrderProfileFooter";
+import BuyerRegularOrderProducts from "../../components/sections/Buyer/Orders/BuyerRegularOrderProducts";
 
 // Hooks
 import {
@@ -22,7 +22,7 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
   const order = route.params.order;
   const orderProducts = order.products;
   const [orderLocation, setOrderLocation] = useState(order.deliveryLocation);
-  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () =>
@@ -73,54 +73,12 @@ const BuyerRegularOrderProfile = ({ route, navigation }) => {
 
         <AppbarLocationMenu page="orders" setLocationImp={setOrderLocation} />
       </View>
-      <Text
-        style={{
-          fontFamily: "Inter-Bold",
-          fontSize: 18,
-          color: DARKGREEN,
-          marginVertical: 10,
-          marginHorizontal: 20,
-        }}
-      >
-        Products in this order:
-      </Text>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={loading}
-            onRefresh={() => {
-              setLoading(true);
-
-              setLoading(false);
-            }}
-          />
-        }
-      >
-        {orderProducts.length > 0 ? (
-          orderProducts.map((product) => {
-            return (
-              <BuyerOrderProfileItemCard
-                order={order}
-                product={product}
-                key={product._id}
-                navigation={navigation}
-              />
-            );
-          })
-        ) : (
-          <Text
-            style={{
-              fontFamily: "Inter-Medium",
-              fontSize: 16,
-              color: DARKGREEN,
-              marginVertical: 10,
-              marginHorizontal: 20,
-            }}
-          >
-            No products in this order
-          </Text>
-        )}
-      </ScrollView>
+      {/* // here */}
+      <BuyerRegularOrderProducts
+        order={order}
+        orderProducts={orderProducts}
+        navigation={navigation}
+      />
       <BuyerOrderProfileFooter order={order} orderProducts={orderProducts} />
     </BuyerMainLayout>
   );
