@@ -1,20 +1,13 @@
 import { useState, useEffect } from "react";
 import { ScrollView, RefreshControl } from "react-native";
-import {
-  ActivityIndicator,
-  Text,
-  FAB,
-  Dialog,
-  Portal,
-  Button,
-} from "react-native-paper";
+import { ActivityIndicator, Text } from "react-native-paper";
 
 // Components
 import BuyerRegularOrderCard from "../../components/sections/Buyer/Orders/BuyerRegularOrders";
 import BuyerScheduledOrderCard from "../../components/sections/Buyer/Orders/BuyerScheduledOrders";
 import BuyerMainLayout from "../../components/layouts/BuyerMainLayout";
 import BuyerAppBar from "../../components/appbars/BuyerAppBar";
-import AppbarLocationMenu from "../../components/menus/BuyerAppbarLocationMenu";
+import BuyerAddOrderFABPortal from "../../components/dialogs/BuyerAddOrderFABPortal";
 
 // Hooks
 import {
@@ -22,21 +15,13 @@ import {
   getScheduledOrders,
   createRegularOrder,
 } from "../../hooks/buyerOrders";
-
-// Styles
-import { CREAMWHITE, DARKGREEN, PEACHYYELLOW } from "../../styles/colors";
-import { flexRow } from "../../styles/components";
+import { PEACHYYELLOW } from "../../styles/colors";
 
 const BuyerOrdersRoute = (navigation) => {
   const [orderDisplay, setOrderDisplay] = useState("Regular Orders");
   const [regularOrders, setRegularOrders] = useState([]);
   const [scheduledOrders, setScheduledOrders] = useState([]);
-  const [locationImp, setLocationImp] = useState("Location");
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
-
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
 
   const orderDisplayHandler = (currOrder) => {
     setOrderDisplay(currOrder);
@@ -85,6 +70,7 @@ const BuyerOrdersRoute = (navigation) => {
       <ScrollView
         refreshControl={
           <RefreshControl
+            colors={[PEACHYYELLOW]}
             refreshing={loading}
             onRefresh={() => {
               getRegularOrders(getRegularOrdersHandler);
@@ -118,70 +104,11 @@ const BuyerOrdersRoute = (navigation) => {
           <Text key={1}>Other Orders</Text>
         )}
       </ScrollView>
-      <FAB
-        style={{
-          position: "absolute",
-          margin: 16,
-          right: 0,
-          bottom: 0,
-          backgroundColor: PEACHYYELLOW,
-        }}
-        icon="plus"
-        label={"New " + orderDisplay}
-        onPress={showDialog}
+
+      <BuyerAddOrderFABPortal
+        orderDisplay={orderDisplay}
+        createRegularOrderHandler={createRegularOrderHandler}
       />
-      <Portal>
-        <Dialog
-          visible={visible}
-          onDismiss={hideDialog}
-          style={{
-            backgroundColor: DARKGREEN,
-          }}
-        >
-          <Dialog.Title
-            style={{
-              color: CREAMWHITE,
-              fontFamily: "Inter-Medium",
-            }}
-          >
-            Add {orderDisplay}
-          </Dialog.Title>
-          <Dialog.Content
-            style={{
-              ...flexRow,
-              color: CREAMWHITE,
-              fontFamily: "Inter-Medium",
-            }}
-          >
-            <Text
-              style={{
-                color: CREAMWHITE,
-                fontFamily: "Inter-Bold",
-              }}
-            >
-              Deliver To:{" "}
-            </Text>
-            <AppbarLocationMenu
-              page={"orders"}
-              locationImp={locationImp}
-              setLocationImp={setLocationImp}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button
-              onPress={() => createRegularOrderHandler(locationImp)}
-              textColor={DARKGREEN}
-              buttonColor={CREAMWHITE}
-              contentStyle={{
-                fontFamily: "Inter-Medium",
-                marginHorizontal: 10,
-              }}
-            >
-              Confirm
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
     </BuyerMainLayout>
   );
 };
