@@ -9,6 +9,8 @@ const buyer = require("../middlewares/buyer.middleware");
 // Controllers
 // -- User Controller
 const {
+  getSelf,
+  editProfileImage,
   getCategories,
   addLocation,
   editLocation,
@@ -62,6 +64,8 @@ const router = Router();
 
 // Routes
 // -- General User Routes
+router.get("/user", auth, user, getSelf);
+router.post("/user/edit-profile-image", auth, user, editProfileImage);
 router.get("/category/:id?/:id2?", auth, user, getCategories); // Get all categories or a specific category or a specific child category
 router.post("/location", auth, user, addLocation); // Add a location
 router.put("/location", auth, user, editLocation); // Add a location
