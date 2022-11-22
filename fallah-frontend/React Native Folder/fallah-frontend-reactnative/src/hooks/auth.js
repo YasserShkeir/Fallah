@@ -30,7 +30,6 @@ export const signup = async (
     alert("Please fill in all the fields");
   } else {
     let url = `${LOCALIP}/auth/register`;
-    url = url.replace(/"/g, "");
     try {
       await axios.post(url, data);
       alert("Sign Up Successful");
@@ -42,7 +41,6 @@ export const signup = async (
 
 export const signin = async (email, password, navigation) => {
   let url = `${LOCALIP}/auth/login`;
-  url = url.replace(/"/g, "");
   try {
     const response = await axios.post(url, {
       email: email,
@@ -60,6 +58,20 @@ export const signin = async (email, password, navigation) => {
     } else {
       alert("Login Failed");
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getSelf = async () => {
+  let url = `${LOCALIP}/users/user`;
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
   } catch (error) {
     console.error(error);
   }
