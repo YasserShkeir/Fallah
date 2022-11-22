@@ -63,6 +63,12 @@ export const signin = async (email, password, navigation) => {
   }
 };
 
+export const signout = async (navigation) => {
+  await AsyncStorage.removeItem("token");
+  await AsyncStorage.removeItem("userType");
+  navigation.navigate("Login");
+};
+
 export const getSelf = async () => {
   let url = `${LOCALIP}/users/user`;
   try {
