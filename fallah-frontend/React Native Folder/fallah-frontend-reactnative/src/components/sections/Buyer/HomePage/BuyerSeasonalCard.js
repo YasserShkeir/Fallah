@@ -1,5 +1,6 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
+import { LOCALIP } from "@env";
 
 // Styles
 import { BuyerSeasonalCardContainer } from "../../../../styles/components";
@@ -55,7 +56,7 @@ const BuyerSeasonalCard = ({ item, navigation }) => {
         </Text>
       </View>
       <Image
-        source={{ uri: item.images[0] }}
+        source={{ uri: `${LOCALIP}/api/download/users/${item.images[0]}` }}
         style={{ width: 100, height: 100, borderRadius: 10 }}
       />
     </TouchableOpacity>

@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity, View, Image } from "react-native";
 import { Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+import { LOCALIP } from "@env";
 
 // Styles
 import { LIGHTGREEN, CREAMWHITE } from "../../styles/colors";
@@ -63,7 +64,7 @@ const ItemCard = ({ item, location, navigation }) => {
       }}
     >
       <Image
-        source={{ uri: item.images[0] }}
+        source={{ uri: `${LOCALIP}/api/download/users/${item.images[0]}` }}
         style={{
           width: "30%",
           height: 100,

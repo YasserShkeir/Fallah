@@ -7,6 +7,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Text, Button, IconButton } from "react-native-paper";
+import { LOCALIP } from "@env";
 
 // Components
 import ProductTextInput from "../../components/text/FarmerProductTextInput";
@@ -91,7 +92,7 @@ const FarmerItemProfile = ({ route, navigation }) => {
         {product.images.map((image) => (
           <Image
             key={image}
-            source={{ uri: image }}
+            source={{ uri: `${LOCALIP}/api/download/users/${image}` }}
             style={{
               width: width,
               height: 250,

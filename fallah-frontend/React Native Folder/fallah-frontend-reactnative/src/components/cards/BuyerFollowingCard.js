@@ -1,5 +1,6 @@
 import { Image, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
+import { LOCALIP } from "@env";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../styles/colors";
@@ -26,7 +27,7 @@ const BuyerFollowingCard = ({ following, navigation }) => {
       }}
     >
       <Image
-        source={{ uri: image }}
+        source={{ uri: `${LOCALIP}/api/download/users/${image}` }}
         style={{
           width: 280,
           height: 200,

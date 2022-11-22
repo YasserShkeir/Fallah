@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, Image } from "react-native";
 import { IconButton, Text } from "react-native-paper";
+import { LOCALIP } from "@env";
 
 // Hooks
 import {
@@ -73,7 +74,7 @@ const ImageSection = ({ farmer, loading, setLoading }) => {
         />
       </View>
       <Image
-        source={{ uri: farmer.images[0] }}
+        source={{ uri: `${LOCALIP}/api/download/users/${farmer.images[0]}` }}
         style={{ width: "100%", height: 250 }}
       />
       <Text

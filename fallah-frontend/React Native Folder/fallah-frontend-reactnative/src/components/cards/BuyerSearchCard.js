@@ -1,5 +1,6 @@
 import { TouchableOpacity, View, Image } from "react-native";
 import { Text } from "react-native-paper";
+import { LOCALIP } from "@env";
 
 // Components
 import ItemCard from "./ItemCard";
@@ -31,7 +32,7 @@ const BuyerSearchCard = ({ item, location, navigation }) => {
         }}
       >
         <Image
-          source={{ uri: image }}
+          source={{ uri: `${LOCALIP}/api/download/users/${image}` }}
           style={{
             width: "40%",
             height: 100,

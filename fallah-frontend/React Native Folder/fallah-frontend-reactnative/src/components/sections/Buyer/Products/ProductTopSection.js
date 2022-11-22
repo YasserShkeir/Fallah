@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Image, ScrollView, Dimensions } from "react-native";
 import { Text } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+import { LOCALIP } from "@env";
 
 // Components
 import BuyerProductProfilePortal from "../../../dialogs/BuyerProductProfilePortal";
@@ -36,7 +37,7 @@ const ProductTopSection = ({ product }) => {
           {product.images.map((image) => (
             <Image
               key={image}
-              source={{ uri: image }}
+              source={{ uri: `${LOCALIP}/api/download/users/${image}` }}
               style={{
                 width: width,
                 height: 250,
