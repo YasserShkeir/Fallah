@@ -1,6 +1,19 @@
 const User = require("../models/user.model");
 const Categories = require("../models/mainCategory.model");
 
+const getSelf = async (req, res) => {
+  // Get the user id from the request
+  const id = req.user._id;
+
+  // Get the user from the database
+  const userFromDB = await User.User.findById(id).select(
+    "-password -__v -orders"
+  );
+
+  // Send the user
+  res.status(200).json(userFromDB);
+};
+
 const getCategories = async (req, res) => {
   try {
     const { id, id2 } = req.params;
@@ -174,6 +187,8 @@ const getFarmerProducts = async (req, res) => {
 };
 
 module.exports = {
+  getSelf,
+  editProfileImage,
   getCategories,
   addLocation,
   editLocation,
