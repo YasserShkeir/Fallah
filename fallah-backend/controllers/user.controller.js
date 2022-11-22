@@ -14,6 +14,18 @@ const getSelf = async (req, res) => {
   res.status(200).json(userFromDB);
 };
 
+const editProfileImage = async (req, res) => {
+  console.log(req.body);
+  const imgSrc = req.body.imgSrc;
+  const user = await User.Farmer.findById(req.user._id.toString());
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  user.images[0] = imgSrc;
+  await user.save();
+  res.status(200).json({ message: "Image updated successfully" });
+};
+
 const getCategories = async (req, res) => {
   try {
     const { id, id2 } = req.params;
