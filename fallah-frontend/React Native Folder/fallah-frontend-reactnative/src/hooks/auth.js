@@ -66,7 +66,7 @@ export const signin = async (email, password, navigation) => {
 export const signout = async (navigation) => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("userType");
-  navigation.navigate("Login");
+  navigation.navigate("SignIn");
 };
 
 export const getSelf = async () => {
