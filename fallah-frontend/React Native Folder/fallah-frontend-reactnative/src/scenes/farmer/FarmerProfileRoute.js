@@ -1,127 +1,17 @@
 import { useState, useEffect } from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
-import axios from "axios";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as ImagePicker from "expo-image-picker";
-import { LOCALIP } from "@env";
 
 // Components
 import Row from "../../components/layouts/Row";
+import ImageUpdater from "../../components/sections/Farmer/Profile/ImageUpdater";
 
 // Hooks
-import { getSelf } from "../../hooks/auth";
+import { getSelf, signout } from "../../hooks/auth";
 
 // Styles
 import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
-
-const createFormData = (photo, body = {}) => {
-  const data = new FormData();
-
-  data.append("photo", {
-    name: photo.name,
-    type: photo.type,
-    uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
-  });
-
-  Object.keys(body).forEach((key) => {
-    data.append(key, body[key]);
-  });
-
-  return data;
-};
-
-const ImagePickerExample = ({ id, images }) => {
-  const [image, setImage] = useState(null);
-  const [imageLoading, setImageLoading] = useState(false);
-
-  useEffect(() => {
-    setImage(images[0]);
-  }, [images]);
-
-  const updateImage = async (response) => {
-    const token = await AsyncStorage.getItem("token");
-
-    const url = `${LOCALIP}/users/user/edit-profile-image`;
-    const data = {
-      imgSrc: response,
-    };
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const res = await axios
-      .post(url, data, config)
-      .then(() => {
-        setImageLoading(false);
-      })
-      .catch((err) => {
-        setImageLoading(false);
-        console.log("update: ", err);
-      });
-  };
-
-  const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    setImageLoading(false);
-
-    console.log("res: ", result);
-
-    if (!result.cancelled) {
-      setImageLoading(true);
-
-      const photo = {
-        name: new Date().getTime().toString(),
-        type: "image/jpg",
-        uri: result.uri,
-      };
-
-      const data = createFormData(photo, { userId: id });
-      console.log("data: ", data);
-      try {
-        const response = await axios.post(`${LOCALIP}/api/upload`, data, {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        });
-
-        setImage(response.data.message);
-        updateImage(response.data.message);
-        setImageLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Button contentStyle={{ backgroundColor: "red" }} onPress={pickImage}>
-        Upload Image
-      </Button>
-      {image && (
-        <Image
-          source={{ uri: `${LOCALIP}/api/download/users/${image}` }}
-          style={{ width: 335, height: 250 }}
-        />
-      )}
-    </View>
-  );
-};
 
 const FarmerProfileRoute = ({ navigation }) => {
   const [id, setId] = useState(null);
@@ -139,19 +29,23 @@ const FarmerProfileRoute = ({ navigation }) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
+        alignItems: "center",
       }}
     >
-      <Row>
+      <Row
+        style={{
+          paddingVertical: 10,
+        }}
+      >
         <Text
           style={{
             fontFamily: "Inter-Bold",
-            fontSize: 18,
+            fontSize: 24,
             color: DARKGREEN,
-            marginBottom: 10,
           }}
         >
-          Profile
+          Edit Profile
         </Text>
         <Button
           mode="contained"
@@ -171,16 +65,15 @@ const FarmerProfileRoute = ({ navigation }) => {
             fontSize: 18,
           }}
           onPress={async () => {
-            await AsyncStorage.removeItem("token");
-            navigation.navigate("SignIn");
+            await signout(navigation);
           }}
         >
           Logout
         </Button>
       </Row>
 
-      <View style={{ height: 350, alignItems: "center" }}>
-        <ImagePickerExample id={id} images={images} />
+      <View style={{ height: 250, alignItems: "center" }}>
+        <ImageUpdater id={id} images={images} />
       </View>
     </View>
   );
