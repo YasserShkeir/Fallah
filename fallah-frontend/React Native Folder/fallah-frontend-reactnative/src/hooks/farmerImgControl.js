@@ -1,4 +1,6 @@
 import axios from "axios";
+import * as ImagePicker from "expo-image-picker";
+import { LOCALIP } from "@env";
 
 import { configHandler, baseURLs } from "./config";
 
@@ -18,6 +20,38 @@ export const createFormData = (photo, body = {}) => {
   });
 
   return data;
+};
+
+export const pickImage = async (setImage, id) => {
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.All,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+  });
+
+  if (!result.cancelled) {
+    const photo = {
+      name: new Date().getTime().toString(),
+      type: "image/jpg",
+      uri: result.uri,
+    };
+
+    const data = createFormData(photo, { userId: id });
+    try {
+      const response = await axios.post(`${LOCALIP}/api/upload`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      const updatedImage = response.data.message;
+      setImage(updatedImage);
+      updateImage(updatedImage);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
 
 export const updateImage = async (response) => {
