@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Button, Text, TextInput } from "react-native-paper";
-import { SafeAreaView } from "react-native";
+import { View, SafeAreaView } from "react-native";
+import { Button, Text } from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
 
 // Components
 import ProductTextInput from "../../components/text/FarmerProductTextInput";
+import ImageAdder from "../../components/sections/Farmer/AddItem/ImageAdder";
 import Row from "../../components/layouts/Row";
 
 // Hooks
@@ -31,7 +32,6 @@ const FarmerAddItem = ({ navigation }) => {
   const [locationOpen, setLocationOpen] = useState(false);
   const [locationValue, setLocationValue] = useState(null);
   const [locations, setLocations] = useState([]);
-  const [freshStatus, setFreshStatus] = useState("");
   const [measuringUnit, setMeasuringUnit] = useState("");
   const [MUPrice, setMUPrice] = useState("");
   const [bulkAmt, setBulkAmt] = useState("");
@@ -75,75 +75,82 @@ const FarmerAddItem = ({ navigation }) => {
     <SafeAreaView
       style={{
         padding: 10,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <Text
+      <Row
         style={{
-          fontSize: 20,
-          fontFamily: "Inter-Bold",
-          color: DARKGREEN,
+          zIndex: 1000,
         }}
       >
-        Add Item
-      </Text>
-      <Row>
-        {mainCategories.length > 0 ? (
-          <DropDownPicker
-            containerStyle={{
-              width: "45%",
-            }}
-            style={{
-              marginVertical: 10,
-              zIndex: 1000,
-            }}
-            textStyle={{ fontFamily: "Inter-Regular" }}
-            placeholder="Main Category"
-            open={MCOpen}
-            value={MCValue}
-            items={mainCategories}
-            setOpen={setMCOpen}
-            setValue={setMCValue}
-            setItems={setMainCategories}
-            onChangeValue={(value) => {
-              let childCategories = [];
+        <ImageAdder setImage={setImage} />
 
-              categories.forEach((category) => {
-                if (category._id === value) {
-                  category.childCategories.forEach((childCategory) => {
-                    childCategories.push({
-                      label: childCategory.name,
-                      value: childCategory._id,
+        <View
+          style={{
+            width: "45%",
+            display: "flex",
+            flexDirection: "column",
+            aspectRatio: 1,
+          }}
+        >
+          {mainCategories.length > 0 ? (
+            <DropDownPicker
+              style={{
+                marginVertical: 10,
+                zIndex: 1000,
+              }}
+              textStyle={{ fontFamily: "Inter-Regular" }}
+              placeholder="Main Category"
+              open={MCOpen}
+              value={MCValue}
+              items={mainCategories}
+              setOpen={setMCOpen}
+              setValue={setMCValue}
+              setItems={setMainCategories}
+              onChangeValue={(value) => {
+                let childCategories = [];
+
+                categories.forEach((category) => {
+                  if (category._id === value) {
+                    category.childCategories.forEach((childCategory) => {
+                      childCategories.push({
+                        label: childCategory.name,
+                        value: childCategory._id,
+                      });
                     });
-                  });
-                }
-              });
+                  }
+                });
 
-              setChildCategories(childCategories);
-            }}
-          />
-        ) : null}
-        {MCValue ? (
-          <DropDownPicker
-            containerStyle={{
-              width: "45%",
-            }}
-            style={{
-              marginVertical: 10,
-              zIndex: 100,
-            }}
-            textStyle={{ fontFamily: "Inter-Regular" }}
-            placeholder="Child Category"
-            open={CCOpen}
-            value={CCValue}
-            items={childCategories}
-            setOpen={setCCOpen}
-            setValue={setCCValue}
-            setItems={setChildCategories}
-          />
-        ) : null}
+                setChildCategories(childCategories);
+              }}
+            />
+          ) : null}
+          {MCValue ? (
+            <DropDownPicker
+              style={{
+                marginVertical: 10,
+                zIndex: 100,
+              }}
+              textStyle={{ fontFamily: "Inter-Regular" }}
+              placeholder="Child Category"
+              open={CCOpen}
+              value={CCValue}
+              items={childCategories}
+              setOpen={setCCOpen}
+              setValue={setCCValue}
+              setItems={setChildCategories}
+            />
+          ) : null}
+        </View>
       </Row>
 
-      <Row>
+      <Row
+        style={{
+          zIndex: 10,
+        }}
+      >
         <ProductTextInput
           label="Product Name"
           value={name}
@@ -154,9 +161,10 @@ const FarmerAddItem = ({ navigation }) => {
           containerStyle={{
             width: "45%",
             marginTop: 7,
+            zIndex: 10,
           }}
           style={{
-            zIndex: 10,
+            zIndex: 1,
           }}
           textStyle={{ fontFamily: "Inter-Regular" }}
           placeholder="Locations"
@@ -169,11 +177,6 @@ const FarmerAddItem = ({ navigation }) => {
         />
       </Row>
 
-      <ProductTextInput
-        label="Product Image Source"
-        value={image}
-        onChangeText={(value) => setImage(value)}
-      />
       <Row>
         <ProductTextInput
           label="Starting Season"
@@ -195,11 +198,10 @@ const FarmerAddItem = ({ navigation }) => {
           onChangeText={(value) => setHarvestedOn(value)}
           style={{ width: "45%" }}
         />
-
         <ProductTextInput
-          label="Freshness"
-          value={freshStatus}
-          onChangeText={(value) => setFreshStatus(value)}
+          label="Amount Available"
+          value={amountAvailable}
+          onChangeText={(value) => setAmountAvailable(value)}
           style={{ width: "45%" }}
         />
       </Row>
@@ -231,56 +233,48 @@ const FarmerAddItem = ({ navigation }) => {
           style={{ width: "45%" }}
         />
       </Row>
-      <Row>
-        <ProductTextInput
-          label="Amount Available"
-          value={amountAvailable}
-          onChangeText={(value) => setAmountAvailable(value)}
-          style={{ width: "45%" }}
-        />
-        <Button
-          style={{ width: "45%", marginTop: 10 }}
-          contentStyle={{
-            backgroundColor: LIGHTGREEN,
-            height: 45,
-          }}
-          onPress={async () => {
-            const data = {
-              mainCategoryID: MCValue,
-              childCategoryID: CCValue,
-              productName: name,
-              images: image,
-              startingSeason: startingSeason,
-              endingSeason: endingSeason,
-              harvestedOn: harvestedOn,
-              pickupLocationID: locationValue,
-              freshnessStatus: freshStatus,
-              measuringUnit: measuringUnit,
-              pricePerMeasuringUnit: MUPrice,
-              minBulkAmount: bulkAmt,
-              bulkPrice: bulkPrice,
-              amountAvailable: amountAvailable,
-            };
 
-            await addFarmerItem(data)
-              .then((res) => {
-                console.log("1: ", res);
-              })
-              .catch((err) => {
-                console.log("1: ", err);
-              });
+      <Button
+        style={{ width: "45%", marginTop: 10 }}
+        contentStyle={{
+          backgroundColor: LIGHTGREEN,
+          height: 45,
+        }}
+        onPress={async () => {
+          const data = {
+            mainCategoryID: MCValue,
+            childCategoryID: CCValue,
+            productName: name,
+            images: image,
+            startingSeason: startingSeason,
+            endingSeason: endingSeason,
+            harvestedOn: harvestedOn,
+            pickupLocationID: locationValue,
+            measuringUnit: measuringUnit,
+            pricePerMeasuringUnit: MUPrice,
+            minBulkAmount: bulkAmt,
+            bulkPrice: bulkPrice,
+            amountAvailable: amountAvailable,
+          };
+
+          await addFarmerItem(data)
+            .then((res) => {
+              console.log("1: ", res);
+            })
+            .catch((err) => {
+              console.log("1: ", err);
+            });
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Inter-Bold",
+            color: CREAMWHITE,
           }}
         >
-          <Text
-            style={{
-              fontFamily: "Inter-Bold",
-              color: CREAMWHITE,
-            }}
-          >
-            Add Item
-          </Text>
-        </Button>
-      </Row>
+          Add Item
+        </Text>
+      </Button>
     </SafeAreaView>
   );
 };
