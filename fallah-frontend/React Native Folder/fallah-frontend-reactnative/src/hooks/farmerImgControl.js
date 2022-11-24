@@ -47,7 +47,7 @@ export const pickImage = async (setImage, id) => {
 
       const updatedImage = response.data.message;
       setImage(updatedImage);
-      updateImage(updatedImage);
+      return [result.uri, updatedImage];
     } catch (error) {
       console.log(error);
     }
@@ -59,10 +59,9 @@ export const updateImage = async (response) => {
   const data = {
     imgSrc: response,
   };
-
-  const res = await axios
-    .post(url, data, await configHandler())
-    .catch((err) => {
-      console.log("update: ", err);
-    });
+  try {
+    await axios.post(url, data, await configHandler());
+  } catch (error) {
+    console.error(error);
+  }
 };
