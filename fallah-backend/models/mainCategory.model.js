@@ -56,12 +56,6 @@ const mainCatSchema = new mongoose.Schema({
             type: String,
             required: "Pickup Location ID is required",
           },
-          freshnessStatus: {
-            type: Number,
-            min: 1,
-            max: 5,
-            required: "Freshness Status is required",
-          },
           measuringUnit: {
             type: String,
             required: "Measuring Unit is required",

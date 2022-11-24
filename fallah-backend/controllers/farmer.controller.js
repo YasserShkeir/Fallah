@@ -19,7 +19,6 @@ const registerProduct = async (req, res) => {
       endingSeason,
       harvestedOn,
       pickupLocationID,
-      freshnessStatus,
       measuringUnit,
       pricePerMeasuringUnit,
       minBulkAmount,
@@ -39,7 +38,6 @@ const registerProduct = async (req, res) => {
       endingSeason,
       harvestedOn,
       pickupLocationID,
-      freshnessStatus,
       measuringUnit,
       pricePerMeasuringUnit,
       minBulkAmount,
@@ -136,7 +134,6 @@ const editProduct = async (req, res) => {
       endingSeason,
       harvestedOn,
       pickupLocationID,
-      freshnessStatus,
       measuringUnit,
       pricePerMeasuringUnit,
       minBulkAmount,
@@ -167,7 +164,6 @@ const editProduct = async (req, res) => {
           product.endingSeason = endingSeason;
           product.harvestedOn = harvestedOn;
           product.pickupLocationID = pickupLocationID;
-          product.freshnessStatus = freshnessStatus;
           product.measuringUnit = measuringUnit;
           product.pricePerMeasuringUnit = pricePerMeasuringUnit;
           product.minBulkAmount = minBulkAmount;
