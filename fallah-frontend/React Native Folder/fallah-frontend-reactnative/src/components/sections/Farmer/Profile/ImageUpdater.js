@@ -4,7 +4,7 @@ import { IconButton } from "react-native-paper";
 import { LOCALIP } from "@env";
 
 // Hooks
-import { pickImage } from "../../../../hooks/farmerImgControl";
+import { pickImage, updateImage } from "../../../../hooks/farmerImgControl";
 
 // Styles
 import { CREAMWHITE, LIGHTGREEN } from "../../../../styles/colors";
@@ -35,7 +35,11 @@ const ImageUpdater = ({ id, images }) => {
           right: 5,
           zIndex: 1,
         }}
-        onPress={() => pickImage(setImage, id)}
+        onPress={() => {
+          pickImage(setImage, id).then(
+            async (res) => await updateImage(res[1])
+          );
+        }}
       />
       {image && (
         <Image
