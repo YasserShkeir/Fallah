@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  Image,
-  ScrollView,
-  Dimensions,
-  SafeAreaView,
-} from "react-native";
+import { View, ScrollView, SafeAreaView } from "react-native";
 import { Text, Button, IconButton } from "react-native-paper";
 import { LOCALIP } from "@env";
 
 // Components
 import ProductTextInput from "../../components/text/FarmerProductTextInput";
 import Row from "../../components/layouts/Row";
+import ImageAdder from "../../components/sections/Farmer/AddItem/ImageAdder";
 
 // Hooks
 import { editFarmerItem, deleteFarmerItem } from "../../hooks/farmerItem";
@@ -19,8 +14,6 @@ import { editFarmerItem, deleteFarmerItem } from "../../hooks/farmerItem";
 // Styles
 import { CREAMWHITE, DARKGREEN, LIGHTGREEN } from "../../styles/colors";
 import { flexRow } from "../../styles/components";
-
-const { width, height } = Dimensions.get("window");
 
 const FarmerItemProfile = ({ route, navigation }) => {
   const { product } = route.params;
@@ -35,9 +28,6 @@ const FarmerItemProfile = ({ route, navigation }) => {
   );
   const [harvestedOn, setHarvestedOn] = useState(
     product.harvestedOn.substring(0, 10)
-  );
-  const [freshStatus, setFreshStatus] = useState(
-    product.freshnessStatus.toString()
   );
   const [measuringUnit, setMeasuringUnit] = useState(
     product.measuringUnit.toString()
@@ -81,25 +71,14 @@ const FarmerItemProfile = ({ route, navigation }) => {
         flexDirection: "column",
       }}
     >
-      <ScrollView
-        horizontal={true}
-        pagingEnabled={true}
-        style={{
-          height: 350,
-          backgroundColor: DARKGREEN,
+      <ImageAdder
+        image={`${LOCALIP}/api/download/users/${product.images[0]}`}
+        setImage={setImage}
+        containerStyle={{
+          width: "100%",
         }}
-      >
-        {product.images.map((image) => (
-          <Image
-            key={image}
-            source={{ uri: `${LOCALIP}/api/download/users/${image}` }}
-            style={{
-              width: width,
-              height: 250,
-            }}
-          />
-        ))}
-      </ScrollView>
+      />
+
       <View
         style={{
           ...flexRow,
@@ -119,16 +98,6 @@ const FarmerItemProfile = ({ route, navigation }) => {
         >
           {product.productName}
         </Text>
-        <IconButton
-          icon="pencil"
-          iconColor={CREAMWHITE}
-          style={{
-            position: "absolute",
-            right: 0,
-            backgroundColor: LIGHTGREEN,
-          }}
-          size={20}
-        />
       </View>
       <ScrollView
         style={{
@@ -154,11 +123,6 @@ const FarmerItemProfile = ({ route, navigation }) => {
           />
         </Row>
 
-        <ProductTextInput
-          label="Product Image Source"
-          value={image}
-          onChangeText={(value) => setImage(value)}
-        />
         <Row>
           <ProductTextInput
             label="Starting Season"
@@ -180,11 +144,10 @@ const FarmerItemProfile = ({ route, navigation }) => {
             onChangeText={(value) => setHarvestedOn(value)}
             style={{ width: "45%" }}
           />
-
           <ProductTextInput
-            label="Freshness"
-            value={freshStatus}
-            onChangeText={(value) => setFreshStatus(value)}
+            label="Amount Available"
+            value={amountAvailable}
+            onChangeText={(value) => setAmountAvailable(value)}
             style={{ width: "45%" }}
           />
         </Row>
@@ -216,13 +179,11 @@ const FarmerItemProfile = ({ route, navigation }) => {
             style={{ width: "45%" }}
           />
         </Row>
-        <Row>
-          <ProductTextInput
-            label="Amount Available"
-            value={amountAvailable}
-            onChangeText={(value) => setAmountAvailable(value)}
-            style={{ width: "45%", marginBottom: 40 }}
-          />
+        <Row
+          style={{
+            justifyContent: "center",
+          }}
+        >
           <Button
             style={{ width: "45%", marginTop: 10, marginBottom: 35 }}
             contentStyle={{
@@ -240,7 +201,6 @@ const FarmerItemProfile = ({ route, navigation }) => {
                 endingSeason: endingSeason,
                 harvestedOn: harvestedOn,
                 pickupLocationID: product.pickupLocationID,
-                freshnessStatus: freshStatus,
                 measuringUnit: measuringUnit,
                 pricePerMeasuringUnit: MUPrice,
                 minBulkAmount: bulkAmt,
