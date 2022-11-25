@@ -73,13 +73,13 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 | ---------------------------------------- |
 | ![Auth](./readme/demo/VisitorSignIn.png) |
 
-### Farmer
-
-| Buyer Landing Page                               | Mobile Sign In Page                                |
-| ------------------------------------------------ | -------------------------------------------------- |
-| ![Buyer Landing](./readme/demo/BuyerLanding.gif) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
-
 ### Buyer
+
+| Landing Page                        | Farmer Profile                     | Adding Item to Order                |
+| ----------------------------------- | ---------------------------------- | ----------------------------------- |
+| ![](./readme/demo/BuyerLanding.gif) | ![](./readme/demo/BuyerFarmer.gif) | ![](./readme/demo/BuyerAddItem.gif) |
+
+### Farmer
 
 | Buyer Landing Page                               | Mobile Sign In Page                                |
 | ------------------------------------------------ | -------------------------------------------------- |
