@@ -58,8 +58,8 @@ const ImageAdder = ({ image, setImage, containerStyle }) => {
           bottom: 0,
           right: 0,
         }}
-        onPress={() => {
-          pickImage(setImage, id).then((res) => {
+        onPress={async () => {
+          await pickImage(setImage, id).then((res) => {
             setImagePlaceholder(res[0]);
             setImage(res[1]);
           });
