@@ -210,7 +210,7 @@ const FarmerItemProfile = ({ route, navigation }) => {
 
               await editFarmerItem(data)
                 .then((res) => {
-                  console.log("1: ", res);
+                  alert("Item Edited Successfully");
                 })
                 .catch((err) => {
                   console.log("1: ", err);

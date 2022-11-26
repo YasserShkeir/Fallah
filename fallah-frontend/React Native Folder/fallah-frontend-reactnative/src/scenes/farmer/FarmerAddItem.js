@@ -258,11 +258,11 @@ const FarmerAddItem = ({ navigation }) => {
           };
 
           await addFarmerItem(data)
-            .then((res) => {
-              console.log("1: ", res);
+            .then(() => {
+              alert("Item Added Successfully");
             })
-            .catch((err) => {
-              console.log("1: ", err);
+            .catch(() => {
+              alert("Error Adding Item");
             });
         }}
       >
