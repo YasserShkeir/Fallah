@@ -81,9 +81,9 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 ### Farmer
 
-| Buyer Landing Page                               | Mobile Sign In Page                                |
-| ------------------------------------------------ | -------------------------------------------------- |
-| ![Buyer Landing](./readme/demo/BuyerLanding.gif) | ![Mobile Landing](./readme/demo/VisitorSignIn.png) |
+| Landing Page                         | Adding an Item                       | Editing an Item                       |
+| ------------------------------------ | ------------------------------------ | ------------------------------------- |
+| ![](./readme/demo/FarmerLanding.png) | ![](./readme/demo/FarmerAddItem.gif) | ![](./readme/demo/FarmerEditItem.gif) |
 
 <br><br>
 
@@ -110,14 +110,16 @@ Before starting with the steps below, make sure `npm` and `node` are installed g
 
 - The Database is managed by mongoDB atlas online, and the Database URL is stored in the .env file, no need to change this URL unless you want to use your own database, but make sure to cleanup the assets folder if you do so.
 - To run twilio and receive WhatsApp notifications, you will need to send the message 'join living-cabin' to the number +1 415 523 8886, and then you will be able to receive notifications from that number if you are setup as a buyer, and the farmer you're following has uploaded a new product.
-- To start Node, go to ./fallah-backend and run ``` nodemon . ```, the server will start at the localhost:3000 port.
+- To start Node, go to ./fallah-backend and run `nodemon .`, the server will start at the localhost:3000 port.
 
 <b>Frontend Setup: </b>
 
 React JS:
-- To start React, go to ./fallah-frontend/React JS Folder and run ``` npm start ```, and react will start at the localhost:3001 port.
+
+- To start React, go to ./fallah-frontend/React JS Folder and run `npm start`, and react will start at the localhost:3001 port.
 
 React Native:
+
 - Before starting React Native, and to avoid any conflict with the emulator, make sure to get your local IP and add it to the .env file. (example: LOCALIP=http://192.168.1.1:3000)
-- To start React Native, go to ./fallah-frontend/React Native Folder and run ``` expo start --clear ```, and react native will start at the localhost:19000 port.
-- Launching the emulator can now be done from the expo app, or from the terminal using ``` expo start --android ``` or ``` expo start --ios ```
+- To start React Native, go to ./fallah-frontend/React Native Folder and run `expo start --clear`, and react native will start at the localhost:19000 port.
+- Launching the emulator can now be done from the expo app, or from the terminal using `expo start --android` or `expo start --ios`
