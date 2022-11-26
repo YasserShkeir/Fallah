@@ -38,18 +38,20 @@ export const pickImage = async (setImage, id) => {
     };
 
     const data = createFormData(photo, { userId: id });
-    try {
-      const response = await axios.post(`${LOCALIP}/api/upload`, data, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      });
 
-      const updatedImage = response.data.message;
-      setImage(updatedImage);
-      return [result.uri, updatedImage];
-    } catch (error) {
-      console.log(error);
+    if (data) {
+      try {
+        const response = await axios.post(`${LOCALIP}/api/upload`, data, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        });
+        const updatedImage = response.data.message;
+        setImage(updatedImage);
+        return [result.uri, updatedImage];
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };
