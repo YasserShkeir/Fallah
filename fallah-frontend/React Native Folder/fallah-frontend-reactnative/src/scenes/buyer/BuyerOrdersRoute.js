@@ -82,24 +82,54 @@ const BuyerOrdersRoute = (navigation) => {
         {loading ? (
           <ActivityIndicator />
         ) : orderDisplay === "Regular Orders" ? (
-          regularOrders.map((order) => {
-            return (
-              <BuyerRegularOrderCard
-                key={order._id.toString()}
-                order={order}
-                navigation={navigation}
-              />
-            );
-          })
+          regularOrders.length > 0 ? (
+            regularOrders.map((order) => {
+              return (
+                <BuyerRegularOrderCard
+                  key={order._id.toString()}
+                  order={order}
+                  navigation={navigation}
+                />
+              );
+            })
+          ) : (
+            <Text
+              style={{
+                height: 100,
+                textAlign: "center",
+                textAlignVertical: "center",
+                fontSize: 28,
+                fontWeight: "bold",
+                color: "grey",
+              }}
+            >
+              No regular orders
+            </Text>
+          )
         ) : orderDisplay === "Scheduled Orders" ? (
-          scheduledOrders.map((order) => {
-            return (
-              <BuyerScheduledOrderCard
-                key={order._id.toString()}
-                props={order}
-              />
-            );
-          })
+          scheduledOrders.length > 0 ? (
+            scheduledOrders.map((order) => {
+              return (
+                <BuyerScheduledOrderCard
+                  key={order._id.toString()}
+                  props={order}
+                />
+              );
+            })
+          ) : (
+            <Text
+              style={{
+                height: 100,
+                textAlign: "center",
+                textAlignVertical: "center",
+                fontSize: 28,
+                fontWeight: "bold",
+                color: "grey",
+              }}
+            >
+              No scheduled orders
+            </Text>
+          )
         ) : (
           <Text key={1}>Other Orders</Text>
         )}
