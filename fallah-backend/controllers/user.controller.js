@@ -1,3 +1,20 @@
+const multer = require("multer");
+const fs = require("fs");
+const { promisify } = require("util");
+
+const unlinkAsync = promisify(fs.unlink);
+
+const storage = multer.diskStorage({
+  destination(req, file, callback) {
+    callback(null, "./assets/images/users");
+  },
+  filename(req, file, callback) {
+    callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage });
+
 const User = require("../models/user.model");
 const Categories = require("../models/mainCategory.model");
 
@@ -15,14 +32,19 @@ const getSelf = async (req, res) => {
 };
 
 const editProfileImage = async (req, res) => {
-  console.log(req.body);
   const imgSrc = req.body.imgSrc;
   const user = await User.Farmer.findById(req.user._id.toString());
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
+  // Get the old image
+  const oldImage = user.images[0];
+  // Save the new image
   user.images[0] = imgSrc;
   await user.save();
+  // Delete the old image
+  await unlinkAsync(`./assets/images/users/${oldImage}`);
+
   res.status(200).json({ message: "Image updated successfully" });
 };
 
