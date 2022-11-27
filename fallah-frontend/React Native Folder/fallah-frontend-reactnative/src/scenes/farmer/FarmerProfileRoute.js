@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 import { View } from "react-native";
-import { Text, Button } from "react-native-paper";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 // Components
-import Row from "../../components/layouts/Row";
 import ImageUpdater from "../../components/sections/Farmer/Profile/ImageUpdater";
+import EditProfileHeader from "../../components/sections/Farmer/Profile/EditProfileHeader";
 
 // Hooks
-import { getSelf, signout } from "../../hooks/auth";
-
-// Styles
-import { CREAMWHITE, DARKGREEN } from "../../styles/colors";
+import { getSelf } from "../../hooks/auth";
 
 const FarmerProfileRoute = ({ navigation }) => {
   const [id, setId] = useState(null);
@@ -33,45 +28,7 @@ const FarmerProfileRoute = ({ navigation }) => {
         alignItems: "center",
       }}
     >
-      <Row
-        style={{
-          paddingVertical: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Inter-Bold",
-            fontSize: 24,
-            color: DARKGREEN,
-          }}
-        >
-          Edit Profile
-        </Text>
-        <Button
-          mode="contained"
-          icon={() => (
-            <FontAwesome5 name="sign-out-alt" size={18} color={CREAMWHITE} />
-          )}
-          buttonColor="red"
-          style={{ width: 140 }}
-          contentStyle={{
-            flexDirection: "row-reverse",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          labelStyle={{
-            fontFamily: "Inter-Bold",
-            color: CREAMWHITE,
-            fontSize: 18,
-          }}
-          onPress={async () => {
-            await signout(navigation);
-          }}
-        >
-          Logout
-        </Button>
-      </Row>
-
+      <EditProfileHeader navigation={navigation} />
       <View style={{ height: 250, alignItems: "center" }}>
         <ImageUpdater id={id} images={images} />
       </View>
