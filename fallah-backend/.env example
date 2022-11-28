@@ -1,0 +1,11 @@
+Please delete this line, and change the name of this file to ".env"
+
+PORT=3000
+
+DATABASE_URL=mongodb+srv://yasser:yasser@fallahcluster.vn4wagn.mongodb.net/Fallah?retryWrites=true&w=majority
+
+JWT_SECRET_KEY=FALLAH
+ADMIN_PASS=test
+
+TWILIO_ACCOUNT_SID='PLEASE_REQUEST_OR_ADD_YOUR_OWN'
+TWILIO_AUTH_TOKEN='PLEASE_REQUEST_OR_ADD_YOUR_OWN'
